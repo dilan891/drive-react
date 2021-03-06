@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./nav.css";
+import "../css/nav.css";
 import {
     Link
   } from "react-router-dom";
@@ -21,12 +21,12 @@ function Nav(){
                   </li>
                   <li className="nav-item">
                       <Link 
-                      to="/denegado" 
+                      to="/carpetas" 
                       id="prueba"
                        className="nav-link" 
                         style={{color:"black"}}
                         onClick={()=> tab("prueba")}>
-                            prueba</Link>
+                            carpetas</Link>
                   </li>
               </ul>
             </div>

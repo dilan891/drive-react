@@ -1,4 +1,4 @@
-export default function Prueba(){
+export default function Carpetas(){
     return(
         <div>
             mensaje de denegacion

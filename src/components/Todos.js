@@ -1,10 +1,11 @@
-import "./card.css"
+import "../css/card.css"
 import {useState,useEffect} from "react";
 
 export default function Todos(){
     const [carpets,setcarpet] =  useState([]);
+    const [archives,setarchives] = useState([])
     
-    function peticion(){    //peticion al servidor para obtener las carpetas 
+    function dataFech(){    //peticion al servidor para obtener las carpetas 
         fetch("http://localhost:4000/carpets")
         .then(e => e.json())
         .then(e => {
@@ -15,13 +16,23 @@ export default function Todos(){
             console.log(e)
             setcarpet([{name: "carpet1"},{name: "carpet2"}]);
         })
+        // peticion de los archivos sin una carpeta asignada
+        fetch("http://localhost:4000/archives")
+        .then(data => data.json())
+        .then(data =>{
+            console.log(data)
+            setarchives(data)
+        })
+        .catch(e => {
+            console.log(e)
+            setarchives([{archive: "imagenE1"},{archive: "imagenE2"}])
+        })
     }
     
     useEffect(()=>{
-        peticion()
+        dataFech()
     },[])  //matriz vacia para que no se ejecute un loop
 
-    const imagenes = ["imagen1","imagen2","imagen3","imagen4","iamgen5","imagen6"]
     return(
         <div className="card-content">
             {carpets.map(c=>{ 
@@ -31,10 +42,10 @@ export default function Todos(){
                     </div>
                 )
             })}
-            {imagenes.map(i=>{
+            {archives.map(i=>{
                 return(
                <div key={i} className="card">
-                       <h1>{i}</h1>
+                       <h1>{i.archive}</h1>
                 </div> 
             )})}
             

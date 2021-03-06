@@ -1,13 +1,13 @@
-import Nav from "./Nav";
-import "./app.css";
+import Nav from "./components/Nav";
+import "./css/app.css";
 //import {useEffect} from "react";
-import Todos from "./Todos";
+import Todos from "./components/Todos";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import Prueba from './prueba';
+import Carpetas from './components/Carpetas';
 
 function App() {
   /*useEffect(()=>{
@@ -21,8 +21,8 @@ function App() {
           <Route path="/Todos">
             <div className=""><Todos/></div>
           </Route>
-          <Route path="/denegado">
-            <Prueba/>
+          <Route path="/Carpetas">
+            <Carpetas/>
           </Route>
         </Switch>
       </Router>
