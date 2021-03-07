@@ -1,4 +1,5 @@
 import "../css/card.css"
+import {Link} from "react-router-dom"
 import {useState,useEffect} from "react";
 
 export default function Todos(){
@@ -9,23 +10,22 @@ export default function Todos(){
         fetch("http://localhost:4000/carpets")
         .then(e => e.json())
         .then(e => {
-            console.log(e)
+
             setcarpet(e)
         })
         .catch(e => {
             console.log(e)
-            setcarpet([{name: "carpet1"},{name: "carpet2"}]);
+            setcarpet([{name: "carpet1",id: "60454742f4a5194e0c511965"},{name: "carpet2", id: 2}]);
         })
         // peticion de los archivos sin una carpeta asignada
         fetch("http://localhost:4000/archives")
         .then(data => data.json())
         .then(data =>{
-            console.log(data)
             setarchives(data)
         })
         .catch(e => {
             console.log(e)
-            setarchives([{archive: "imagenE1"},{archive: "imagenE2"}])
+            setarchives([{archive: "imagenE1",id: 45},{archive: "imagenE2",id: 64}])
         })
     }
     
@@ -37,14 +37,16 @@ export default function Todos(){
         <div className="card-content">
             {carpets.map(c=>{ 
                 return(
-                    <div key={c} className="card">
-                        {c.name}
-                    </div>
+                    <Link key={c.id} to={"/carpeta/"+c.id}>
+                        <div className="card">
+                            <h2>{c.name}</h2>
+                        </div>
+                    </Link>
                 )
             })}
             {archives.map(i=>{
                 return(
-               <div key={i} className="card">
+               <div key={i.id} className="card img">
                        <h1>{i.archive}</h1>
                 </div> 
             )})}
