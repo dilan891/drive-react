@@ -5,12 +5,31 @@ import {useState,useEffect} from "react";
 export default function Todos(){
     const [carpets,setcarpet] =  useState([]);
     const [archives,setarchives] = useState([])
+    const [name,setName] = useState("");
+
+    const handleChange = (event)=>{
+        setName(event.target.value)
+    };
+
+    const createCarpet = ()=>{
+        const newCarpet = {name: name,_id: "452",carpet: "none"};
+        //quitar esto despues
+        setcarpet(carpets.concat(newCarpet));
+
+        fetch("http://localhost:4000/carpets",{
+            method: "POST",
+            body: JSON.stringify(newCarpet),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(data => data.json())
+        .then(data => console.log(data))
+    }
     
     function dataFech(){    //peticion al servidor para obtener las carpetas 
         fetch("http://localhost:4000/carpets")
         .then(e => e.json())
         .then(e => {
-
             setcarpet(e)
         })
         .catch(e => {
@@ -31,13 +50,18 @@ export default function Todos(){
     
     useEffect(()=>{
         dataFech()
-    },[])  //matriz vacia para que no se ejecute un loop
+    },[name])  //matriz vacia para que no se ejecute un loop
 
     return(
-        <div className="card-content">
+        <div>
+            <div className="menu">
+               <input type="text" value={name} onChange={handleChange} name="name" />
+                <button onClick={createCarpet}>+</button> 
+            </div>
+            <div className="card-content">
             {carpets.map(c=>{ 
                 return(
-                    <Link key={c.id} to={"/carpeta/"+c.id}>
+                    <Link key={c._id} to={"/carpeta/"+c._id}>
                         <div className="card">
                             <h2>{c.name}</h2>
                         </div>
@@ -50,7 +74,7 @@ export default function Todos(){
                        <h1>{i.archive}</h1>
                 </div> 
             )})}
-            
+        </div>    
         </div>
     )
 }

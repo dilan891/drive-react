@@ -5,22 +5,26 @@ export default function Carpeta(){
 
     const [content,setconten] = useState([]); 
 
-    let {id} = useParams();
+    const {id} = useParams();
 
-    useEffect(()=>{
+    const fetchCarpet = ()=>{
         fetch("http://localhost:4000/subcarpet/"+id)
         .then(data => data.json())
         .then(info => {
             setconten(info);
         })
         .catch(e => console.log(e))
-    },[])
+    }
+
+    useEffect(()=>{
+        fetchCarpet()
+    },[] )
 
     return(
         <div>
             {content.map(detail=>{
                 return(
-                <div className="card">
+                <div key={id} className="card">
                     <h2>{detail.name}</h2>
                 </div>
                 )
