@@ -11,7 +11,7 @@ function Nav(){  //barra de navegacion de la pagina
                   <li className="nav-item">
                       <Link to="/Todos" 
                       id="todo" 
-                      className="nav-link active" 
+                      className="nav-link" 
                       style={{color:"black"}} 
                       onClick={()=> tab("todo")}>
                           Todos</Link>

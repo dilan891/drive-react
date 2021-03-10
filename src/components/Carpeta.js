@@ -12,12 +12,12 @@ export default function Carpeta(props){
 
     const handleChange = (event)=>{
     setName(event.target.value)
-  };
+    };
 
     const caller = (e)=>{
         props.createCarpet(id,name)
         setName("")
-    }
+    };
 
     useEffect(()=>{
         console.log(props)

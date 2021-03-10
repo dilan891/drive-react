@@ -3,18 +3,8 @@ import {Link} from "react-router-dom"
 import {useState,useEffect} from "react";
 
 export default function Todos(props){
-    const [carpets,setcarpet] =  useState([]);
-    const [archives,setarchives] = useState([])
-    const [name,setName] = useState("")
-
-    const handleChange = (event)=>{
-    setName(event.target.value)
-    };
-
-    const caller = (e)=>{
-        props.createCarpet("none",name)
-        setName("")
-    }
+    const [carpets,setcarpet] =  useState([]);//guarda un objeto con los detalles de cada carpeta
+    const [archives,setarchives] = useState([])//guarda un objeto con los detalles de cada archivo
     
     function dataFech(){    //peticion al servidor para obtener las carpetas 
         fetch("http://localhost:4000/carpets")
@@ -45,10 +35,7 @@ export default function Todos(props){
 
     return(
         <div>
-            <div className="menu">
-                <input type="text" value={name} onChange={handleChange} name="name" />
-                <button onClick={caller}>+</button> 
-            </div>
+            {props.var}
             <div className="card-content">
             {carpets.map(c=>{ 
                 return(
