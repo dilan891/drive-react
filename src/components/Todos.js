@@ -2,28 +2,18 @@ import "../css/card.css"
 import {Link} from "react-router-dom"
 import {useState,useEffect} from "react";
 
-export default function Todos(){
+export default function Todos(props){
     const [carpets,setcarpet] =  useState([]);
     const [archives,setarchives] = useState([])
-    const [name,setName] = useState("");
+    const [name,setName] = useState("")
 
     const handleChange = (event)=>{
-        setName(event.target.value)
+    setName(event.target.value)
     };
 
-    const createCarpet = ()=>{
-        const newCarpet = {name: name,_id: "452",carpet: "none"};
-        //quitar esto despues
-        setcarpet(carpets.concat(newCarpet));
-
-        fetch("http://localhost:4000/carpets",{
-            method: "POST",
-            body: JSON.stringify(newCarpet),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(data => data.json())
-        .then(data => console.log(data))
+    const caller = (e)=>{
+        props.createCarpet("none",name)
+        setName("")
     }
     
     function dataFech(){    //peticion al servidor para obtener las carpetas 
@@ -34,7 +24,7 @@ export default function Todos(){
         })
         .catch(e => {
             console.log(e)
-            setcarpet([{name: "carpet1",id: "60454742f4a5194e0c511965"},{name: "carpet2", id: 2}]);
+            setcarpet([{name: "carpet1",_id: "60454742f4a5194e0c511965"},{name: "carpet2", _id: 2}]);
         })
         // peticion de los archivos sin una carpeta asignada
         fetch("http://localhost:4000/archives")
@@ -46,17 +36,18 @@ export default function Todos(){
             console.log(e)
             setarchives([{archive: "imagenE1",id: 45},{archive: "imagenE2",id: 64}])
         })
+        
     }
-    
+    console.log(props.update)
     useEffect(()=>{
         dataFech()
-    },[name])  //matriz vacia para que no se ejecute un loop
+    },[props.update])  //matriz vacia para que no se ejecute un loop
 
     return(
         <div>
             <div className="menu">
-               <input type="text" value={name} onChange={handleChange} name="name" />
-                <button onClick={createCarpet}>+</button> 
+                <input type="text" value={name} onChange={handleChange} name="name" />
+                <button onClick={caller}>+</button> 
             </div>
             <div className="card-content">
             {carpets.map(c=>{ 

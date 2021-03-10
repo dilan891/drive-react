@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../css/nav.css";
 import {Link} from "react-router-dom";
 
-function Nav(){
+function Nav(){  //barra de navegacion de la pagina 
     return (
         <nav>
             <div className="user"><h2>Dilan891</h2></div>
