@@ -28,10 +28,11 @@ export default function Todos(props){
         })
         
     }
-    console.log(props.update)
-    useEffect(()=>{
-        dataFech()
-    },[props.update])  //matriz vacia para que no se ejecute un loop
+
+    useEffect(()=>{ 
+        props.setID("none");
+        dataFech() //matriz vacia para que no se ejecute un loop
+    },[props.update])// eslint-disable-line react-hooks/exhaustive-deps
 
     return(
         <div>

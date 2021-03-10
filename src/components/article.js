@@ -7,14 +7,19 @@ import Carpetas from './Carpetas';
 const Article = () => {
     const [name,setName] = useState("")
     const [update,setupdate] = useState("") 
+    const [id,setid] = useState("")
 
     const handleChange = (event)=>{
         setName(event.target.value)
         };
     
-    const caller = (e,nameC = name,idC="none")=>{
-        createCarpet(idC,nameC)
-        setName("")
+    const setID = (idC)=> setid(idC)
+    
+    const caller = (e,nameC = name)=>{
+        let idC = id
+        console.log(id)
+        createCarpet(idC,nameC);
+        setName("");
     }
 
     const createCarpet = (idC,nameC)=>{
@@ -49,13 +54,13 @@ const Article = () => {
         <div>
             <Switch>
                 <Route path="/Todos">
-                    <Todos update={update} var={varMenu}  />
+                    <Todos update={update} var={varMenu} setID={setID.bind(this)} />
                 </Route>
                 <Route path="/Carpetas">
-                    <Carpetas var={varMenu} />
+                    <Carpetas var={varMenu} setID={setID.bind(this)}/>
                 </Route>
                 <Route path="/carpeta/:id">
-                    <Carpeta createCarpet={caller.bind(this)} />
+                    <Carpeta var={varMenu} setID={setID.bind(this)} />
                 </Route>
             </Switch>
         </div>

@@ -6,6 +6,7 @@ export default function Carpetas(props){
     const [carpets,setcarpet] =  useState([]);
 
     useEffect(()=>{
+        props.setID("none");
         const data = ()=>{
             fetch("http://localhost:4000/carpets")
             .then(e => e.json())
@@ -18,9 +19,8 @@ export default function Carpetas(props){
             }) 
         } 
         data()
-    },[])
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
     
-
     return(
         <div>
             {props.var}

@@ -8,19 +8,8 @@ export default function Carpeta(props){
 
     const {id} = useParams();
 
-    const [name,setName] = useState("")
-
-    const handleChange = (event)=>{
-    setName(event.target.value)
-    };
-
-    const caller = (e)=>{
-        props.createCarpet(id,name)
-        setName("")
-    };
-
     useEffect(()=>{
-        console.log(props)
+        props.setID(id);
         const fetchCarpet = ()=>{
             fetch("http://localhost:4000/subcarpet/"+id)
             .then(data => data.json())
@@ -34,10 +23,7 @@ export default function Carpeta(props){
 
     return(
         <div>
-            <div className="menu">
-                <input type="text" value={name} onChange={handleChange} name="name" />
-                <button onClick={caller}>+</button> 
-            </div>
+            {props.var}
             <div className="card-content">
                 {content.map(detail=>{
                     return(
