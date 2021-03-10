@@ -34,7 +34,8 @@ a{
 }
 
 .menu{
-    float: right;
+    display: block;
+    
 }
 
 button{
