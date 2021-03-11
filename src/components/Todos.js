@@ -7,7 +7,7 @@ export default function Todos(props){
     const [archives,setarchives] = useState([])//guarda un objeto con los detalles de cada archivo
     
     function dataFech(){    //peticion al servidor para obtener las carpetas 
-        fetch("http://localhost:4000/carpets")
+        fetch("http://192.168.20.203:4000/api/carpets")
         .then(e => e.json())
         .then(e => {
             setcarpet(e)
@@ -17,7 +17,7 @@ export default function Todos(props){
             setcarpet([{name: "carpet1",_id: "60454742f4a5194e0c511965"},{name: "carpet2", _id: 2}]);
         })
         // peticion de los archivos sin una carpeta asignada
-        fetch("http://localhost:4000/archives")
+        fetch("http://192.168.20.203:4000/api/archives")
         .then(data => data.json())
         .then(data =>{
             setarchives(data)
@@ -37,6 +37,7 @@ export default function Todos(props){
     return(
         <div>
             {props.var}
+            {props.modal}
             <div className="card-content">
             {carpets.map(c=>{ 
                 return(

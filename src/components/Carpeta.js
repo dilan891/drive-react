@@ -11,7 +11,7 @@ export default function Carpeta(props){
     useEffect(()=>{
         props.setID(id);
         const fetchCarpet = ()=>{
-            fetch("http://localhost:4000/subcarpet/"+id)
+            fetch("http://192.168.20.203:4000/api/subcarpet/"+id)
             .then(data => data.json())
             .then(info => {
                 setconten(info);
@@ -24,6 +24,7 @@ export default function Carpeta(props){
     return(
         <div>
             {props.var}
+            {props.modal}
             <div className="card-content">
                 {content.map(detail=>{
                     return(

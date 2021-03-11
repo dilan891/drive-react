@@ -8,7 +8,7 @@ export default function Carpetas(props){
     useEffect(()=>{
         props.setID("none");
         const data = ()=>{
-            fetch("http://localhost:4000/carpets")
+            fetch("http://192.168.20.203:4000/api/carpets")
             .then(e => e.json())
             .then(e => {
                 setcarpet(e)
@@ -24,6 +24,7 @@ export default function Carpetas(props){
     return(
         <div>
             {props.var}
+            {props.modal}
             <div className="card-content">
                 {carpets.map(c=>{ 
                     return(

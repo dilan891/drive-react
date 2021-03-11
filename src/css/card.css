@@ -48,6 +48,11 @@ button{
     background-color: rgb(38, 148, 66);
 }
 
+.upload-button{
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
 @media only screen and (max-width: 700px){
     .menu{
         float: none;
