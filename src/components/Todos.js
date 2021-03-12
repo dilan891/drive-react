@@ -17,7 +17,13 @@ export default function Todos(props){
             setcarpet([{name: "carpet1",_id: "60454742f4a5194e0c511965"},{name: "carpet2", _id: 2}]);
         })
         // peticion de los archivos sin una carpeta asignada
-        fetch("http://192.168.20.203:4000/api/archives")
+        fetch("http://192.168.20.203:4000/api/archives",{
+            method: "POST",
+            body: JSON.stringify({id: "none"}),
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
         .then(data => data.json())
         .then(data =>{
             setarchives(data)
@@ -51,7 +57,7 @@ export default function Todos(props){
             {archives.map(i=>{
                 return(
                <div key={i.id} className="card img">
-                       <h1>{i.archive}</h1>
+                       <h1>{i.name}</h1>
                 </div> 
             )})}
         </div>    

@@ -5,8 +5,11 @@ import "../css/card.css"
 export default function Carpeta(props){
 
     const [content,setconten] = useState([]); 
-
+    const [archives,setArchives] = useState([]);
+    const [refresh,setrefresh] = useState(0);
     const {id} = useParams();
+
+    const refresPage = ()=> setrefresh(refresh+1)
 
     useEffect(()=>{
         props.setID(id);
@@ -16,10 +19,19 @@ export default function Carpeta(props){
             .then(info => {
                 setconten(info);
             })
-            .catch(e => setconten([{name: "error",_id: 45}]))
+            .catch(e => setconten([{name: "error",_id: 45}]));
+            fetch("http://192.168.20.203:4000/api/archives",{
+                method: "POST",
+                body: JSON.stringify({id: id}),
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            }).then(data => data.json())
+            .then(data => setArchives(data))
+            .catch(e => console.log(e))
         }
         fetchCarpet()
-    },[] ) // eslint-disable-line react-hooks/exhaustive-deps
+    },[refresh] ) // eslint-disable-line react-hooks/exhaustive-deps
 
     return(
         <div>
@@ -28,11 +40,18 @@ export default function Carpeta(props){
             <div className="card-content">
                 {content.map(detail=>{
                     return(
-                    <Link key={detail._id} to={"/carpeta/"+detail._id}>
+                    <Link key={detail._id} onClick={refresPage} to={"/carpeta/"+detail._id}>
                         <div className="card">
                             <h2>{detail.name}</h2>
                         </div>
                     </Link>
+                    )
+                })}
+                {archives.map((a)=>{
+                    return(
+                        <div key={a._id} className="card img">
+                            <h1>{a.name}</h1>
+                        </div>
                     )
                 })}
             </div>

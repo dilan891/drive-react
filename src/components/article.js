@@ -47,6 +47,7 @@ const Article = () => {
         console.log(fileApi.current.files[0].name)
         let formData = new FormData();
         formData.append("archivo",fileApi.current.files[0])
+        formData.append("id",id)
         fetch("http://192.168.20.203:4000/api/fileUpload",{
             method: "POST",
             body: formData

@@ -9,6 +9,7 @@ h1{
     border: solid black 1px;
     border-radius: 5px;
     color: black;
+    justify-content: center;
 }
 
 .img{
@@ -17,6 +18,7 @@ h1{
 
 h2{
     text-decoration: none !important;
+    margin-left: 20%;
 }
 
 a{
