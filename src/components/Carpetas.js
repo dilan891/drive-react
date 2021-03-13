@@ -7,7 +7,7 @@ export default function Carpetas(props){
 
     useEffect(()=>{
         props.setID("none");
-        const data = ()=>{
+        const data = ()=>{  //recoge los datos de todas las carpetas guardadas
             fetch("http://192.168.20.203:4000/api/carpets")
             .then(e => e.json())
             .then(e => {
@@ -19,11 +19,10 @@ export default function Carpetas(props){
             }) 
         } 
         data()
-    },[])// eslint-disable-line react-hooks/exhaustive-deps
+    },[props.update])// eslint-disable-line react-hooks/exhaustive-deps
     
     return(
         <div>
-            {props.var}
             {props.modal}
             <div className="card-content">
                 {carpets.map(c=>{ 

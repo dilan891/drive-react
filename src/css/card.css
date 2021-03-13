@@ -10,10 +10,18 @@ h1{
     border-radius: 5px;
     color: black;
     justify-content: center;
+    padding: 0;
+}
+
+.view-img{
+    height: 160px;
+    background-color: blue;
+    margin-top: 0;
 }
 
 .img{
     margin: 10px;
+    padding: 0;
 }
 
 h2{
@@ -32,20 +40,31 @@ a{
     flex-direction: row;
     flex-wrap: wrap;
     padding: 60px;
-    /*justify-content: center;*/
 }
 
 .menu{
+    background-color: rgb(73, 69, 69);
     display: block;
-    
+    padding: 10px;
+    border-bottom: 1px solid rgb(206, 204, 204);
+}
+
+.title-name{ margin: auto;
+    text-align: center;
+    font-size: 15px;
 }
 
 .addCarpet{
-    height: 26px;
+    border: 1px solid black;
+    margin-top: 1;
+    border-radius: 5px 0 0 5px;
 }
 
-button{
+.munu-buton{ 
+    height: 28px;
+    padding: auto;
     border: none;
+    margin-top: 0;
     border-radius: 0 5px 5px 0;
     background-color: rgb(38, 148, 66);
 }
@@ -55,16 +74,29 @@ button{
     border-radius: 5px;
 }
 
+.vacio{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.vacio-text{
+    width: 170px;
+    color: rgb(197, 194, 194);
+}
+
 @media only screen and (max-width: 700px){
     .menu{
         float: none;
         margin-bottom: 10px;
     }
-    .card-content{
-        padding: 20px;
-    }
     .card{
         width: 150px;
         height: 150px;
     }
+    .view-img{height: 100px;}
+    .addCarpet{margin-top: -2px;}
+    .card-content{padding: 20px;}
 }

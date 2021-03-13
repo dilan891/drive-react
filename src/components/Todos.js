@@ -30,7 +30,7 @@ export default function Todos(props){
         })
         .catch(e => {
             console.log(e)
-            setarchives([{archive: "imagenE1",id: 45},{archive: "imagenE2",id: 64}])
+            setarchives([{name: "imagenE1",id: 45},{name: "imagenE2",id: 64}])
         })
         
     }
@@ -42,13 +42,12 @@ export default function Todos(props){
 
     return(
         <div>
-            {props.var}
             {props.modal}
             <div className="card-content">
             {carpets.map(c=>{ 
                 return(
-                    <Link key={c._id} to={"/carpeta/"+c._id}>
-                        <div className="card">
+                    <Link  to={"/carpeta/"+c._id}>
+                        <div key={c._id} className="card">
                             <h2>{c.name}</h2>
                         </div>
                     </Link>
@@ -56,8 +55,12 @@ export default function Todos(props){
             })}
             {archives.map(i=>{
                 return(
-               <div key={i.id} className="card img">
-                       <h1>{i.name}</h1>
+               <div className="card img">
+                    <div key={i.id} className="view-img">
+                        <img src="" height="160px" alt="no se ve :("></img>
+                        <p>sadsacevavcsvarvjnoergnbasvnavnsjkdbnnfjsnojnckjbfdfdvfgnsjgnfagbtfesbngsfhsdgbjfahgjkdfsaglhgfdnsgbidiubsvihgsfuighdsfugh</p>
+                    </div>
+                    <div className="title-name">{i.name}</div>
                 </div> 
             )})}
         </div>    
