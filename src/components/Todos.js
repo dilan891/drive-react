@@ -1,6 +1,7 @@
 import "../css/card.css"
 import {Link} from "react-router-dom"
 import {useState,useEffect} from "react";
+import Options from "./options"
 
 export default function Todos(props){
     const [carpets,setcarpet] =  useState([]);//guarda un objeto con los detalles de cada carpeta
@@ -42,12 +43,11 @@ export default function Todos(props){
 
     return(
         <div>
-            {props.modal}
             <div className="card-content">
             {carpets.map(c=>{ 
                 return(
-                    <Link  to={"/carpeta/"+c._id}>
-                        <div key={c._id} className="card">
+                    <Link key={c._id} to={"/carpeta/"+c._id}>
+                        <div className="card">
                             <h2>{c.name}</h2>
                         </div>
                     </Link>
@@ -55,12 +55,16 @@ export default function Todos(props){
             })}
             {archives.map(i=>{
                 return(
-               <div className="card img">
-                    <div key={i.id} className="view-img">
+               <div key={i._id} className="card img">
+                    <div  className="view-img">
                         <img src="" height="160px" alt="no se ve :("></img>
                         <p>sadsacevavcsvarvjnoergnbasvnavnsjkdbnnfjsnojnckjbfdfdvfgnsjgnfagbtfesbngsfhsdgbjfahgjkdfsaglhgfdnsgbidiubsvihgsfuighdsfugh</p>
                     </div>
-                    <div className="title-name">{i.name}</div>
+                    <div className="descript">
+                       <div className="title-name">{i.name}</div>
+                        <Options id={i._id} name={i.name} /> 
+                    </div>
+                    
                 </div> 
             )})}
         </div>    

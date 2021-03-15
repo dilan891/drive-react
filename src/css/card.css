@@ -16,7 +16,7 @@ h1{
 .view-img{
     height: 160px;
     background-color: blue;
-    margin-top: 0;
+    margin: 0;
 }
 
 .img{
@@ -49,9 +49,30 @@ a{
     border-bottom: 1px solid rgb(206, 204, 204);
 }
 
-.title-name{ margin: auto;
+.title-name{ 
+    margin: auto;
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
+}
+
+.button-down:hover{
+    background-color: rgb(218, 219, 219);
+}
+
+.button-down:focus{
+    border: none;
+}
+
+.button-down{
+    border: none;
+    color: black;
+    background-color: white;
+    border-radius: 0 0 5px 0;
+}
+
+.descript{
+    display: flex;
+    flex-direction: row;
 }
 
 .addCarpet{
@@ -59,6 +80,7 @@ a{
     margin-top: 1;
     border-radius: 5px 0 0 5px;
 }
+
 
 .munu-buton{ 
     height: 28px;

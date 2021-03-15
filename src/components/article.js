@@ -3,13 +3,19 @@ import {Switch,Route} from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
 import Carpetas from './Carpetas';
-import {Modal,ModalHeader,ModalBody,ModalFooter } from "reactstrap"
+import {Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Toast,
+    ToastBody,} from "reactstrap"
 import VarMenu from "./VarMenu"
 
 const Article = () => {
     const [update,setupdate] = useState(0) 
     const [id,setid] = useState("")
     const [modalOpen,setModalOpen] = useState(false)
+    const [toast,settoast] = useState(false)
 
     const open = ()=> setModalOpen(!modalOpen) //abre el modal de upload
 
@@ -43,7 +49,12 @@ const Article = () => {
             method: "POST",
             body: formData
         }).then(data => data.json())
-        .then(data => setModalOpen(false))
+        .then(data => {
+            setModalOpen(false)
+            settoast(true)
+            setTimeout(()=>{settoast(false)},2000)
+        }).then(() => setupdate(update + 1))
+        .catch(e => console.log(e))
         e.preventDefault();
     }
 
@@ -53,7 +64,7 @@ const Article = () => {
         <div>
             <Modal size="lg" isOpen={modalOpen}>
                 <ModalHeader>
-                    encabezado
+                    Sube un archivo
                 </ModalHeader>
                 <ModalBody>
                     <form onSubmit={handleSubmit}>
@@ -72,20 +83,28 @@ const Article = () => {
 
     return (
         <div>
+            {modal}
             <Switch>
                 <Route path="/Todos">
                     <VarMenu caller={caller.bind(this)} open={open} />
-                    <Todos update={update} modal={modal} setID={setID.bind(this)} />
+                    <Todos update={update} setID={setID.bind(this)} />
                 </Route>
                 <Route path="/Carpetas">
                     <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpetas update={update} modal={modal} setID={setID.bind(this)}/>
+                    <Carpetas update={update} setID={setID.bind(this)}/>
                 </Route>
                 <Route path="/carpeta/:id">
                     <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpeta update={update} modal={modal} setID={setID.bind(this)} />
+                    <Carpeta update={update} setID={setID.bind(this)} />
                 </Route>
             </Switch>
+            <div className="position-fixed bottom-0 end-0 p-3">
+                <Toast isOpen={toast} className="bg-primary" >
+                    <ToastBody>
+                        Archivo subido con exito 
+                    </ToastBody>
+                </Toast>
+            </div>
         </div>
     )
 }

@@ -32,11 +32,23 @@ export default function Carpeta(props){
         }
         fetchCarpet()
     },[refresh,props.update] ) // eslint-disable-line react-hooks/exhaustive-deps
-    return(
+
+    if (content.message){
+        return (
+        <div>
+            {props.modal}
+            <div className="vacio">
+                <div className="vacio-text">
+                    Esta carpeta esta vacia  
+                </div> 
+            </div>
+        </div>)
+    }
+    else{
+     return(
             <div>
-                {props.modal}
                 <div className="card-content">
-                    {content.map(detail=>{
+                    {content.map(detail=>{ console.log(detail._id)
                           return(
                             <Link key={detail._id} onClick={refresPage} to={"/carpeta/"+detail._id}>
                                 <div className="card">
@@ -55,15 +67,5 @@ export default function Carpeta(props){
                 </div>
             </div>
         )
-    /*
-        return (
-        <div>
-            {props.modal}
-            <div className="vacio">
-                <div className="vacio-text">
-                    Esta carpeta esta vacia  
-                </div> 
-            </div>
-        </div>)*/
-    
+    }
 };

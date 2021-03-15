@@ -23,7 +23,6 @@ export default function Carpetas(props){
     
     return(
         <div>
-            {props.modal}
             <div className="card-content">
                 {carpets.map(c=>{ 
                     return(
