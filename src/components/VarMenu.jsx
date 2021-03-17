@@ -22,6 +22,7 @@ export default function VarMenu(props){
         name="name" />
         <button className="boton-green munu-buton" onClick={caller}>+</button> 
         <button className="upload-button munu-buton" prefix="subir archivo" onClick={props.open}><ArrowBarUp/></button>
+        {/*<input type="text" placeholder="Buscar" className="addCarpet" />*/}
     </div>
 
 )}; 
