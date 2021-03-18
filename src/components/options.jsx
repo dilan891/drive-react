@@ -13,7 +13,7 @@ export default function Options(props){
     }
 
     const submitChangeName = (e) =>{
-      fetch("http://localhost:4000/api/putarchive",{
+      fetch("http://192.168.20.203:4000/api/putarchive",{
       method: "PUT",
       body: JSON.stringify({id: props.id,newName: handleName}),
       headers: {
@@ -29,7 +29,7 @@ export default function Options(props){
     const deleteA = ()=>{
       const id = props.id
       const name = props.name
-      fetch("http://localhost:4000/api/archivedel",{
+      fetch("http://192.168.20.203:4000/api/archivedel",{
         method: "DELETE",
         body: JSON.stringify({id: id,name: name,type: props.type}),
         headers: {
