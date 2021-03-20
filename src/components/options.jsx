@@ -15,7 +15,7 @@ export default function Options(props){
     const submitChangeName = (e) =>{
       fetch("http://192.168.20.203:4000/api/putarchive",{
       method: "PUT",
-      body: JSON.stringify({id: props.id,newName: handleName}),
+      body: JSON.stringify({id: props.id,newName: handleName,type: props.type}),
       headers: {
         "Content-type": "application/json"
       }

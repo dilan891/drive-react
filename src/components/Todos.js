@@ -16,7 +16,7 @@ export default function Todos(props){
         })
         .catch(e => {
             console.log(e)
-            setcarpet([{name: "carpet1",_id: "60454742f4a5194e0c511965"},{name: "carpet2", _id: 2}]);
+            setcarpet([{name: "dsa",_id: "60454742f4a5194e0c511965"},{name: "carpet2", _id: 2}]);
         })
         // peticion de los archivos sin una carpeta asignada
         fetch("http://192.168.20.203:4000/api/archives",{
@@ -38,7 +38,7 @@ export default function Todos(props){
     }
 
     useEffect(()=>{ 
-        props.setID("none");
+        props.setID("none");//pasa el id none a el componente padre
         dataFech() //matriz vacia para que no se ejecute un loop
     },[props.update])// eslint-disable-line react-hooks/exhaustive-deps
 

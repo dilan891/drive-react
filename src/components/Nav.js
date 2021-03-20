@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 function Nav(){  //barra de navegacion de la pagina 
     return (
         <nav>
-            <div className="user"><h2>Dilan891</h2></div>
+            <div className="user"><h1>Dilan891</h1></div>
             <div className="navegation">
               <ul className="nav nav-tabs">
                   <li className="nav-item">
