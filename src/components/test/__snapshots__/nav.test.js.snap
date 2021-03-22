@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavPage snapshot nav 1`] = `
+<nav>
+  <div
+    className="user"
+  >
+    <h1>
+      Dilan891
+    </h1>
+  </div>
+  <div
+    className="navegation"
+  >
+    <ul
+      className="nav nav-tabs"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/Todos"
+          id="todo"
+          onClick={[Function]}
+          style={
+            Object {
+              "color": "black",
+            }
+          }
+        >
+          Todos
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/carpetas"
+          id="prueba"
+          onClick={[Function]}
+          style={
+            Object {
+              "color": "black",
+            }
+          }
+        >
+          carpetas
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+`;

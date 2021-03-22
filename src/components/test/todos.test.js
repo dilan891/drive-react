@@ -2,6 +2,7 @@ import React from "react";
 import Todos from "../Todos"
 import { BrowserRouter as Router } from 'react-router-dom';
 import {screen,render, waitFor} from "@testing-library/react"
+import renderer from "react-test-renderer"
 
 
 beforeEach(()=>render(<Router><Todos setID={((e)=>{console.log(e)}).bind(this)} /></Router> ))
@@ -17,5 +18,11 @@ describe("todos menu",()=>{
     it("render img",async()=>{
         await waitFor(()=>{screen.getByRole("img")})
         expect(screen.getByRole("img")).toBeInTheDocument()
+    });
+    it("snapshot 1",async()=>{        
+        const Component = renderer.create(<Router><Todos setID={((e)=>{console.log(e)}).bind(this)} /></Router> ) 
+        let tree = Component.toJSON();
+        
+        expect(tree).toMatchSnapshot();
     });
 })

@@ -3,6 +3,7 @@ import Nav from "../Nav"
 import '@testing-library/jest-dom'
 import { BrowserRouter as Router } from 'react-router-dom';
 import {screen,render} from "@testing-library/react"
+import renderer from "react-test-renderer"
 
 beforeEach(()=>render(<Router><Nav /></Router> ))  //componente a renderizar
 describe("NavPage", ()=> {//priemro el nombre de la prueba y luego las pruebas
@@ -11,6 +12,12 @@ describe("NavPage", ()=> {//priemro el nombre de la prueba y luego las pruebas
     })
     it("display name user",()=>{
         expect(screen.queryByText(/Dilan891/i)).toBeInTheDocument()
+    })
+    it("snapshot nav",()=>{
+        const Component = renderer.create(<Router><Nav /></Router> ) 
+        let tree = Component.toJSON();
+        
+        expect(tree).toMatchSnapshot();
     })
 })  
 

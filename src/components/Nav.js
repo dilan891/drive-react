@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../css/nav.css";
 import {Link} from "react-router-dom";
+import SelectVar from "./SelectVar"
 
 function Nav(){  //barra de navegacion de la pagina 
     return (
@@ -26,6 +27,7 @@ function Nav(){  //barra de navegacion de la pagina
                             carpetas</Link>
                   </li>
               </ul>
+              <SelectVar /> 
             </div>
         </nav>
     );

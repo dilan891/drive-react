@@ -1,66 +1,97 @@
-import {useParams,Link} from "react-router-dom"
-import {useEffect,useState} from "react"
+/*
+    Este componente muestra el contenido de cada carpeta asiganda
+*/
+import { useParams, Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
 import "../css/card.css"
+import Options from "./options"
+import { Archive } from "react-bootstrap-icons"
+import { Menu } from "../context/useMenuSelect";
 
-export default function Carpeta(props){
+export default function Carpeta(props) {
 
-    const [content,setconten] = useState([]); 
-    const [archives,setArchives] = useState([]);
-    const [refresh,setrefresh] = useState(0);
-    const {id} = useParams();
+    const [content, setconten] = useState([]);
+    const [archives, setArchives] = useState([]);
+    const [refresh, setrefresh] = useState(0);
+    const {setId} = useContext(Menu)
+    const { id } = useParams();
 
-    const refresPage = ()=> setrefresh(refresh+1)
+    const refresPage = () => setrefresh(refresh + 1)
 
-    useEffect(()=>{
+    useEffect(() => {
         props.setID(id);
-        const fetchCarpet = ()=>{
-            fetch("http://192.168.20.203:4000/api/subcarpet/"+id)
-            .then(data => data.json())
-            .then(info => {
-                setconten(info);
-            })
-            .catch(e => setconten([{name: "error",_id: 45,elements: false}]));// si elemnenst igual a true no hay contenido en la carpeta seleccionada
-            fetch("http://192.168.20.203:4000/api/archives",{
+        setId(id,id)
+        const fetchCarpet = () => {
+            fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
+                .then(data => data.json())
+                .then(info => {
+                    if (info.length === 0){
+                        setconten([])    //si no hay carpetas el estado queda vacio
+                    }
+                    else{
+                        setconten(info);
+                    }
+                })
+                .catch(e => setconten([{ name: "error", _id: 45, elements: false }]));// si elemnenst igual a true no hay contenido en la carpeta seleccionada
+            fetch("http://192.168.20.203:4000/api/archives", {
                 method: "POST",
-                body: JSON.stringify({id: id}),
-                headers:{
+                body: JSON.stringify({ id: id }),
+                headers: {
                     "Content-Type": "application/json"
                 }
             }).then(data => data.json())
-            .then(data => setArchives(data))
-            .catch(e => console.log(e))
+                .then(data => {
+                    if(data[0].message === true){
+                        setArchives([])
+                    }
+                    else setArchives(data)               
+                })
+                .catch(e => console.log(e))    
         }
         fetchCarpet()
-    },[refresh,props.update] ) // eslint-disable-line react-hooks/exhaustive-deps
-
-    if (content.message){
+    }, [refresh, props.update]) // eslint-disable-line react-hooks/exhaustive-deps
+    if (content.length === 0 && archives.length === 0) {
         return (
         <div>
             {props.modal}
             <div className="vacio">
                 <div className="vacio-text">
-                    Esta carpeta esta vacia  
-                </div> 
+                    Esta carpeta esta vacia
+            </div>
             </div>
         </div>)
     }
-    else{
-     return(
+    else {
+        return (
             <div>
                 <div className="card-content">
-                    {content.map(detail=>{ console.log(detail._id)
-                          return(
-                            <Link key={detail._id} onClick={refresPage} to={"/carpeta/"+detail._id}>
-                                <div className="card">
-                                    <h2>{detail.name}</h2>
+                    {content.map(detail => {
+                        return (
+                            <div className="card img" key={detail._id}>
+                                <Link onClick={refresPage} className="view-img" to={"/carpeta/" + detail._id}>
+                                    <div className="carpert-card">
+                                        <Archive size={50} className="carpet-icon" />
+                                        <h2>{detail.name}</h2>
+                                    </div>
+                                </Link>
+                                <div className="descript">
+                                    <div className="title-name"></div>
+                                    <Options refresh={refresPage} id={detail._id} name={detail.name} type={"carpet"} />
                                 </div>
-                            </Link>
-                            )  
+                            </div>
+                        )
                     })}
-                    {archives.map((a)=>{
-                        return(
+                    {archives.map((a) => {
+                        return (
                             <div key={a._id} className="card img">
-                                <h1>{a.name}</h1>
+                                <div className="view-img">
+                                    <img src="" className="card-img-top" height="160px" alt="no se ve :("></img>
+                                    <p>sadsacevavcsvarvjnoergnbasvnavnsjkdbnnfjsnojnckjbfdfdvfgnsjgnfagbtfesbngsfhsdgbjfahgjkdfsaglhgfdnsgbidiubsvihgsfuighdsfugh</p>
+                                </div>
+                                <div className="descript">
+                                    <div className="title-name">{a.name}</div>
+                                    <Options refresh={refresPage} id={a._id} name={a.name} type={"archive"} />
+                                </div>
                             </div>
                         )
                     })}
