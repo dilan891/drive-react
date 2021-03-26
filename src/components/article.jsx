@@ -102,7 +102,7 @@ const Article = () => {
                 </Route>
             </Switch>
             <div className="position-fixed bottom-0 end-0 p-3">
-                <Toast isOpen={toast} className="bg-primary" >
+                <Toast isOpen={toast} className="bg-primary" transition={} >
                     <ToastBody>
                         Archivo subido con exito
                     </ToastBody>
