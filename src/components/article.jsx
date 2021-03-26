@@ -1,4 +1,4 @@
-import { useState, createRef,Suspense } from 'react'
+import { useState, createRef, Suspense } from 'react'
 import { Switch, Route } from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
@@ -102,7 +102,7 @@ const Article = () => {
                 </Route>
             </Switch>
             <div className="position-fixed bottom-0 end-0 p-3">
-                <Toast isOpen={toast} className="bg-primary" >
+                <Toast isOpen={toast} className="bg-primary"  >
                     <ToastBody>
                         Archivo subido con exito
                     </ToastBody>

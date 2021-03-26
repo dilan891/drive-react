@@ -1,55 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavPage snapshot nav 1`] = `
-<nav>
-  <div
-    className="user"
-  >
-    <h1>
-      Dilan891
-    </h1>
-  </div>
-  <div
-    className="navegation"
-  >
-    <ul
-      className="nav nav-tabs"
+<div>
+  <nav>
+    <div
+      className="user"
     >
-      <li
-        className="nav-item"
+      <h1>
+        Dilan891
+      </h1>
+    </div>
+    <div
+      className="navegation"
+    >
+      <ul
+        className="nav nav-tabs"
       >
-        <a
-          className="nav-link"
-          href="/Todos"
-          id="todo"
-          onClick={[Function]}
-          style={
-            Object {
-              "color": "black",
-            }
-          }
+        <li
+          className="nav-item"
         >
-          Todos
-        </a>
-      </li>
-      <li
-        className="nav-item"
+          <a
+            className="nav-link"
+            href="/Todos"
+            id="todo"
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "black",
+              }
+            }
+          >
+            Todos
+          </a>
+        </li>
+        <li
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            href="/carpetas"
+            id="prueba"
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "black",
+              }
+            }
+          >
+            carpetas
+          </a>
+        </li>
+      </ul>
+      <div
+        className="select-var"
+        style={
+          Object {
+            "position": "absolute",
+            "visibility": "hidden",
+          }
+        }
       >
-        <a
-          className="nav-link"
-          href="/carpetas"
-          id="prueba"
-          onClick={[Function]}
-          style={
-            Object {
-              "color": "black",
-            }
-          }
+        <div>
+          seleccionaste 
+          <strong />
+           
+          moverlo a null
+        </div>
+        <button
+          className="btn btn-info"
+          id="b-dis"
+          type="button"
         >
-          carpetas
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+          Mover aqui
+        </button>
+        <button
+          className="btn btn-info"
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+      </div>
+    </div>
+  </nav>
+</div>
 `;

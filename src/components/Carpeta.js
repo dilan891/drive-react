@@ -24,15 +24,8 @@ export default function Carpeta(props) {
         const fetchCarpet = () => {
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
-                .then(info => {
-                    if (info.length === 0){
-                        setconten([])    //si no hay carpetas el estado queda vacio
-                    }
-                    else{
-                        setconten(info);
-                    }
-                })
-                .catch(e => setconten([{ name: "error", _id: 45, elements: false }]));// si elemnenst igual a true no hay contenido en la carpeta seleccionada
+                .then(info => {(info.length === 0)? setconten([]):setconten(info);  }) //si no hay carpetas el estado queda vacio
+                .catch(e => setconten([{ name: "error", _id: 45, elements: false }])); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             fetch("http://192.168.20.203:4000/api/archives", {
                 method: "POST",
                 body: JSON.stringify({ id: id }),
@@ -41,7 +34,7 @@ export default function Carpeta(props) {
                 }
             }).then(data => data.json())
                 .then(data => {
-                    if(data[0].message === true){
+                    if(data.length === 0){ //si no hay archivos el estado queda vacio
                         setArchives([])
                     }
                     else setArchives(data)               

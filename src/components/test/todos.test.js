@@ -1,11 +1,12 @@
 import React from "react";
-import Todos from "../Todos"
+import Todos from "../Todos";
 import { BrowserRouter as Router } from 'react-router-dom';
-import {screen,render, waitFor} from "@testing-library/react"
-import renderer from "react-test-renderer"
+import {screen,render, waitFor} from "@testing-library/react";
+import renderer from "react-test-renderer";
+import { UseMenuSelect } from "../../context/useMenuSelect";
 
 
-beforeEach(()=>render(<Router><Todos setID={((e)=>{console.log(e)}).bind(this)} /></Router> ))
+beforeEach(()=>render(<Router><UseMenuSelect><Todos setID={((e)=>{console.log(e)}).bind(this)} /></UseMenuSelect></Router> ))
 describe("todos menu",()=>{
     it("fetch carpeta",async()=>{ 
         await waitFor(()=>{screen.getByRole("heading")})

@@ -16,8 +16,8 @@ export default function Todos(props) {
         setrefresh(refresh + 1)
     }
 
-    function dataFech() { 
-        //peticion al servidor para obtener las carpetas no asignadas    
+    function dataFech() {
+        //peticion al servidor para obtener las carpetas no asignadas   
         fetch("http://192.168.20.203:4000/api/carpets")
             .then(e => e.json())
             .then(e => {
@@ -51,6 +51,9 @@ export default function Todos(props) {
     useEffect(() => {
         props.setID("none");//pasa el id none a el componente padre
         dataFech() //matriz vacia para que no se ejecute un loop
+        return () => {
+            setarchives([])
+        }
     }, [props.update, refresh])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (

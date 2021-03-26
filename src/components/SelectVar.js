@@ -2,11 +2,13 @@ import React, { useContext } from 'react'
 import { Menu } from "../context/useMenuSelect";
 
 const SelectVar = () => {
-    const select = useContext(Menu)
+    const select = useContext(Menu);
 
     const closeVar = () => {
-        select.desactivateSelect()
+        select.desactivateSelect();
     }
+
+    console.log(select.visible);
 
     return (
         <div className="select-var" style={{ visibility: select.visible, position: select.position }}>
