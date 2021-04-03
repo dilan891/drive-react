@@ -69,6 +69,7 @@ exports[`NavPage snapshot nav 1`] = `
         <button
           className="btn btn-info"
           id="b-dis"
+          onClick={[Function]}
           type="button"
         >
           Mover aqui
