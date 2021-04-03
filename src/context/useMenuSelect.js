@@ -64,17 +64,21 @@ const UseMenuSelect = (props) => {
         })
     }
 
+    const pass = {   //parametros que se pasan por context
+        visible: state.visible,
+        position: state.position,
+        name: state.name,
+        id: state.id,
+        nameToMove: state.nameToMove,
+        idToMove: state.idToMove,
+        activeteSelect: activeteSelect,
+        desactivateSelect,
+        setId
+    }
+
     return (
         <div>
-            <Menu.Provider value={{
-                visible: state.visible,
-                position: state.position,
-                name: state.name,
-                nameToMove: state.nameToMove,
-                activeteSelect: activeteSelect,
-                desactivateSelect,
-                setId
-            }}>
+            <Menu.Provider value={pass}>
                 {props.children}
             </Menu.Provider>
         </div>
