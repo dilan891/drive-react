@@ -9,7 +9,7 @@ const SelectVar = () => {
     }
 
     const moveHere = ()=>{
-        const datos = {idObject: select.id, idToMove: select.idToMove}
+        const datos = {idObject: select.id, idToMove: select.idToMove};
         fetch("http://192.168.20.203:4000/api/move",{
             method: "PUT",
             body: JSON.stringify(datos),

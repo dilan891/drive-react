@@ -21,7 +21,8 @@ const reducer=(state,action) =>{
                     visible: "visible",
                     position: "relative",
                     id: action.payload.id,
-                    name: action.payload.name
+                    name: action.payload.name,
+                    nameToMove: "Todos"
                 }
             case "setID":
                 return {
@@ -44,7 +45,7 @@ const UseMenuSelect = (props) => {
 
     const [state, dispatch] = useReducer(reducer, menuVisibility.select)
 
-    const activeteSelect = (id,name = "error") =>{
+    const activeteSelect = (id,name = "error") =>{ //al llamrse se abre el menu de mover carpeta
         dispatch({
             payload: {id: id,name:name},
             type: "active"

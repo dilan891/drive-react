@@ -13,18 +13,22 @@ export default function Carpeta(props) {
     const [content, setconten] = useState([]);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
-    const {setId} = useContext(Menu)
+    const { setId } = useContext(Menu)
     const { id } = useParams();
 
     const refresPage = () => setrefresh(refresh + 1)
 
     useEffect(() => {
         props.setID(id);
-        setId(id,id)
+        
         const fetchCarpet = () => {
+            fetch("http://192.168.20.203:4000/api/carpertid/" + id )
+            .then(data => data.json())
+            .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
+            .catch(e => console.log(e))
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
-                .then(info => {(info.length === 0)? setconten([]):setconten(info);  }) //si no hay carpetas el estado queda vacio
+                .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
                 .catch(e => setconten([{ name: "error", _id: 45, elements: false }])); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             fetch("http://192.168.20.203:4000/api/archives", {
                 method: "POST",
@@ -34,25 +38,22 @@ export default function Carpeta(props) {
                 }
             }).then(data => data.json())
                 .then(data => {
-                    if(data.length === 0){ //si no hay archivos el estado queda vacio
-                        setArchives([])
-                    }
-                    else setArchives(data)               
-                })
-                .catch(e => console.log(e))    
+                    (data.length === 0) ? setArchives([]) : setArchives(data)
+                }) //si no hay archivos el estado queda vacio
+                .catch(e => console.log(e))
         }
         fetchCarpet()
     }, [refresh, props.update]) // eslint-disable-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
         return (
-        <div>
-            {props.modal}
-            <div className="vacio">
-                <div className="vacio-text">
-                    Esta carpeta esta vacia
+            <div>
+                {props.modal}
+                <div className="vacio">
+                    <div className="vacio-text">
+                        Esta carpeta esta vacia
             </div>
-            </div>
-        </div>)
+                </div>
+            </div>)
     }
     else {
         return (
