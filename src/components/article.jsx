@@ -3,13 +3,13 @@ import { Switch, Route } from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
 import Carpetas from './Carpetas';
+import ToastNoti from "./NotiToast"
+import { UseToast } from "../context/useToast"
 import {
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Toast,
-    ToastBody,
 } from "reactstrap"
 import VarMenu from "./VarMenu"
 //import DataFetch from "./api/fetchApi";
@@ -67,47 +67,45 @@ const Article = () => {
 
     return (
         <div>
-            <div>
-                <Modal size="lg" isOpen={modalOpen}>
-                    <ModalHeader>
-                        Sube un archivo
-                </ModalHeader>
-                    <ModalBody>
-                        <form onSubmit={handleSubmit}>
-                            <div className="input-group mb-3">
-                                <input type="file" name="archivo" ref={fileApi} className="form-control" />
-                                <button type="submit" className="input-group-text">Upload</button>
-                            </div>
-                        </form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <button onClick={open} className="upload-button munu-buton">cancelar</button>
-                    </ModalFooter>
-                </Modal>
-            </div>
-            <Switch>
-                <Route path="/Todos">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Suspense fallback={<h1>cargando...</h1>}>
-                        <Todos update={update} setID={setID.bind(this)} />
-                    </Suspense>
-                </Route>
-                <Route path="/Carpetas">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpetas update={update} setID={setID.bind(this)} />
-                </Route>
-                <Route path="/carpeta/:id">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpeta update={update} setID={setID.bind(this)} />
-                </Route>
-            </Switch>
-            <div className="position-fixed bottom-0 end-0 p-3">
-                <Toast isOpen={toast} className="bg-primary"  >
-                    <ToastBody>
-                        Archivo subido con exito
-                    </ToastBody>
-                </Toast>
-            </div>
+            <UseToast>
+                <div>
+                    <Modal size="lg" isOpen={modalOpen}>
+                        <ModalHeader>
+                            Sube un archivo
+                    </ModalHeader>
+                        <ModalBody>
+                            <form onSubmit={handleSubmit}>
+                                <div className="input-group mb-3">
+                                    <input type="file" name="archivo" ref={fileApi} className="form-control" />
+                                    <button type="submit" className="input-group-text">Upload</button>
+                                </div>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <button onClick={open} className="upload-button munu-buton">cancelar</button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
+                <Switch>
+                    <Route path="/Todos">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                        <Suspense fallback={<h1>cargando...</h1>}>
+                            <Todos update={update} setID={setID.bind(this)} />
+                        </Suspense>
+                    </Route>
+                    <Route path="/Carpetas">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                        <Carpetas update={update} setID={setID.bind(this)} />
+                    </Route>
+                    <Route path="/carpeta/:id">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                        <Carpeta update={update} setID={setID.bind(this)} />
+                    </Route>
+                </Switch>
+                <div className="position-fixed bottom-0 end-0 p-3">
+                    <ToastNoti uploadToast={toast}></ToastNoti>
+                </div>
+            </UseToast>
         </div>
     )
 }
