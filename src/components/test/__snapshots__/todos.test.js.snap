@@ -2,8 +2,12 @@
 
 exports[`todos menu snapshot 1 1`] = `
 <div>
-  <div
-    className="card-content"
-  />
+  <div>
+    <div>
+      <div
+        className="card-content"
+      />
+    </div>
+  </div>
 </div>
 `;
