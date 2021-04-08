@@ -1,11 +1,11 @@
 /*
     Este componente muestra todas las carpetas y archivos no asignados a ninguna carpeta
 */
-import "../css/card.css"
-import { Link } from "react-router-dom"
+import "../css/card.css";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Options from "./options"
-import { Archive } from "react-bootstrap-icons"
+import Options from "./options";
+import { Archive } from "react-bootstrap-icons";
 
 export default function Todos(props) {
     const [carpets, setcarpet] = useState([]);//guarda un objeto con los detalles de cada carpeta

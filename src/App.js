@@ -1,19 +1,22 @@
 import Nav from "./components/Nav";
 import "./css/app.css";
 import Article from "./components/article"
-import {BrowserRouter as Router,} from "react-router-dom";
+import { BrowserRouter as Router, } from "react-router-dom";
 import { UseMenuSelect } from "./context/useMenuSelect";
+import { UseToast } from "./context/useToast"
 
 function App() {
 
   return <div className="App">
-      <Router>
-        <UseMenuSelect>
-          <Nav/>
+    <Router>
+      <UseMenuSelect>
+        <UseToast>
+          <Nav />
           <Article />
-        </UseMenuSelect>
-      </Router>
-    </div>;
+        </UseToast>
+      </UseMenuSelect>
+    </Router>
+  </div>;
 }
 
 export default App;

@@ -1,10 +1,10 @@
-import { useState, createRef, Suspense } from 'react'
+import { useState, createRef, Suspense, useContext } from 'react'
 import { Switch, Route } from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
 import Carpetas from './Carpetas';
 import ToastNoti from "./NotiToast"
-import { UseToast } from "../context/useToast"
+import { ToastsContext } from "../context/useToast"
 import {
     Modal,
     ModalHeader,
@@ -16,9 +16,11 @@ import VarMenu from "./VarMenu"
 
 const Article = () => {
     const [update, setupdate] = useState(0)
-    const [id, setid] = useState("")
+    const [id, setid] = useState("");
     const [modalOpen, setModalOpen] = useState(false)
-    const [toast, settoast] = useState(false)
+    const [toast, settoast] = useState(false);
+
+    const { carpetToast, failToast } = useContext(ToastsContext);
 
     const open = () => setModalOpen(!modalOpen) //abre el modal de upload
 
@@ -41,8 +43,9 @@ const Article = () => {
                 'Content-Type': 'application/json'
             }
         }).then(data => data.json())
-            .then(data => console.log(data))
+            .then(data => carpetToast())
             .then(o => setupdate(update + 1))
+            .catch(e => failToast())
     }
 
     const handleSubmit = (e) => {   //al darle submit al formulario
@@ -67,45 +70,43 @@ const Article = () => {
 
     return (
         <div>
-            <UseToast>
-                <div>
-                    <Modal size="lg" isOpen={modalOpen}>
-                        <ModalHeader>
-                            Sube un archivo
+            <div>
+                <Modal size="lg" isOpen={modalOpen}>
+                    <ModalHeader>
+                        Sube un archivo
                     </ModalHeader>
-                        <ModalBody>
-                            <form onSubmit={handleSubmit}>
-                                <div className="input-group mb-3">
-                                    <input type="file" name="archivo" ref={fileApi} className="form-control" />
-                                    <button type="submit" className="input-group-text">Upload</button>
-                                </div>
-                            </form>
-                        </ModalBody>
-                        <ModalFooter>
-                            <button onClick={open} className="upload-button munu-buton">cancelar</button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
-                <Switch>
-                    <Route path="/Todos">
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Suspense fallback={<h1>cargando...</h1>}>
-                            <Todos update={update} setID={setID.bind(this)} />
-                        </Suspense>
-                    </Route>
-                    <Route path="/Carpetas">
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Carpetas update={update} setID={setID.bind(this)} />
-                    </Route>
-                    <Route path="/carpeta/:id">
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Carpeta update={update} setID={setID.bind(this)} />
-                    </Route>
-                </Switch>
-                <div className="position-fixed bottom-0 end-0 p-3">
-                    <ToastNoti uploadToast={toast}></ToastNoti>
-                </div>
-            </UseToast>
+                    <ModalBody>
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-group mb-3">
+                                <input type="file" name="archivo" ref={fileApi} className="form-control" />
+                                <button type="submit" className="input-group-text">Upload</button>
+                            </div>
+                        </form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <button onClick={open} className="upload-button munu-buton">cancelar</button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+            <Switch>
+                <Route path="/Todos">
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Suspense fallback={<h1>cargando...</h1>}>
+                        <Todos update={update} setID={setID.bind(this)} />
+                    </Suspense>
+                </Route>
+                <Route path="/Carpetas">
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Carpetas update={update} setID={setID.bind(this)} />
+                </Route>
+                <Route path="/carpeta/:id">
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Carpeta update={update} setID={setID.bind(this)} />
+                </Route>
+            </Switch>
+            <div className="position-fixed bottom-0 end-0 p-3">
+                <ToastNoti uploadToast={toast}></ToastNoti>
+            </div>
         </div>
     )
 }

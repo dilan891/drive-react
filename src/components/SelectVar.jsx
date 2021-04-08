@@ -1,23 +1,29 @@
 import React, { useContext } from 'react'
 import { Menu } from "../context/useMenuSelect";
+import { ToastsContext } from '../context/useToast';
 
 const SelectVar = () => {
     const select = useContext(Menu);
+    const { failToast, moveToastActive } = useContext(ToastsContext);
 
     const closeVar = () => {
         select.desactivateSelect();
     }
 
-    const moveHere = ()=>{
-        const datos = {idObject: select.id, idToMove: select.idToMove};
-        fetch("http://192.168.20.203:4000/api/move",{
+    const moveHere = () => {
+        const datos = { idObject: select.id, idToMove: select.idToMove };
+        fetch("http://192.168.20.203:4000/api/move", {
             method: "PUT",
             body: JSON.stringify(datos),
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(data => data.json())
-        .catch(e => console.log(e));
+            .then(data => moveToastActive())
+            .catch(e => {
+                console.log(e)
+                failToast();
+            });
         select.desactivateSelect();
     }
 

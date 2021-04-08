@@ -77,7 +77,7 @@ export default function Options(props) {
                   styles: {
                     ...data.styles,
                     overflow: 'auto',
-                    maxHeight: '100px',
+                    maxHeight: 'auto',
                   },
                 };
               },
