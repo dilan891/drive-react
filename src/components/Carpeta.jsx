@@ -7,12 +7,14 @@ import "../css/card.css"
 import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
+import { ToastsContext } from "../context/useToast"
 
 export default function Carpeta(props) {
 
     const [content, setconten] = useState([]);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
+    const { previusId } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
     const { id } = useParams();
 
@@ -20,12 +22,16 @@ export default function Carpeta(props) {
 
     useEffect(() => {
         props.setID(id);
-        
+
         const fetchCarpet = () => {
-            fetch("http://192.168.20.203:4000/api/carpertid/" + id )
-            .then(data => data.json())
-            .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
-            .catch(e => console.log(e))
+            fetch("http://192.168.20.203:4000/api/carpertid/" + id)
+                .then(data => data.json())
+                .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
+                .then(data => previusId(data[1]._id))
+                .catch(e => {
+                    console.log(e)
+                    previusId("60454742f4a5194e0c511965")
+                });
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio

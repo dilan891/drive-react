@@ -12,6 +12,7 @@ import {
     ModalFooter,
 } from "reactstrap"
 import VarMenu from "./VarMenu"
+
 //import DataFetch from "./api/fetchApi";
 
 const Article = () => {

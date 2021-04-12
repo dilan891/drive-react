@@ -4,6 +4,7 @@
 import React, { useReducer, createContext } from 'react'
 
 const toasts = {
+    previus: null,  // guarda el id de la carpeta anterior
     failtoastOpen: false,
     newCarpetToast: false,
     moveToast: false
@@ -17,23 +18,33 @@ function UseToast(props) {
         switch (action.type) {
             case "fail":
                 return {
+                    previus: null,
                     newCarpetToast: false,
                     failtoastOpen: true,
                     moveToast: false
                 }
-            case "desactiveAll":
-                return state = toasts
             case "carpetToast":
                 return {
+                    previus: null,
                     newCarpetToast: true,
                     failtoastOpen: false,
                     moveToast: false
                 }
             case "moveToastActive":
                 return {
+                    previus: null,
                     failtoastOpen: false,
                     newCarpetToast: false,
                     moveToast: true
+                }
+            case "desactiveAll":
+                return state = toasts
+            case "setPreviusId":
+                return {
+                    previus: action.payLoad.id,
+                    failtoastOpen: false,
+                    newCarpetToast: false,
+                    moveToast: false
                 }
             default:
                 throw new Error();
@@ -65,10 +76,20 @@ function UseToast(props) {
         setTimeout(() => dispatch({ type: "desactiveAll" }), 3000);
     }
 
-    const value = {
+    //id anterior
+    const previusId = (id) => {
+        dispatch({
+            payLoad: { id },
+            type: "setPreviusId"
+        })
+    }
+
+    const values = {
         failToastOpen: state.failtoastOpen,
         moveToast: state.moveToast,
         newCarpetToast: state.newCarpetToast,
+        previus: state.previus,
+        previusId,
         failToast,
         carpetToast,
         moveToastActive
@@ -76,7 +97,7 @@ function UseToast(props) {
 
     return (
         <div>
-            <ToastsContext.Provider value={value}>
+            <ToastsContext.Provider value={values}>
                 {props.children}
             </ToastsContext.Provider>
         </div>
