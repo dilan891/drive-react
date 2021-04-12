@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavPage snapshot nav 1`] = `
+exports[`Render NavPage snapshot nav 1`] = `
 <div>
   <div>
     <nav>
@@ -48,7 +48,7 @@ exports[`NavPage snapshot nav 1`] = `
                 }
               }
             >
-              carpetas
+              Carpetas
             </a>
           </li>
         </ul>

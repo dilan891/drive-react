@@ -27,7 +27,7 @@ export default function Carpeta(props) {
             fetch("http://192.168.20.203:4000/api/carpertid/" + id)
                 .then(data => data.json())
                 .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
-                .then(data => previusId(data[1]._id))
+                .then(data => previusId(data[0]._id))
                 .catch(e => {
                     console.log(e)
                     previusId("60454742f4a5194e0c511965")

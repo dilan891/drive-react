@@ -1,26 +1,28 @@
-import React from "react";
+import React, { } from "react";
 import Nav from "../Nav";
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { screen, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { UseMenuSelect } from "../../context/useMenuSelect";
 import { UseToast } from "../../context/useToast";
 
-const componente = (<Router><UseMenuSelect><UseToast><Nav /></UseToast></UseMenuSelect></Router>);
+const html = (<Router><UseMenuSelect><UseToast><Nav /></UseToast></UseMenuSelect></Router>)
 
-beforeEach(() => render(componente))  //componente a renderizar
-describe("NavPage", () => {//priemro el nombre de la prueba y luego las pruebas
-    it("display todos page", () => {
-        expect(screen.queryByText(/Todos/i)).toBeInTheDocument()
+describe("Render NavPage", () => {//priemro el nombre de la prueba y luego las pruebas
+    //beforeEach(() => render(componente))  //componente a renderizar
+    it("render componet", () => {
+
+        const componente = render(html);
+
+        expect(componente.container).toHaveTextContent("Todos")
+        expect(componente.container).toHaveTextContent("Dilan891")
+        componente.getByText("Carpetas")
     })
-    it("display name user", () => {
-        expect(screen.queryByText(/Dilan891/i)).toBeInTheDocument()
-    })
+
     it("snapshot nav", () => {
-        const Component = renderer.create(componente)
+        const Component = renderer.create(html)
         let tree = Component.toJSON();
-
         expect(tree).toMatchSnapshot();
     })
 })

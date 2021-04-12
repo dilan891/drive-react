@@ -24,7 +24,7 @@ function Nav(){  //barra de navegacion de la pagina
                        className="nav-link" 
                         style={{color:"black"}}
                         onClick={()=> tab("prueba")}>
-                            carpetas</Link>
+                            Carpetas</Link>
                   </li>
               </ul>
               <SelectVar /> 
