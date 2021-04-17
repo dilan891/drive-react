@@ -2,15 +2,19 @@
     muestra los toast dependiendo del useContext que recibe
 */
 import { Toast, ToastBody } from 'reactstrap';
-import { useContext } from "react";
+import React,{ useContext } from "react";
 import { ToastsContext } from '../context/useToast';
 
-export default function ToastNoti(props) {
+interface Props{
+    uploadToast: boolean
+}
+
+const ToastNoti: React.FC<Props>  = (Props) =>{
     const { failToastOpen, moveToast, newCarpetToast } = useContext(ToastsContext);
 
     return (
         <div>
-            <Toast isOpen={props.uploadToast} className="bg-primary"  >
+            <Toast isOpen={Props.uploadToast} className="bg-primary"  >
                 <ToastBody>
                     Archivo subido con exito
                 </ToastBody>
@@ -34,3 +38,5 @@ export default function ToastNoti(props) {
     )
 
 }
+
+export default ToastNoti;

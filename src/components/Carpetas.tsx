@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import "../css/card.css";
 import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 
-export default function Carpetas(props) {
-    const [carpets, setcarpet] = useState([]);
+let content: {name:string,_id:string,}[]  = [{ name: "carpet1", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: "2" }]
+
+interface props{
+    update: number,
+    setID: (id:string) => void
+}
+
+const Carpetas:React.FC<props> = (props) => {
+    const [carpets, setcarpet] = useState<{name:string,_id:string,}[] >([]);
     const [refresh,setrefresh] = useState(0)
 
     const refresPage = () => setrefresh(refresh + 1)
@@ -20,7 +27,7 @@ export default function Carpetas(props) {
                 })
                 .catch(e => {
                     console.log(e)
-                    setcarpet([{ name: "carpet1", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: 2 }]);
+                    setcarpet(content);
                 })
         }
         data()
@@ -29,7 +36,7 @@ export default function Carpetas(props) {
     return (
         <div>
             <div className="card-content">
-                {carpets.map(c => {
+                {carpets.map((c:any) => {
                     return (
                         <div className="card img" key={c._id}>
                             <Link className="view-img" to={"/carpeta/" + c._id}>
@@ -50,3 +57,5 @@ export default function Carpetas(props) {
         </div>
     )
 }
+
+export default Carpetas;

@@ -3,13 +3,21 @@
 */
 import "../css/card.css";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Options from "./options";
 import { Archive } from "react-bootstrap-icons";
 
-export default function Todos(props) {
-    const [carpets, setcarpet] = useState([]);//guarda un objeto con los detalles de cada carpeta
-    const [archives, setarchives] = useState([])//guarda un objeto con los detalles de cada archivo
+interface props{
+    update: number,
+    setID: (id:string) => void
+}
+
+let content: {name:string,_id:string,}[] = [{ name: "Juan", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: "2" }];
+let archiver: {name: string, _id:string}[] = [{ name: "imagenE1", _id: "45" }, { name: "imagenE2", _id: "64" }]
+
+const Todos: React.FC<props> = (props) => {
+    const [carpets, setcarpet] = useState<{name:string,_id:string,}[]>([]);//guarda un objeto con los detalles de cada carpeta
+    const [archives, setarchives] = useState<{name:string,_id:string,}[]>([])//guarda un objeto con los detalles de cada archivo
     const [refresh, setrefresh] = useState(0)
 
     const refreshData = () => {  //refresca la pagina por cada actualizacion de datos
@@ -25,7 +33,7 @@ export default function Todos(props) {
             })
             .catch(e => {
                 console.log(e)
-                setcarpet([{ name: "Juan", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: 2 }]);
+                setcarpet(content);
             })
         // peticion de los archivos sin una carpeta asignada
         fetch("http://192.168.20.203:4000/api/archives", {
@@ -41,7 +49,7 @@ export default function Todos(props) {
             })
             .catch(e => {
                 console.log(e)
-                setarchives([{ name: "imagenE1", id: 45 }, { name: "imagenE2", id: 64 }])
+                setarchives(archiver)
             })
 
     }
@@ -93,3 +101,5 @@ export default function Todos(props) {
         </div>
     )
 }
+
+export default Todos;

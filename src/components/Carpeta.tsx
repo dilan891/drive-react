@@ -2,26 +2,33 @@
     Este componente muestra el contenido de cada carpeta asiganda
 */
 import { useParams, Link } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import "../css/card.css"
 import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
 
-export default function Carpeta(props) {
+interface Props{
+    update: number,
+    setID: (id:any) => void    
+}
 
-    const [content, setconten] = useState([]);
+let contents: {name:string,_id: string,elements:boolean}[] = [{ name: "error", _id: "45", elements: false }]
+
+const Carpeta:React.FC<Props>= (Props) =>{
+
+    const [content, setconten] = useState<{name:string,_id: string,elements:boolean}[]>([]);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
     const { previusId } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
-    const { id } = useParams();
+    const { id } = useParams<any>();
 
     const refresPage = () => setrefresh(refresh + 1)
 
     useEffect(() => {
-        props.setID(id);
+        Props.setID(id);
 
         const fetchCarpet = () => {
             fetch("http://192.168.20.203:4000/api/carpertid/" + id)
@@ -35,7 +42,7 @@ export default function Carpeta(props) {
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
-                .catch(e => setconten([{ name: "error", _id: 45, elements: false }])); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
+                .catch(e => setconten(contents)); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             fetch("http://192.168.20.203:4000/api/archives", {
                 method: "POST",
                 body: JSON.stringify({ id: id }),
@@ -49,11 +56,10 @@ export default function Carpeta(props) {
                 .catch(e => console.log(e))
         }
         fetchCarpet()
-    }, [refresh, props.update]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [refresh, Props.update]) // eslint-disable-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
         return (
             <div>
-                {props.modal}
                 <div className="vacio">
                     <div className="vacio-text">
                         Esta carpeta esta vacia
@@ -81,7 +87,7 @@ export default function Carpeta(props) {
                             </div>
                         )
                     })}
-                    {archives.map((a) => {
+                    {archives.map((a:any) => {
                         return (
                             <div key={a._id} className="card img">
                                 <div className="view-img">
@@ -100,3 +106,5 @@ export default function Carpeta(props) {
         )
     }
 };
+
+export default Carpeta;

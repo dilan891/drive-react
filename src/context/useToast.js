@@ -3,6 +3,14 @@
 */
 import React, { useReducer, createContext } from 'react'
 
+/*
+interface objetos{
+    previus: boolean | null,  // guarda el id de la carpeta anterior
+    failtoastOpen: boolean,
+    newCarpetToast: boolean,
+    moveToast: boolean
+}*/
+
 const toasts = {
     previus: null,  // guarda el id de la carpeta anterior
     failtoastOpen: false,
@@ -12,7 +20,7 @@ const toasts = {
 
 export const ToastsContext = createContext();
 
-function UseToast(props) {
+const UseToast = (props) =>{
     //Reducer setttings
     const reducer = (state, action) => {
         switch (action.type) {

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from '../context/useToast';
 
-const SelectVar = () => {
+const SelectVar: React.FC = () => {
     const select = useContext(Menu);
     const { failToast, moveToastActive } = useContext(ToastsContext);
 

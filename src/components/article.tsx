@@ -1,4 +1,4 @@
-import { useState, createRef, Suspense, useContext } from 'react'
+import React, { useState, createRef, Suspense, useContext } from 'react'
 import { Switch, Route } from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
@@ -15,11 +15,11 @@ import VarMenu from "./VarMenu"
 
 //import DataFetch from "./api/fetchApi";
 
-const Article = () => {
+const Article: React.FC = () => {
     const [update, setupdate] = useState(0)
-    const [id, setid] = useState("");
-    const [modalOpen, setModalOpen] = useState(false)
-    const [toast, settoast] = useState(false);
+    const [id, setid] = useState<string>("");
+    const [modalOpen, setModalOpen] = useState<boolean>(false)
+    const [toast, settoast] = useState<boolean>(false);
 
     const { carpetToast, failToast } = useContext(ToastsContext);
 
@@ -27,14 +27,14 @@ const Article = () => {
 
     //const response = DataFetch()
 
-    const setID = (idC) => setid(idC)
+    const setID = (idC:string) => setid(idC)
 
-    const caller = (e, nameC) => { //llama a createCarpet
+    const caller = (e:any, nameC:string) => { //llama a createCarpet
         let idC = id
         createCarpet(idC, nameC);
     }
 
-    const createCarpet = (idC, nameC) => {
+    const createCarpet = (idC:string , nameC:string) => {
         let newCarpet;
         newCarpet = { name: nameC, _id: "none", carpet: idC };
         fetch("http://192.168.20.203:4000/api/carpets", {
@@ -49,7 +49,7 @@ const Article = () => {
             .catch(e => failToast())
     }
 
-    const handleSubmit = (e) => {   //al darle submit al formulario
+    const handleSubmit = (e:any) => {   //al darle submit al formulario
         console.log(fileApi.current.files[0].name)
         let formData = new FormData();
         formData.append("archivo", fileApi.current.files[0])
@@ -67,7 +67,7 @@ const Article = () => {
         e.preventDefault();
     }
 
-    const fileApi = createRef(); //maneja el archivo subido
+    const fileApi:any = createRef(); //maneja el archivo subido
 
     return (
         <div>
