@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import "../css/card.css";
 import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
+import {DataFetch} from "./api/fetchApi"
 
 let content: {name:string,_id:string,}[]  = [{ name: "carpet1", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: "2" }]
 
@@ -19,18 +20,12 @@ const Carpetas:React.FC<props> = (props) => {
 
     useEffect(() => {
         props.setID("none");
-        const data = () => {  //recoge los datos de todas las carpetas guardadas
-            fetch("http://192.168.20.203:4000/api/carpets")
-                .then(e => e.json())
-                .then(e => {
-                    setcarpet(e)
-                })
-                .catch(e => {
-                    console.log(e)
-                    setcarpet(content);
-                })
+        const data = async()=>{
+            const info = await DataFetch();
+            (info==null)?setcarpet(content):setcarpet(info);
         }
-        data()
+        data();
+        
     }, [props.update])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (

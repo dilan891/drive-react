@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Menu } from "../context/useMenuSelect";
+import {moveFetch} from "./api/fetchApi"
 import { ToastsContext } from '../context/useToast';
 
 const SelectVar: React.FC = () => {
@@ -10,20 +11,10 @@ const SelectVar: React.FC = () => {
         select.desactivateSelect();
     }
 
-    const moveHere = () => {
+    const moveHere = async() => {
         const datos = { idObject: select.id, idToMove: select.idToMove };
-        fetch("http://192.168.20.203:4000/api/move", {
-            method: "PUT",
-            body: JSON.stringify(datos),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(data => data.json())
-            .then(data => moveToastActive())
-            .catch(e => {
-                console.log(e)
-                failToast();
-            });
+        const move =  await moveFetch(datos);
+        (move)?moveToastActive():failToast();
         select.desactivateSelect();
     }
 

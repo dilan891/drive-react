@@ -8,6 +8,7 @@ import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
+import {DataFetchArchives} from "./api/fetchApi"
 
 interface Props{
     update: number,
@@ -30,7 +31,7 @@ const Carpeta:React.FC<Props>= (Props) =>{
     useEffect(() => {
         Props.setID(id);
 
-        const fetchCarpet = () => {
+        const fetchCarpet = async() => {
             fetch("http://192.168.20.203:4000/api/carpertid/" + id)
                 .then(data => data.json())
                 .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
@@ -43,17 +44,8 @@ const Carpeta:React.FC<Props>= (Props) =>{
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
                 .catch(e => setconten(contents)); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
-            fetch("http://192.168.20.203:4000/api/archives", {
-                method: "POST",
-                body: JSON.stringify({ id: id }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(data => data.json())
-                .then(data => {
-                    (data.length === 0) ? setArchives([]) : setArchives(data)
-                }) //si no hay archivos el estado queda vacio
-                .catch(e => console.log(e))
+            const dataArchive = await DataFetchArchives(id);
+            (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
         fetchCarpet()
     }, [refresh, Props.update]) // eslint-disable-line react-hooks/exhaustive-deps

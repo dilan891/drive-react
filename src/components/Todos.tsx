@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Options from "./options";
 import { Archive } from "react-bootstrap-icons";
+import {DataFetch, DataFetchArchives} from "./api/fetchApi"
 
 interface props{
     update: number,
@@ -24,34 +25,13 @@ const Todos: React.FC<props> = (props) => {
         setrefresh(refresh + 1)
     }
 
-    function dataFech() {
+    async function dataFech() {
         //peticion al servidor para obtener las carpetas no asignadas   
-        fetch("http://192.168.20.203:4000/api/carpets")
-            .then(e => e.json())
-            .then(e => {
-                setcarpet(e)
-            })
-            .catch(e => {
-                console.log(e)
-                setcarpet(content);
-            })
+        const carpetData = await DataFetch();
+        (carpetData==null)?setcarpet(content):setcarpet(carpetData);
         // peticion de los archivos sin una carpeta asignada
-        fetch("http://192.168.20.203:4000/api/archives", {
-            method: "POST",
-            body: JSON.stringify({ id: "none" }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(data => data.json())
-            .then(data => {
-                setarchives(data)
-            })
-            .catch(e => {
-                console.log(e)
-                setarchives(archiver)
-            })
-
+        const archiveData = await DataFetchArchives();
+        (archiveData==null)?setarchives(archiver):setarchives(archiveData);
     }
 
     //const carpet = props.response.carpet

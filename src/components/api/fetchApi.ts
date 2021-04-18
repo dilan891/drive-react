@@ -1,0 +1,76 @@
+export const createCarpetFetch = (idC:string , nameC:string):Promise<JSON> => {
+    let newCarpet;
+    newCarpet = { name: nameC, _id: "none", carpet: idC };
+    return fetch("http://192.168.20.203:4000/api/carpets", {
+        method: "POST",
+        body: JSON.stringify(newCarpet),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(data => data.json())
+        .then(data => {return newCarpet = data})
+        .catch(e => {return newCarpet = null})
+}
+
+export const handleSubmitFetch = (file:any,id:string):Promise<boolean> => {   //al darle submit al formulario
+    let formData = new FormData();
+    formData.append("archivo", file)
+    formData.append("id", id)
+    return fetch("http://192.168.20.203:4000/api/fileUpload", {
+        method: "POST",
+        body: formData
+    }).then(data => data.json())
+        .then(data => {
+            return true
+        })
+        .catch(e => {
+            console.log(e)
+            return false
+        })
+}
+
+export const DataFetch = () => {  //recoge los datos de todas las carpetas guardadas
+    return fetch("http://192.168.20.203:4000/api/carpets")
+        .then(data => data.json())
+        .then(data => {
+            return data
+        })
+        .catch(e => {
+            console.log(e)
+            return null
+        })
+}
+
+
+export const DataFetchArchives = (id:string = "none"):Promise<any> =>{
+    return fetch("http://192.168.20.203:4000/api/archives", {
+            method: "POST",
+            body: JSON.stringify({ id: id }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(data => data.json())
+            .then(data => {
+                return data
+            })
+            .catch(e => {
+                console.log(e)
+                return null
+            })
+}
+
+export const moveFetch = (datos:object):Promise<boolean>=>{
+    return fetch("http://192.168.20.203:4000/api/move", {
+            method: "PUT",
+            body: JSON.stringify(datos),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(data => data.json())
+            .then(data => true)
+            .catch(e => {
+                console.log(e)
+                return false
+            });
+}
