@@ -1,65 +1,66 @@
-import React, {useReducer,createContext} from 'react'
+import React, { useReducer, createContext } from 'react'
 
 //createcontext
 const menuVisibility = {
-    select:{
+    select: {
         visible: "hidden",
         position: "absolute",
         id: null,
         name: null,
         idToMove: null,
         nameToMove: null
-    }}
+    }
+}
 
 export const Menu = createContext()
 
 //reducer
-const reducer=(state,action) =>{
-        switch(action.type){
-            case "active":
-                return {
-                    visible: "visible",
-                    position: "relative",
-                    id: action.payload.id,
-                    name: action.payload.name,
-                    nameToMove: "Todos"
-                }
-            case "setID":
-                return {
-                    visible: state.visible,
-                    position: state.position,
-                    id: state.id,
-                    name: state.name,
-                    idToMove: action.payload.id,
-                    nameToMove: action.payload.name
-                }
-            case "desactive":
-                return state=menuVisibility.select
-            default:
-                throw new Error();
-        }
+const reducer = (state, action) => {
+    switch (action.type) {
+        case "active":
+            return {
+                visible: "visible",
+                position: "relative",
+                id: action.payload.id,
+                name: action.payload.name,
+                nameToMove: "Todos"
+            }
+        case "setID":
+            return {
+                visible: state.visible,
+                position: state.position,
+                id: state.id,
+                name: state.name,
+                idToMove: action.payload.id,
+                nameToMove: action.payload.name
+            }
+        case "desactive":
+            return state = menuVisibility.select
+        default:
+            throw new Error();
     }
+}
 
 //context options
 const UseMenuSelect = (props) => {
 
     const [state, dispatch] = useReducer(reducer, menuVisibility.select)
 
-    const activeteSelect = (id,name = "error") =>{ //al llamrse se abre el menu de mover carpeta
+    const activeteSelect = (id, name = "error") => { //al llamrse se abre el menu de mover carpeta
         dispatch({
-            payload: {id: id,name:name},
+            payload: { id: id, name: name },
             type: "active"
         })
     }
 
-    const setId = (id,name = "error")=>{
+    const setId = (id, name = "error") => {
         dispatch({
-            payload: {id: id,name: name},
+            payload: { id: id, name: name },
             type: "setID"
         })
     }
 
-    const desactivateSelect = () =>{
+    const desactivateSelect = () => {
         dispatch({
             type: "desactive"
         })
@@ -86,4 +87,4 @@ const UseMenuSelect = (props) => {
     )
 }
 
-export {UseMenuSelect}
+export { UseMenuSelect }

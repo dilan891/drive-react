@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from "react-router-dom"
 import { ToastsContext } from '../context/useToast'
 
-export default function PreviusButton() {
+const PreviusButton: React.FC  = () =>{
     const { previus } = useContext(ToastsContext)
 
     if (previus === null) {
@@ -20,3 +20,5 @@ export default function PreviusButton() {
     }
 
 }
+
+export default PreviusButton;

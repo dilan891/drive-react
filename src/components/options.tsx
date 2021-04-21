@@ -7,48 +7,55 @@ import { Gear } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from '../context/useToast';
 
-export default function Options(props) {
-  const [dropdownOpen, setOpen] = useState(false);
-  const [nameChange, setNameChange] = useState(false);
+interface Props{
+  name: string,
+  id: string,
+  type:string,
+  refresh: () => void
+}
+
+const Options:React.FC<Props> = (Props) => {
+  const [dropdownOpen, setOpen] = useState<boolean>(false);
+  const [nameChange, setNameChange] = useState<boolean>(false);
   const { failToast } = useContext(ToastsContext);
-  const [handleName, setHandle] = useState(props.name)
+  const [handleName, setHandle] = useState<string>(Props.name)
   const { activeteSelect } = useContext(Menu)
 
-  const handlechange = (e) => {
+  const handlechange = (e:any) => {
     setHandle(e.target.value)
   }
 
   const handlemove = () => {
-    activeteSelect(props.id, props.name)
+    activeteSelect(Props.id, Props.name)
   }
 
-  const submitChangeName = (e) => {
+  const submitChangeName = (e:any) => {
     fetch("http://192.168.20.203:4000/api/putarchive", {
       method: "PUT",
-      body: JSON.stringify({ id: props.id, newName: handleName, type: props.type }),
+      body: JSON.stringify({ id: Props.id, newName: handleName, type: Props.type }),
       headers: {
         "Content-type": "application/json"
       }
     }).then(data => data.json())
       .then(data => console.log(data))
     setNameChange(!nameChange)
-    props.refresh()
+    Props.refresh()
     e.preventDefault()
   }
 
   const toggle = () => setOpen(!dropdownOpen);
 
   const deleteA = () => {
-    const id = props.id
-    const name = props.name
+    const id = Props.id
+    const name = Props.name
     fetch("http://192.168.20.203:4000/api/archivedel", {
       method: "DELETE",
-      body: JSON.stringify({ id: id, name: name, type: props.type }),
+      body: JSON.stringify({ id: id, name: name, type: Props.type }),
       headers: {
         "Content-type": "application/json"
       }
     }).then(data => data.json())
-      .then(() => props.refresh())
+      .then(() => Props.refresh())
       .catch(e => {
         console.log(e);
         failToast();
@@ -106,3 +113,5 @@ export default function Options(props) {
     </div>
   )
 }
+
+export default Options;

@@ -1,15 +1,20 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import PreviusButton from './previusButton';
 import { ArrowBarUp } from "react-bootstrap-icons"
 
-export default function VarMenu(props) {
+interface Props {
+    open: () => void,
+    caller: (e: any, name: string) => void
+}
+
+const VarMenu: React.FC<Props> = (props) => {
     const [name, setName] = useState("")
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         setName(event.target.value)
     };
 
-    const caller = (e) => {
+    const caller = (e: any) => {
         props.caller(e, name)
         setName("")
     }
@@ -28,4 +33,6 @@ export default function VarMenu(props) {
         </div>
 
     )
-}; 
+};
+
+export default VarMenu;

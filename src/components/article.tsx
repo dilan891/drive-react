@@ -1,10 +1,11 @@
-import { useState, createRef, Suspense, useContext } from 'react'
+import React, { useState, createRef, Suspense, useContext } from 'react'
 import { Switch, Route } from "react-router-dom"
 import Carpeta from "./Carpeta";
 import Todos from "./Todos";
 import Carpetas from './Carpetas';
 import ToastNoti from "./NotiToast"
 import { ToastsContext } from "../context/useToast"
+import {createCarpetFetch,handleSubmitFetch} from "./api/fetchApi"
 import {
     Modal,
     ModalHeader,
@@ -15,11 +16,11 @@ import VarMenu from "./VarMenu"
 
 //import DataFetch from "./api/fetchApi";
 
-const Article = () => {
-    const [update, setupdate] = useState(0)
-    const [id, setid] = useState("");
-    const [modalOpen, setModalOpen] = useState(false)
-    const [toast, settoast] = useState(false);
+const Article: React.FC = () => {
+    const [update, setupdate] = useState<number>(0)
+    const [id, setid] = useState<string>("");
+    const [modalOpen, setModalOpen] = useState<boolean>(false)
+    const [toast, settoast] = useState<boolean>(false);
 
     const { carpetToast, failToast } = useContext(ToastsContext);
 
@@ -27,47 +28,33 @@ const Article = () => {
 
     //const response = DataFetch()
 
-    const setID = (idC) => setid(idC)
+    const setID = (idC:string) => setid(idC)
 
-    const caller = (e, nameC) => { //llama a createCarpet
+    const caller = (e:React.FormEvent<HTMLFormElement>, nameC:string) => { //llama a createCarpet
         let idC = id
         createCarpet(idC, nameC);
     }
 
-    const createCarpet = (idC, nameC) => {
-        let newCarpet;
-        newCarpet = { name: nameC, _id: "none", carpet: idC };
-        fetch("http://192.168.20.203:4000/api/carpets", {
-            method: "POST",
-            body: JSON.stringify(newCarpet),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(data => data.json())
-            .then(data => carpetToast())
-            .then(o => setupdate(update + 1))
-            .catch(e => failToast())
+    const createCarpet = async(idC:string,nameC:string) =>{  //crea una carpeta y alualiza los componentes 
+        const data = await createCarpetFetch(idC,nameC);      //llamada a la api fetch
+        (data===null)?failToast():carpetToast()&&setupdate(update+1);
     }
 
-    const handleSubmit = (e) => {   //al darle submit al formulario
-        console.log(fileApi.current.files[0].name)
-        let formData = new FormData();
-        formData.append("archivo", fileApi.current.files[0])
-        formData.append("id", id)
-        fetch("http://192.168.20.203:4000/api/fileUpload", {
-            method: "POST",
-            body: formData
-        }).then(data => data.json())
-            .then(data => {
-                setModalOpen(false)
-                settoast(true)
-                setTimeout(() => { settoast(false) }, 2000)
-            }).then(() => setupdate(update + 1))
-            .catch(e => console.log(e))
-        e.preventDefault();
+    const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) =>{ 
+        e.preventDefault(); //sube un archivo al servidor
+        const data = await handleSubmitFetch(fileApi.current.files[0],id);
+        if(data){
+            setModalOpen(false)
+            settoast(true)
+            setTimeout(() => { settoast(false) }, 2000)
+            setupdate(update+1)}
+        else{
+            failToast();
+        }
+        
     }
 
-    const fileApi = createRef(); //maneja el archivo subido
+    const fileApi:any = createRef(); //maneja el archivo subido
 
     return (
         <div>
