@@ -44,7 +44,8 @@ const Carpeta:React.FC<Props>= (Props) =>{
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
                 .catch(e => setconten(contents)); */ // si elemnenst igual a true no hay contenido en la carpeta seleccionada
-            const subCarpetData = SubcarpetFecth(id);
+            const subCarpetData = await SubcarpetFecth(id);
+            (subCarpetData === null)?setconten(contents):setconten(subCarpetData);
             const dataArchive = await DataFetchArchives(id);
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
