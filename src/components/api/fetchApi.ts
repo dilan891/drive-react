@@ -74,3 +74,18 @@ export const moveFetch = (datos:object):Promise<boolean>=>{
                 return false
             });
 }
+
+
+export const SubcarpetFecth = (id:string) =>{
+    return fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
+        .then(data => data.json())
+        .then(info => { 
+            if(info.length === 0) {
+                return []; 
+            }
+            else{
+                return info;
+        }}) //si no hay carpetas el estado queda vacio
+        .catch(e => {return null} )
+}
+

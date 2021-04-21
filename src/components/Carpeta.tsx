@@ -8,7 +8,7 @@ import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
-import {DataFetchArchives} from "./api/fetchApi"
+import {DataFetchArchives ,SubcarpetFecth} from "./api/fetchApi"
 
 interface Props{
     update: number,
@@ -39,11 +39,12 @@ const Carpeta:React.FC<Props>= (Props) =>{
                 .catch(e => {
                     console.log(e)
                     previusId("60454742f4a5194e0c511965")
-                });
+                });/*
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
-                .catch(e => setconten(contents)); // si elemnenst igual a true no hay contenido en la carpeta seleccionada
+                .catch(e => setconten(contents)); */ // si elemnenst igual a true no hay contenido en la carpeta seleccionada
+            const subCarpetData = SubcarpetFecth(id);
             const dataArchive = await DataFetchArchives(id);
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
