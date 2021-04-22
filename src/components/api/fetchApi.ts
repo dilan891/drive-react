@@ -1,4 +1,4 @@
-export const createCarpetFetch = (idC:string , nameC:string):Promise<JSON> => {
+export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
     newCarpet = { name: nameC, _id: "none", carpet: idC };
     return fetch("http://192.168.20.203:4000/api/carpets", {
@@ -8,11 +8,11 @@ export const createCarpetFetch = (idC:string , nameC:string):Promise<JSON> => {
             'Content-Type': 'application/json'
         }
     }).then(data => data.json())
-        .then(data => {return newCarpet = data})
-        .catch(e => {return newCarpet = null})
+        .then(data => { return newCarpet = data })
+        .catch(e => { return newCarpet = null })
 }
 
-export const handleSubmitFetch = (file:any,id:string):Promise<boolean> => {   //al darle submit al formulario
+export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => {   //al darle submit al formulario
     let formData = new FormData();
     formData.append("archivo", file)
     formData.append("id", id)
@@ -42,50 +42,51 @@ export const DataFetch = () => {  //recoge los datos de todas las carpetas guard
 }
 
 
-export const DataFetchArchives = (id:string = "none"):Promise<any> =>{
+export const DataFetchArchives = (id: string = "none"): Promise<any> => {
     return fetch("http://192.168.20.203:4000/api/archives", {
-            method: "POST",
-            body: JSON.stringify({ id: id }),
-            headers: {
-                "Content-Type": "application/json"
-            }
+        method: "POST",
+        body: JSON.stringify({ id: id }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(data => data.json())
+        .then(data => {
+            return data
         })
-            .then(data => data.json())
-            .then(data => {
-                return data
-            })
-            .catch(e => {
-                console.log(e)
-                return null
-            })
+        .catch(e => {
+            console.log(e)
+            return null
+        })
 }
 
-export const moveFetch = (datos:object):Promise<boolean>=>{
+export const moveFetch = (datos: object): Promise<boolean> => {
     return fetch("http://192.168.20.203:4000/api/move", {
-            method: "PUT",
-            body: JSON.stringify(datos),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(data => data.json())
-            .then(data => true)
-            .catch(e => {
-                console.log(e)
-                return false
-            });
+        method: "PUT",
+        body: JSON.stringify(datos),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(data => data.json())
+        .then(data => true)
+        .catch(e => {
+            console.log(e)
+            return false
+        });
 }
 
 
-export const SubcarpetFecth = (id:string) =>{
+export const SubcarpetFecth = (id: string) => {
     return fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
         .then(data => data.json())
-        .then(info => { 
-            if(info.length === 0) {
-                return []; 
+        .then(info => {
+            if (info.length === 0) {
+                return [];
             }
-            else{
+            else {
                 return info;
-        }}) //si no hay carpetas el estado queda vacio
-        .catch(e => {return null} )
+            }
+        }) //si no hay carpetas el estado queda vacio
+        .catch(e => { return null })
 }
 

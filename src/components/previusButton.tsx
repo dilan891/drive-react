@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from "react-router-dom"
 import { ToastsContext } from '../context/useToast'
 
-const PreviusButton: React.FC  = () =>{
+const PreviusButton: React.FC = () => {
     const { previus } = useContext(ToastsContext)
 
     if (previus === null) {
@@ -10,6 +10,7 @@ const PreviusButton: React.FC  = () =>{
     }
 
     else {
+        console.log(previus);
         return <div className="previus-button">
             <Link to={"/carpeta/" + previus} >
                 <button>

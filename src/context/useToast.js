@@ -20,7 +20,7 @@ const toasts = {
 
 export const ToastsContext = createContext();
 
-const UseToast = (props) =>{
+const UseToast = (props) => {
     //Reducer setttings
     const reducer = (state, action) => {
         switch (action.type) {

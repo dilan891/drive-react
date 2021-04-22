@@ -8,44 +8,44 @@ import Options from "./options"
 import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
-import {DataFetchArchives ,SubcarpetFecth} from "./api/fetchApi"
+import { DataFetchArchives, SubcarpetFecth } from "./api/fetchApi"
 
-interface Props{
+interface Props {
     update: number,
-    setID: (id:any) => void    
+    setID: (id: any) => void
 }
 
-let contents: {name:string,_id: string,elements:boolean}[] = [{ name: "error", _id: "45", elements: false }]
+let contents: { name: string, _id: string, elements: boolean }[] = [{ name: "error", _id: "45", elements: false }]
 
-const Carpeta:React.FC<Props>= (Props) =>{
+const Carpeta: React.FC<Props> = (Props) => {
 
-    const [content, setconten] = useState<{name:string,_id: string,elements:boolean}[]>([]);
+    const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>([]);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
     const { previusId } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
     const { id } = useParams<any>();
 
-    const refresPage = () => setrefresh(refresh + 1)
+    const refresPage = () => {
+        setrefresh(refresh + 1)
+        previusId(id);
+    }
 
     useEffect(() => {
         Props.setID(id);
 
-        const fetchCarpet = async() => {
+        const fetchCarpet = async () => {
             fetch("http://192.168.20.203:4000/api/carpertid/" + id)
                 .then(data => data.json())
                 .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
-                .then(data => previusId(data[0]._id))
-                .catch(e => {
-                    console.log(e)
-                    previusId("60454742f4a5194e0c511965")
-                });/*
+                .catch(e => { console.log(e) });
+            /*
             fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
                 .then(data => data.json())
                 .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
                 .catch(e => setconten(contents)); */ // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             const subCarpetData = await SubcarpetFecth(id);
-            (subCarpetData === null)?setconten(contents):setconten(subCarpetData);
+            (subCarpetData === null) ? setconten(contents) : setconten(subCarpetData);
             const dataArchive = await DataFetchArchives(id);
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
@@ -57,7 +57,7 @@ const Carpeta:React.FC<Props>= (Props) =>{
                 <div className="vacio">
                     <div className="vacio-text">
                         Esta carpeta esta vacia
-            </div>
+                    </div>
                 </div>
             </div>)
     }
@@ -81,7 +81,7 @@ const Carpeta:React.FC<Props>= (Props) =>{
                             </div>
                         )
                     })}
-                    {archives.map((a:any) => {
+                    {archives.map((a: any) => {
                         return (
                             <div key={a._id} className="card img">
                                 <div className="view-img">

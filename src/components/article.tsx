@@ -5,7 +5,7 @@ import Todos from "./Todos";
 import Carpetas from './Carpetas';
 import ToastNoti from "./NotiToast"
 import { ToastsContext } from "../context/useToast"
-import {createCarpetFetch,handleSubmitFetch} from "./api/fetchApi"
+import { createCarpetFetch, handleSubmitFetch } from "./api/fetchApi"
 import {
     Modal,
     ModalHeader,
@@ -28,33 +28,34 @@ const Article: React.FC = () => {
 
     //const response = DataFetch()
 
-    const setID = (idC:string) => setid(idC)
+    const setID = (idC: string) => setid(idC)
 
-    const caller = (e:React.FormEvent<HTMLFormElement>, nameC:string) => { //llama a createCarpet
+    const caller = (e: React.FormEvent<HTMLFormElement>, nameC: string) => { //llama a createCarpet
         let idC = id
         createCarpet(idC, nameC);
     }
 
-    const createCarpet = async(idC:string,nameC:string) =>{  //crea una carpeta y alualiza los componentes 
-        const data = await createCarpetFetch(idC,nameC);      //llamada a la api fetch
-        (data===null)?failToast():carpetToast()&&setupdate(update+1);
+    const createCarpet = async (idC: string, nameC: string) => {  //crea una carpeta y alualiza los componentes 
+        const data = await createCarpetFetch(idC, nameC);      //llamada a la api fetch
+        (data === null) ? failToast() : carpetToast() && setupdate(update + 1);
     }
 
-    const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) =>{ 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); //sube un archivo al servidor
-        const data = await handleSubmitFetch(fileApi.current.files[0],id);
-        if(data){
+        const data = await handleSubmitFetch(fileApi.current.files[0], id);
+        if (data) {
             setModalOpen(false)
             settoast(true)
             setTimeout(() => { settoast(false) }, 2000)
-            setupdate(update+1)}
-        else{
+            setupdate(update + 1)
+        }
+        else {
             failToast();
         }
-        
+
     }
 
-    const fileApi:any = createRef(); //maneja el archivo subido
+    const fileApi: any = createRef(); //maneja el archivo subido
 
     return (
         <div>
