@@ -93,7 +93,7 @@ const Options:React.FC<Props> = (Props) => {
         >
           <DropdownItem onClick={deleteA}>Eliminar</DropdownItem>
           <DropdownItem onClick={updateName}>Cambiar nombre</DropdownItem>
-          <DropdownItem onClick={handlemove}>mover</DropdownItem>
+          <DropdownItem onClick={handlemove}>Mover a otra carpeta</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Modal isOpen={nameChange} centered={true}>

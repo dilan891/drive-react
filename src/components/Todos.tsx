@@ -3,10 +3,11 @@
 */
 import "../css/card.css";
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Options from "./options";
 import { Archive } from "react-bootstrap-icons";
 import {DataFetch, DataFetchArchives} from "./api/fetchApi"
+import {ToastsContext} from "../context/useToast"
 
 interface props{
     update: number,
@@ -17,6 +18,7 @@ let content: {name:string,_id:string,}[] = [{ name: "Juan", _id: "60454742f4a519
 let archiver: {name: string, _id:string}[] = [{ name: "imagenE1", _id: "45" }, { name: "imagenE2", _id: "64" }]
 
 const Todos: React.FC<props> = (props) => {
+    const {previusId, updateToast} = useContext(ToastsContext);
     const [carpets, setcarpet] = useState<{name:string,_id:string,}[]>([]);//guarda un objeto con los detalles de cada carpeta
     const [archives, setarchives] = useState<{name:string,_id:string,}[]>([])//guarda un objeto con los detalles de cada archivo
     const [refresh, setrefresh] = useState(0)
@@ -34,7 +36,10 @@ const Todos: React.FC<props> = (props) => {
         (archiveData==null)?setarchives(archiver):setarchives(archiveData);
     }
 
-    //const carpet = props.response.carpet
+    const idPreview = () =>{
+        previusId("none");
+    }
+
 
     useEffect(() => {
         props.setID("none");//pasa el id none a el componente padre
@@ -42,7 +47,7 @@ const Todos: React.FC<props> = (props) => {
         return () => {
             setarchives([])
         }
-    }, [props.update, refresh])// eslint-disable-line react-hooks/exhaustive-deps
+    }, [props.update, refresh,updateToast])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
@@ -50,7 +55,7 @@ const Todos: React.FC<props> = (props) => {
                 {carpets.map(c => {
                     return (
                         <div key={c._id} className="card img" >
-                            <Link className="view-img" to={"/carpeta/" + c._id}>
+                            <Link onClick={idPreview}  className="view-img" to={"/carpeta/" + c._id}>
                                 <div className="carpert-card">
                                     <Archive size={50} className="carpet-icon" />
                                     <h2>{c.name}</h2>

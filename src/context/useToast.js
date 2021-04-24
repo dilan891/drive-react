@@ -12,6 +12,7 @@ interface objetos{
 }*/
 
 const toasts = {
+    update: 1,
     previus: null,  // guarda el id de la carpeta anterior
     failtoastOpen: false,
     newCarpetToast: false,
@@ -26,33 +27,36 @@ const UseToast = (props) => {
         switch (action.type) {
             case "fail":
                 return {
-                    previus: null,
-                    newCarpetToast: false,
+                    ...state,
                     failtoastOpen: true,
-                    moveToast: false
                 }
             case "carpetToast":
                 return {
-                    previus: null,
+                    ...state,
+                    update: state.update + 1,
                     newCarpetToast: true,
-                    failtoastOpen: false,
-                    moveToast: false
                 }
             case "moveToastActive":
                 return {
-                    previus: null,
-                    failtoastOpen: false,
-                    newCarpetToast: false,
+                    ...state,
                     moveToast: true
                 }
             case "desactiveAll":
-                return state = toasts
-            case "setPreviusId":
                 return {
-                    previus: action.payLoad.id,
+                    ...state,
                     failtoastOpen: false,
                     newCarpetToast: false,
                     moveToast: false
+                }
+            case "setPreviusId":
+                return {
+                    ...state,
+                    previus: action.payLoad.id
+                }
+            case "update":
+                return {
+                    ...state,
+                    update: state.update + 1
                 }
             default:
                 throw new Error();
@@ -92,15 +96,23 @@ const UseToast = (props) => {
         })
     }
 
+    const updater = () => {
+        dispatch({
+            type : "update"
+        })
+    }
+
     const values = {
         failToastOpen: state.failtoastOpen,
         moveToast: state.moveToast,
         newCarpetToast: state.newCarpetToast,
         previus: state.previus,
+        updateToast: state.update,
         previusId,
         failToast,
         carpetToast,
-        moveToastActive
+        moveToastActive,
+        updater
     }
 
     return (

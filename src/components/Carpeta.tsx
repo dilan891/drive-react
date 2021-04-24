@@ -22,35 +22,31 @@ const Carpeta: React.FC<Props> = (Props) => {
     const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>([]);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
-    const { previusId } = useContext(ToastsContext)
+    const { previusId,updateToast } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
     const { id } = useParams<any>();
 
     const refresPage = () => {
-        setrefresh(refresh + 1)
         previusId(id);
+        setrefresh(refresh + 1)
     }
 
     useEffect(() => {
         Props.setID(id);
-
         const fetchCarpet = async () => {
             fetch("http://192.168.20.203:4000/api/carpertid/" + id)
                 .then(data => data.json())
                 .then(data => setId(id, data[0].name))//pasa el nombre y el id de la carpeta abierta
                 .catch(e => { console.log(e) });
-            /*
-            fetch("http://192.168.20.203:4000/api/subcarpet/" + id)
-                .then(data => data.json())
-                .then(info => { (info.length === 0) ? setconten([]) : setconten(info); }) //si no hay carpetas el estado queda vacio
-                .catch(e => setconten(contents)); */ // si elemnenst igual a true no hay contenido en la carpeta seleccionada
+            //si no hay carpetas el estado queda vacio
+            // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             const subCarpetData = await SubcarpetFecth(id);
             (subCarpetData === null) ? setconten(contents) : setconten(subCarpetData);
             const dataArchive = await DataFetchArchives(id);
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
         fetchCarpet()
-    }, [refresh, Props.update]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [refresh, Props.update,updateToast]) // eslint-disable-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
         return (
             <div>
