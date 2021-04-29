@@ -22,7 +22,7 @@ const Article: React.FC = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const [toast, settoast] = useState<boolean>(false);
 
-    const { carpetToast, failToast } = useContext(ToastsContext);
+    const { carpetToast, failToast, updater } = useContext(ToastsContext);
 
     const open = () => setModalOpen(!modalOpen) //abre el modal de upload
 
@@ -47,7 +47,7 @@ const Article: React.FC = () => {
             setModalOpen(false)
             settoast(true)
             setTimeout(() => { settoast(false) }, 2000)
-            setupdate(update + 1)
+            updater();
         }
         else {
             failToast();
@@ -81,7 +81,7 @@ const Article: React.FC = () => {
                 <Route path="/Todos">
                     <VarMenu caller={caller.bind(this)} open={open} />
                     <Suspense fallback={<h1>cargando...</h1>}>
-                        <Todos update={update} setID={setID.bind(this)} />
+                        <Todos setID={setID.bind(this)} />
                     </Suspense>
                 </Route>
                 <Route path="/Carpetas">

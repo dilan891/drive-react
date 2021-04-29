@@ -6,21 +6,20 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import Options from "./options";
 import { Archive } from "react-bootstrap-icons";
-import {DataFetch, DataFetchArchives} from "./api/fetchApi"
-import {ToastsContext} from "../context/useToast"
+import { DataFetch, DataFetchArchives } from "./api/fetchApi"
+import { ToastsContext } from "../context/useToast"
 
-interface props{
-    update: number,
-    setID: (id:string) => void
+interface props {
+    setID: (id: string) => void
 }
 
-let content: {name:string,_id:string,}[] = [{ name: "Juan", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: "2" }];
-let archiver: {name: string, _id:string}[] = [{ name: "imagenE1", _id: "45" }, { name: "imagenE2", _id: "64" }]
+let content: { name: string, _id: string, }[] = [{ name: "Juan", _id: "60454742f4a5194e0c511965" }, { name: "carpet2", _id: "2" }];
+let archiver: { name: string, _id: string }[] = [{ name: "imagenE1", _id: "45" }, { name: "imagenE2", _id: "64" }]
 
 const Todos: React.FC<props> = (props) => {
-    const {previusId, updateToast} = useContext(ToastsContext);
-    const [carpets, setcarpet] = useState<{name:string,_id:string,}[]>([]);//guarda un objeto con los detalles de cada carpeta
-    const [archives, setarchives] = useState<{name:string,_id:string,}[]>([])//guarda un objeto con los detalles de cada archivo
+    const { previusId, updateToast } = useContext(ToastsContext);
+    const [carpets, setcarpet] = useState<{ name: string, _id: string, }[]>([]);//guarda un objeto con los detalles de cada carpeta
+    const [archives, setarchives] = useState<{ name: string, _id: string, }[]>([])//guarda un objeto con los detalles de cada archivo
     const [refresh, setrefresh] = useState(0)
 
     const refreshData = () => {  //refresca la pagina por cada actualizacion de datos
@@ -30,13 +29,13 @@ const Todos: React.FC<props> = (props) => {
     async function dataFech() {
         //peticion al servidor para obtener las carpetas no asignadas   
         const carpetData = await DataFetch();
-        (carpetData==null)?setcarpet(content):setcarpet(carpetData);
+        (carpetData == null) ? setcarpet(content) : setcarpet(carpetData);
         // peticion de los archivos sin una carpeta asignada
         const archiveData = await DataFetchArchives();
-        (archiveData==null)?setarchives(archiver):setarchives(archiveData);
+        (archiveData == null) ? setarchives(archiver) : setarchives(archiveData);
     }
 
-    const idPreview = () =>{
+    const idPreview = () => {
         previusId("none");
     }
 
@@ -47,7 +46,7 @@ const Todos: React.FC<props> = (props) => {
         return () => {
             setarchives([])
         }
-    }, [props.update, refresh,updateToast])// eslint-disable-line react-hooks/exhaustive-deps
+    }, [refresh, updateToast])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
@@ -55,7 +54,7 @@ const Todos: React.FC<props> = (props) => {
                 {carpets.map(c => {
                     return (
                         <div key={c._id} className="card img" >
-                            <Link onClick={idPreview}  className="view-img" to={"/carpeta/" + c._id}>
+                            <Link onClick={idPreview} className="view-img" to={"/carpeta/" + c._id}>
                                 <div className="carpert-card">
                                     <Archive size={50} className="carpet-icon" />
                                     <h2>{c.name}</h2>
