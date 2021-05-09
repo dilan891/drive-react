@@ -79,7 +79,7 @@ const UseMenuSelect = (props) => {
     }
 
     return (
-        <div>
+        <div className="all">
             <Menu.Provider value={pass}>
                 {props.children}
             </Menu.Provider>

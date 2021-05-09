@@ -116,7 +116,7 @@ const UseToast = (props) => {
     }
 
     return (
-        <div>
+        <div className="all">
             <ToastsContext.Provider value={values}>
                 {props.children}
             </ToastsContext.Provider>

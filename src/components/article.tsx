@@ -58,7 +58,7 @@ const Article: React.FC = () => {
     const fileApi: any = createRef(); //maneja el archivo subido
 
     return (
-        <div>
+        <div className="all">
             <div>
                 <Modal size="lg" isOpen={modalOpen}>
                     <ModalHeader>
