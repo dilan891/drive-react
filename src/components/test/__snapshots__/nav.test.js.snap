@@ -1,8 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Render NavPage snapshot nav 1`] = `
-<div>
-  <div>
+<div
+  className="all"
+>
+  <div
+    className="all"
+  >
     <nav>
       <div
         className="user"
