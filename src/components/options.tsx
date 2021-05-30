@@ -6,6 +6,7 @@ import {
 import { Gear } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from '../context/useToast';
+import { Descargas } from './api/fetchApi';
 
 interface Props{
   name: string,
@@ -67,6 +68,10 @@ const Options:React.FC<Props> = (Props) => {
     setNameChange(!nameChange);
   }
 
+  const download = () =>{
+    Descargas();
+  }
+
   return (
     <div className="dropdown position-relative" >
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
@@ -94,6 +99,7 @@ const Options:React.FC<Props> = (Props) => {
           <DropdownItem onClick={deleteA}>Eliminar</DropdownItem>
           <DropdownItem onClick={updateName}>Cambiar nombre</DropdownItem>
           <DropdownItem onClick={handlemove}>Mover a otra carpeta</DropdownItem>
+          <DropdownItem onClick={download}>Desacrgar</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Modal isOpen={nameChange} centered={true}>

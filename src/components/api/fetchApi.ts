@@ -92,3 +92,17 @@ export const SubcarpetFecth = (id: string) => {
         .catch(e => { return null })
 }
 
+export const Descargas = () =>{
+    return fetch(ip+"/api/descargas")
+        .then(data => data.blob())
+        .then(data => {  //descarga el elemento enviado
+            let file = URL.createObjectURL(data);
+            let a = document.createElement("a");
+            a.href  = file;
+            a.download = "bod.png"
+            document.body.appendChild(a);
+            a.click()
+            a.remove()
+            //window.location.assign(file);
+        })
+}
