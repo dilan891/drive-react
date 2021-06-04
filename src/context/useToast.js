@@ -3,17 +3,9 @@
 */
 import React, { useReducer, createContext } from 'react'
 
-/*
-interface objetos{
-    previus: boolean | null,  // guarda el id de la carpeta anterior
-    failtoastOpen: boolean,
-    newCarpetToast: boolean,
-    moveToast: boolean
-}*/
-
 const toasts = {
     update: 1,
-    previus: null,  // guarda el id de la carpeta anterior
+    previus: [],  // guarda el id de la carpeta anterior
     failtoastOpen: false,
     newCarpetToast: false,
     moveToast: false
@@ -51,12 +43,17 @@ const UseToast = (props) => {
             case "setPreviusId":
                 return {
                     ...state,
-                    previus: action.payLoad.id
+                    previus: state.previus.concat(action.payLoad.lista) //inserta la anterior id de carpeta en la lista
                 }
             case "update":
                 return {
                     ...state,
                     update: state.update + 1
+                }
+            case "previusDelete":
+                return {
+                    ...state,
+                    previus: state.previus.slice(state.previus - 1, 1)
                 }
             default:
                 throw new Error();
@@ -90,15 +87,24 @@ const UseToast = (props) => {
 
     //id anterior
     const previusId = (id) => {
+        let lista = [id];
+        //if (id === "none") { lista = ["Todos"] }
+        //else { lista = [id] }
         dispatch({
-            payLoad: { id },
+            payLoad: { lista },
             type: "setPreviusId"
         })
     }
 
+    const previusDelete = () => {
+        dispatch({
+            type: "previusDelete"
+        })
+    };
+
     const updater = () => {
         dispatch({
-            type : "update"
+            type: "update"
         })
     }
 
@@ -112,7 +118,8 @@ const UseToast = (props) => {
         failToast,
         carpetToast,
         moveToastActive,
-        updater
+        updater,
+        previusDelete
     }
 
     return (

@@ -1,9 +1,9 @@
-const ip:string = "http://192.168.20.203:4000"
+const ip: string = "http://192.168.20.203:4000"
 
 export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
     newCarpet = { name: nameC, _id: "none", carpet: idC };
-    return fetch(ip+"/api/carpets", {
+    return fetch(ip + "/api/carpets", {
         method: "POST",
         body: JSON.stringify(newCarpet),
         headers: {
@@ -18,7 +18,7 @@ export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => { 
     let formData = new FormData();
     formData.append("archivo", file)
     formData.append("id", id)
-    return fetch(ip+"/api/fileUpload", {
+    return fetch(ip + "/api/fileUpload", {
         method: "POST",
         body: formData
     }).then(data => data.json())
@@ -32,7 +32,7 @@ export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => { 
 }
 
 export const DataFetch = () => {  //recoge los datos de todas las carpetas guardadas
-    return fetch(ip+"/api/carpets")
+    return fetch(ip + "/api/carpets")
         .then(data => data.json())
         .then(data => {
             return data
@@ -45,7 +45,7 @@ export const DataFetch = () => {  //recoge los datos de todas las carpetas guard
 
 
 export const DataFetchArchives = (id: string = "none"): Promise<any> => {
-    return fetch(ip+"/api/archives", {
+    return fetch(ip + "/api/archives", {
         method: "POST",
         body: JSON.stringify({ id: id }),
         headers: {
@@ -63,7 +63,7 @@ export const DataFetchArchives = (id: string = "none"): Promise<any> => {
 }
 
 export const moveFetch = (datos: object): Promise<boolean> => {
-    return fetch(ip+"/api/move", {
+    return fetch(ip + "/api/move", {
         method: "PUT",
         body: JSON.stringify(datos),
         headers: {
@@ -79,7 +79,7 @@ export const moveFetch = (datos: object): Promise<boolean> => {
 
 
 export const SubcarpetFecth = (id: string) => {
-    return fetch(ip+"/api/subcarpet/" + id)
+    return fetch(ip + "/api/subcarpet/" + id)
         .then(data => data.json())
         .then(info => {
             if (info.length === 0) {
