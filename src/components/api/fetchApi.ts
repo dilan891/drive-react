@@ -1,4 +1,4 @@
-const ip: string = "http://192.168.2.100:4000"
+const ip: string = "http://192.168.20.203:4000"
 
 export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
