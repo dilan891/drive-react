@@ -72,7 +72,7 @@ const Todos: React.FC<props> = (props) => {
                     return (                    
                         <div key={i._id} className="card img">
                             <div className="view-img">
-                                <Preview type={i.type} ></Preview>
+                                <Preview type={i.type} nombre={i.name} ></Preview>
                             </div>
                             <div className="descript">
                                 <div className="title-name">{i.name}</div>

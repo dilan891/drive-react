@@ -69,7 +69,7 @@ const Options:React.FC<Props> = (Props) => {
   }
 
   const download = () =>{
-    Descargas();
+    Descargas(Props.id,Props.name);
   }
 
   return (
@@ -99,7 +99,7 @@ const Options:React.FC<Props> = (Props) => {
           <DropdownItem onClick={deleteA}>Eliminar</DropdownItem>
           <DropdownItem onClick={updateName}>Cambiar nombre</DropdownItem>
           <DropdownItem onClick={handlemove}>Mover a otra carpeta</DropdownItem>
-          <DropdownItem onClick={download}>Desacrgar</DropdownItem>
+          <DropdownItem onClick={download}>Desacargar</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Modal isOpen={nameChange} centered={true}>

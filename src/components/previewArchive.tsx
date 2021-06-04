@@ -1,14 +1,20 @@
 import React from "react";
 
 interface Props{
-    type: string
+    type: string,
+    nombre: string
 }
 
 const Preview:React.FC<Props> = (Props)=>{
+
+    const AbrirVentana = () =>{
+        window.open("http://localhost:4000/archivosUser")
+    }
+
     switch (Props.type){
         case  "img":
             return (
-                <div>
+                <div onClick={AbrirVentana}>
                     <img src="./iconPreview/icon-img.png" alt="icono de imagen" />
                 </div>
             )
