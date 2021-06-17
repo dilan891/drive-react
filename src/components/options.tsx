@@ -6,7 +6,7 @@ import {
 import { Gear } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from '../context/useToast';
-import { Descargas } from './api/fetchApi';
+import { deleteArchive, Descargas } from './api/fetchApi';
 
 interface Props{
   name: string,
@@ -46,22 +46,11 @@ const Options:React.FC<Props> = (Props) => {
 
   const toggle = () => setOpen(!dropdownOpen);
 
-  const deleteA = () => {
-    const id = Props.id
-    const name = Props.name
-    fetch("http://192.168.20.203:4000/api/archivedel", {
-      method: "DELETE",
-      body: JSON.stringify({ id: id, name: name, type: Props.type }),
-      headers: {
-        "Content-type": "application/json"
-      }
-    }).then(data => data.json())
-      .then(() => Props.refresh())
-      .catch(e => {
-        console.log(e);
-        failToast();
-      })
-
+  const deleteA = async() => {
+    const id:string = Props.id
+    const name:string = Props.name
+    const info = await deleteArchive(id,name,Props.type);
+    (info)?Props.refresh():failToast();
   }
 
   const updateName = () => {
@@ -70,6 +59,19 @@ const Options:React.FC<Props> = (Props) => {
 
   const download = () =>{
     Descargas(Props.id,Props.name);
+  }
+
+  const TypeOptions = () => { //retorna las opciones depediendo de si es una carpeta o archivo
+    if(Props.type === "carpet"){
+      return (<div></div>)
+    }
+    else{
+      return (
+      <div>
+        <DropdownItem onClick={download}>Desacargar</DropdownItem>
+      </div>
+      )
+    }
   }
 
   return (
@@ -99,7 +101,7 @@ const Options:React.FC<Props> = (Props) => {
           <DropdownItem onClick={deleteA}>Eliminar</DropdownItem>
           <DropdownItem onClick={updateName}>Cambiar nombre</DropdownItem>
           <DropdownItem onClick={handlemove}>Mover a otra carpeta</DropdownItem>
-          <DropdownItem onClick={download}>Desacargar</DropdownItem>
+          <TypeOptions />
         </DropdownMenu>
       </Dropdown>
       <Modal isOpen={nameChange} centered={true}>

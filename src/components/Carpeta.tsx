@@ -9,6 +9,7 @@ import { Archive } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
 import { DataFetchArchives, SubcarpetFecth } from "./api/fetchApi"
+import Preview from "./previewArchive"
 
 interface Props {
     update: number,
@@ -81,8 +82,7 @@ const Carpeta: React.FC<Props> = (Props) => {
                         return (
                             <div key={a._id} className="card img">
                                 <div className="view-img">
-                                    <img src="" className="card-img-top" height="160px" alt="no se ve :("></img>
-                                    <p>sadsacevavcsvarvjnoergnbasvnavnsjkdbnnfjsnojnckjbfdfdvfgnsjgnfagbtfesbngsfhsdgbjfahgjkdfsaglhgfdnsgbidiubsvihgsfuighdsfugh</p>
+                                    <Preview type={a.type} nombre={a.name} ></Preview>
                                 </div>
                                 <div className="descript">
                                     <div className="title-name">{a.name}</div>

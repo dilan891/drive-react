@@ -14,7 +14,7 @@ export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => 
         .catch(e => { return newCarpet = null })
 }
 
-export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => {   //al darle submit al formulario
+export const handleSubmitFetch = (file: any, id: string ): Promise<boolean> => {   //al darle submit al formulario
     let formData = new FormData();
     formData.append("archivo", file)
     formData.append("id", id)
@@ -31,7 +31,7 @@ export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => { 
         })
 }
 
-export const DataFetch = () => {  //recoge los datos de todas las carpetas guardadas
+export const DataFetch = (): Promise<any> => {  //recoge los datos de todas las carpetas guardadas
     return fetch(ip + "/api/carpets")
         .then(data => data.json())
         .then(data => {
@@ -78,7 +78,7 @@ export const moveFetch = (datos: object): Promise<boolean> => {
 }
 
 
-export const SubcarpetFecth = (id: string) => {
+export const SubcarpetFecth = (id: string): Promise<any> => {
     return fetch(ip + "/api/subcarpet/" + id)
         .then(data => data.json())
         .then(info => {
@@ -92,7 +92,22 @@ export const SubcarpetFecth = (id: string) => {
         .catch(e => { return null })
 }
 
-export const Descargas = (id: string , name: string) =>{
+export const deleteArchive  = (id:string,name:string,type:any) =>{
+    return fetch("http://192.168.20.203:4000/api/archivedel", {
+      method: "DELETE",
+      body: JSON.stringify({ id: id, name: name, type: type }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(data => data.json())
+      .then(() => {return true})
+      .catch(e => {
+        console.log(e);
+        return false;
+    })
+}
+
+export const Descargas = (id: string , name: string):Promise<void> =>{
     return fetch(ip+"/api/descargas"+id)
         .then(data => data.blob())
         .then(data => {  //descarga el elemento enviado

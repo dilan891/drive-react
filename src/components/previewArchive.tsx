@@ -15,7 +15,7 @@ const Preview:React.FC<Props> = (Props)=>{
         case  "img":
             return (
                 <div onClick={AbrirVentana}>
-                    <img src="./iconPreview/icon-img.png" alt="icono de imagen" />
+                    <img src="./iconPreview/icon-img.png" alt="icono de imagen" width={"200px"} height={"160px"} />
                 </div>
             )
         default:
