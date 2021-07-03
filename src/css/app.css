@@ -35,19 +35,77 @@ html{
 .Data{
     display: flex;
     flex-direction: column;
-    padding: 5px;
-    background-color: red;
+    padding: 20px;
+    background-color: black;
     width: 325px;
     justify-content: center;
-    align-items: center;
+    border-radius: 5px;
+    height: 350px;
+    opacity: 0.8;
 }
 
 .input-form{
-    width: 300px;
+    height: 28px;
+    width: 100%;
+    margin: 5px;
+    border: none;
+}
+
+.input-form:focus{
+    border: none;
+    outline: none;   
     height: 28px;
     margin: 5px;
 }
 
 .title-Seccion{
     font-size: 30px;
+    color: white;
+    align-self: center;
+}
+
+.icon-form{
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.barra{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.svg-user{
+    width: 16px;
+    height: 16px;
+}
+
+.user-title{
+    color: white;
+    margin-top: 5px;
+}
+
+.button-user{
+    margin-top: 20px;
+    background-color: green;
+    border-radius: 6px;
+    border: none;
+    height: 28px;
+}
+
+.button-user:hover{
+    background-color: rgb(15, 155, 15);
+}
+
+h2{
+    color: white;
+    align-self: center;
+    margin-top: -10px;
 }
