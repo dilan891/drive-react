@@ -35,11 +35,6 @@ const Carpeta: React.FC<Props> = (Props) => {
     useEffect(() => {
         Props.setID(id);
         const fetchCarpet = async () => {
-            /*
-            fetch("http://192.168.20.203:4000/api/carpertid/" + id)
-                .then(data => data.json())
-                .then(data => setId(id, data[0].name)) //pasa el nombre y el id de la carpeta abierta para la funcion de seleccion
-                .catch(e => { console.log(e) });*/
             const dataNow = await carpertaActual(id);
             setId(id, dataNow);
             //si no hay carpetas el estado queda vacio
@@ -85,7 +80,7 @@ const Carpeta: React.FC<Props> = (Props) => {
                         return (
                             <div key={a._id} className="card img">
                                 <div className="view-img">
-                                    <Preview type={a.type} nombre={a.name} ></Preview>
+                                    <Preview type={a.type} nombre={a.name} Id={a._id} ></Preview>
                                 </div>
                                 <div className="descript">
                                     <div className="title-name">{a.name}</div>

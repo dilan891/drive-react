@@ -1,20 +1,22 @@
 import React from "react";
+import { openFile } from "./api/fetchApi";
 
 interface Props {
     type: string,
-    nombre: string
+    nombre: string,
+    Id: string
 }
 
 const Preview: React.FC<Props> = (Props) => {
 
-    const AbrirVentana = () => {
-        window.open("http://localhost:4000/archivosUser")
+    const openFiles: any = ( ) =>{
+        openFile(Props.Id,Props.nombre);
     }
-
+    
     switch (Props.type) {
         case "img":
             return (
-                <div onClick={AbrirVentana}>
+                <div onClick={openFiles}>
                     <img src="./iconPreview/icon-img.png" alt="icono de imagen" width={"200px"} height={"160px"} />
                 </div>
             )

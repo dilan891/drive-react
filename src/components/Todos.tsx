@@ -68,11 +68,10 @@ const Todos: React.FC<props> = (props) => {
                     )
                 })}
                 {archives.map(i => {
-                    console.log(i)
                     return (
                         <div key={i._id} className="card img">
-                            <div className="view-img">
-                                <Preview type={i.type} nombre={i.name} ></Preview>
+                            <div  className="view-img">
+                                <Preview type={i.type} nombre={i.name} Id={i._id} ></Preview>
                             </div>
                             <div className="descript">
                                 <div className="title-name">{i.name}</div>

@@ -126,3 +126,13 @@ export const carpertaActual = (id: string): Promise<string> => {
         .then(data => { return data[0].name }) //pasa el nombre y el id de la carpeta abierta para la funcion de seleccion
         .catch(e => { console.log(e) });
 }
+
+export const openFile  = (id:String, name:string): any =>{
+    fetch(ip + "/api/descargas" + id)
+    .then(data => data.blob())
+    .then(data => {
+        let file = URL.createObjectURL(data);
+        window.open(file)
+        //window.location.assign(file);   
+    })
+}
