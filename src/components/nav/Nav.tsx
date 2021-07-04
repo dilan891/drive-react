@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../css/nav.css";
+import "../../css/nav.css";
 import { Link } from "react-router-dom";
 import SelectVar from "./SelectVar"
 import React from 'react';
