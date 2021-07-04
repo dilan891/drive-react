@@ -34,9 +34,10 @@ const Article: React.FC = () => {
         let idC = id
         createCarpet(idC, nameC);
     }
-
-    const createCarpet = async (idC: string, nameC: string) => {  //crea una carpeta y alualiza los componentes 
-        const data = await createCarpetFetch(idC, nameC);      //llamada a la api fetch
+     //crea una carpeta y alualiza los componentes 
+     //llamando a la api fetch
+    const createCarpet = async (idC: string, nameC: string) => { 
+        const data = await createCarpetFetch(idC, nameC);      
         (data === null) ? failToast() : carpetToast() && setupdate(update + 1);
     }
 

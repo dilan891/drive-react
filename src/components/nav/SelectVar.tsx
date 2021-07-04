@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { Menu } from "../context/useMenuSelect";
-import {moveFetch} from "./api/fetchApi"
-import { ToastsContext } from '../context/useToast';
+import { Menu } from "../../context/useMenuSelect";
+import {moveFetch} from "../api/fetchApi"
+import { ToastsContext } from '../../context/useToast';
 
 const SelectVar: React.FC = () => {
     const select = useContext(Menu);

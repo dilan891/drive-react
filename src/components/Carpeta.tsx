@@ -1,15 +1,14 @@
 /*
     Este componente muestra el contenido de cada carpeta asiganda
 */
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import React, { useContext, useEffect, useState } from "react"
 import "../css/card.css"
-import Options from "./options"
-import { Archive } from "react-bootstrap-icons"
+import CardImg from "./cards/cardImg"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from "../context/useToast"
 import { carpertaActual, DataFetchArchives, SubcarpetFecth } from "./api/fetchApi"
-import Preview from "./previewArchive"
+import CardFolder from "./cards/cardFolder"
 
 interface Props {
     update: number,
@@ -62,6 +61,8 @@ const Carpeta: React.FC<Props> = (Props) => {
                 <div className="card-content">
                     {content.map(detail => {
                         return (
+                            <CardFolder key={detail._id} name={detail.name} _id={detail._id} refresh={refresPage} idPreview={refresPage} />
+                            /*
                             <div className="card img" key={detail._id}>
                                 <Link onClick={refresPage} className="view-img" to={"/carpeta/" + detail._id}>
                                     <div className="carpert-card">
@@ -73,21 +74,13 @@ const Carpeta: React.FC<Props> = (Props) => {
                                     <div className="title-name"></div>
                                     <Options refresh={refresPage} id={detail._id} name={detail.name} type={"carpet"} />
                                 </div>
-                            </div>
+                            </div>*/
                         )
                     })}
                     {archives.map((a: any) => {
-                        return (
-                            <div key={a._id} className="card img">
-                                <div className="view-img">
-                                    <Preview type={a.type} nombre={a.name} Id={a._id} ></Preview>
-                                </div>
-                                <div className="descript">
-                                    <div className="title-name">{a.name}</div>
-                                    <Options refresh={refresPage} id={a._id} name={a.name} type={"archive"} />
-                                </div>
-                            </div>
-                        )
+                        return(
+                            <CardImg key={a._id} type={a.type} name={a.name} refreshPages={refresPage} _id={a._id} />
+                        )                       
                     })}
                 </div>
             </div>

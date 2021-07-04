@@ -1,5 +1,5 @@
 import React, { } from "react";
-import Nav from "../Nav";
+import Nav from "../nav/Nav";
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from "@testing-library/react";

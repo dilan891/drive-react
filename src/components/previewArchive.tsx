@@ -22,19 +22,19 @@ const Preview: React.FC<Props> = (Props) => {
             )
         case "document":
             return (
-                <div>
+                <div onClick={openFiles}>
                     <img src="./iconPreview/icon-document.png" alt="icono de documento" width={"200px"} height={"160px"} />
                 </div>
             )
         case "exe":
             return (
-                <div>
+                <div onClick={openFiles}>
                     <img src="./iconPreview/icon-exe.png" alt="icono de documento" width={"200px"} height={"160px"} />
                 </div>
             )
         default:
             return (
-                <div>
+                <div onClick={openFiles}>
                     <img src="" alt="icono de archivo" />
                 </div>
             )

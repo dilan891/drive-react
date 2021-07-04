@@ -135,4 +135,24 @@ export const openFile  = (id:String, name:string): any =>{
         window.open(file)
         //window.location.assign(file);   
     })
+    .catch(err => console.log(err));
+}
+
+export const changeNameArchive = (id: string, handleName: string,type: string): any => {
+    return fetch(ip + "/api/putarchive", {
+      method: "PUT",
+      body: JSON.stringify({ id: id, newName: handleName, type: type }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(data => data.json())
+      .then(data => {
+          if (data.message !== "error") {
+              return true;
+          }
+          else {return false;}
+      })
+      .catch(e=> {
+          return false;
+      })
 }

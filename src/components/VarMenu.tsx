@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PreviusButton from './previusButton';
+import PreviusButton from './nav/backButton';
 import { ArrowBarUp } from "react-bootstrap-icons"
 
 interface Props {

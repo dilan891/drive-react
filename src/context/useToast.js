@@ -50,11 +50,12 @@ const UseToast = (props) => {
                     ...state,
                     update: state.update + 1
                 }
-            case "previusDelete":
+            case "previusDelete":  
                 return {
                     ...state,
-                    previus: state.previus.slice(state.previus - 1, 1)
+                    //previus: state.previus.slice(state.previus.lenght - 1, 1)              
                 }
+                
             default:
                 throw new Error();
         }
@@ -96,10 +97,11 @@ const UseToast = (props) => {
         })
     }
 
-    const previusDelete = () => {
-        dispatch({
+    const previusDelete = async() => {
+        await dispatch({
             type: "previusDelete"
         })
+        state.previus.pop()
     };
 
     const updater = () => {

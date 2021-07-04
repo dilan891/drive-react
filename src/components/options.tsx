@@ -6,7 +6,7 @@ import {
 import { Gear } from "react-bootstrap-icons"
 import { Menu } from "../context/useMenuSelect";
 import { ToastsContext } from '../context/useToast';
-import { deleteArchive, Descargas } from './api/fetchApi';
+import { changeNameArchive, deleteArchive, Descargas } from './api/fetchApi';
 
 interface Props{
   name: string,
@@ -30,17 +30,12 @@ const Options:React.FC<Props> = (Props) => {
     activeteSelect(Props.id, Props.name)
   }
 
-  const submitChangeName = (e:any) => {
-    fetch("http://192.168.20.203:4000/api/putarchive", {
-      method: "PUT",
-      body: JSON.stringify({ id: Props.id, newName: handleName, type: Props.type }),
-      headers: {
-        "Content-type": "application/json"
-      }
-    }).then(data => data.json())
-      .then(data => console.log(data))
+  const submitChangeName = async (e:any) => {
+    var changeF:boolean = await changeNameArchive(Props.id,handleName,Props.type)
+    if(changeF === true) {
+      Props.refresh()
+    }else {failToast()}
     setNameChange(!nameChange)
-    Props.refresh()
     e.preventDefault()
   }
 
@@ -53,7 +48,7 @@ const Options:React.FC<Props> = (Props) => {
     (info)?Props.refresh():failToast();
   }
 
-  const updateName = () => {
+  const updateNameModal = () => {
     setNameChange(!nameChange);
   }
 
@@ -99,7 +94,7 @@ const Options:React.FC<Props> = (Props) => {
           }}
         >
           <DropdownItem onClick={deleteA}>Eliminar</DropdownItem>
-          <DropdownItem onClick={updateName}>Cambiar nombre</DropdownItem>
+          <DropdownItem onClick={updateNameModal}>Cambiar nombre</DropdownItem>
           <DropdownItem onClick={handlemove}>Mover a otra carpeta</DropdownItem>
           <TypeOptions />
         </DropdownMenu>
@@ -114,7 +109,7 @@ const Options:React.FC<Props> = (Props) => {
           </ModalBody>
           <ModalFooter>
             <button className="">submit</button>
-            <button type="button" className="cancel" onClick={updateName}>Cancelar</button>
+            <button type="button" className="cancel" onClick={updateNameModal}>Cancelar</button>
           </ModalFooter>
         </form>
       </Modal>

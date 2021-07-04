@@ -1,4 +1,4 @@
-import Nav from "./components/Nav";
+import Nav from "./components/nav/Nav";
 import "./css/app.css";
 import React from "react"
 import Article from "./components/article"

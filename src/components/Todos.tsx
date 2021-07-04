@@ -2,13 +2,11 @@
     Este componente muestra todas las carpetas y archivos no asignados a ninguna carpeta
 */
 import "../css/card.css";
-import { Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
-import Options from "./options";
-import { Archive } from "react-bootstrap-icons";
 import { DataFetch, DataFetchArchives } from "./api/fetchApi"
 import { ToastsContext } from "../context/useToast"
-import Preview from "./previewArchive";
+import CardFolder from "./cards/cardFolder";
+import CardImg from "./cards/cardImg";
 
 interface props {
     setID: (id: string) => void
@@ -23,7 +21,7 @@ const Todos: React.FC<props> = (props) => {
     const [archives, setarchives] = useState<{ name: string, _id: string, type: string }[]>([])//guarda un objeto con los detalles de cada archivo
     const [refresh, setrefresh] = useState(0)
 
-    const refreshData = () => {  //refresca la pagina por cada actualizacion de datos
+    const refreshData = ():void => {  //refresca la pagina por cada actualizacion de datos
         setrefresh(refresh + 1)
     }
 
@@ -53,31 +51,13 @@ const Todos: React.FC<props> = (props) => {
             <div className="card-content">
                 {carpets.map(c => {
                     return (
-                        <div key={c._id} className="card img" >
-                            <Link onClick={idPreview} className="view-img" to={"/carpeta/" + c._id}>
-                                <div className="carpert-card">
-                                    <Archive size={50} className="carpet-icon" />
-                                    <h2>{c.name}</h2>
-                                </div>
-                            </Link>
-                            <div className="descript">
-                                <div className="title-name"></div>
-                                <Options refresh={refreshData} id={c._id} name={c.name} type={"carpet"} />
-                            </div>
-                        </div>
+                        <CardFolder key={c._id} _id={c._id} name={c.name} idPreview={idPreview}
+                        refresh={refreshData}  />
                     )
                 })}
                 {archives.map(i => {
                     return (
-                        <div key={i._id} className="card img">
-                            <div  className="view-img">
-                                <Preview type={i.type} nombre={i.name} Id={i._id} ></Preview>
-                            </div>
-                            <div className="descript">
-                                <div className="title-name">{i.name}</div>
-                                <Options refresh={refreshData} id={i._id} name={i.name} type={"archive"} />
-                            </div>
-                        </div>
+                        <CardImg key={i._id} type={i.type} name={i.name} refreshPages={refreshData} _id={i._id} />
                     )
                 })}
             </div>
