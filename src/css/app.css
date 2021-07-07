@@ -27,7 +27,7 @@ html{
     height: 100%;
     width: 100%;
     display: flex;
-    background-color: yellow;
+
     justify-content: center;
     align-items: center;
 }
@@ -98,6 +98,7 @@ html{
     border-radius: 6px;
     border: none;
     height: 28px;
+    opacity: 1;
 }
 
 .button-user:hover{
@@ -108,4 +109,10 @@ h2{
     color: white;
     align-self: center;
     margin-top: -10px;
+}
+
+.img-background{
+    position: absolute;
+    height : 100%;
+    width : 100%;
 }

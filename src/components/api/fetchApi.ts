@@ -1,5 +1,6 @@
-const ip: string = "http://192.168.20.203:4000"
-
+// ip del servidor que contiene el backend
+const ip: string = "http://192.168.20.203:4000";
+let token: string= "JWT " 
 export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
     newCarpet = { name: nameC, _id: "none", carpet: idC };
@@ -125,4 +126,42 @@ export const carpertaActual = (id: string): Promise<string> => {
         .then(data => data.json())
         .then(data => { return data[0].name }) //pasa el nombre y el id de la carpeta abierta para la funcion de seleccion
         .catch(e => { console.log(e) });
+}
+
+export const loginRequest = (user: string,password: string) => {
+    fetch(ip + "/api/login",{
+        method: "POST",
+        body: JSON.stringify({username: user,password: password}),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    .then(data => data.json())
+    .then(data => {
+       if (data.login){
+           console.log(data.user + " token:" + data.token) 
+           token = "Bearer " + data.token
+           localStorage.setItem("jwtToken", token)
+       }
+       else{
+           console.log("contraseña incorrecta")
+       }      
+    })
+    .catch(e => {
+        console.log(e)
+    })
+}
+
+export const prueba = ()=>{ 
+    fetch(ip + "/api/test",{
+        method: "GET",
+       
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": token 
+        }
+    })
+    .then(data => data.json())
+    .then(data => console.log(data))
+    .catch(e => console.log(e))
 }

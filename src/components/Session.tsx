@@ -1,10 +1,29 @@
-import React from "react";
+import React,{useState} from "react";
+import backImg from "../assets/img/nube.png";
+import { loginRequest,prueba } from "./api/fetchApi";
 
+// componente login 
 const AuthentificationHud: React.FC = () => {
+    const [username,setUsername] = useState<any>("");
+    const [ password,setPassword] = useState<any>("");
+
+    const HandlerChangeUser = (e: any):void => {
+        setUsername(e.target.value);
+    }
+
+    const HandlerPassword = (e: any):void => {
+        setPassword(e.target.value);
+    }
+
+    const loginSubmit = (e: any) => {
+        loginRequest(username, password);
+        e.preventDefault();
+    }
 
     return (
-        <div className="form-content">
-            <form className="Data ">
+        <div className="form-content" >
+            <img src={backImg} className="img-background" alt="background" />
+            <form className="Data" onSubmit={loginSubmit} >
                 <h2>Drive</h2>
                 <label className="title-Seccion">Inicia Seccion</label>
                 <label className="user-title">Usuario:</label>
@@ -15,7 +34,7 @@ const AuthentificationHud: React.FC = () => {
                             <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </div>
-                    <input type="text" placeholder="Usuario" className="input-form" /> 
+                    <input type="text" placeholder="Usuario" onChange={HandlerChangeUser} value={username} className="input-form" /> 
                 </div>
                 <label className="user-title">Contraseña:</label>
                 <div className="barra">
@@ -24,9 +43,10 @@ const AuthentificationHud: React.FC = () => {
                             <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
                         </svg>
                     </div>
-                    <input type="password" placeholder="Contraseña" className="input-form" />
+                    <input type="password" onChange={HandlerPassword} value={password} placeholder="Contraseña" className="input-form" />
                 </div> 
-                <button type="button" className="button-user">Iniciar session</button>
+                <button type="submit" className="button-user">Iniciar session</button>
+                <button type="button" className="normal" onClick={prueba} >Test</button>
             </form>
         </div>
     )
