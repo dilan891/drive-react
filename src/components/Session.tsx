@@ -1,51 +1,148 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import backImg from "../assets/img/nube.png";
-import { loginRequest,prueba } from "./api/fetchApi";
+import { loginRequest, prueba } from "./api/fetchApi";
+import { Redirect } from "react-router-dom"
+import { Button, Modal, ModalBody } from "reactstrap"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // componente login 
 const AuthentificationHud: React.FC = () => {
-    const [username,setUsername] = useState<any>("");
-    const [ password,setPassword] = useState<any>("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordError, setPasswordError] = useState<any>("hidden");
+    const [modal, setModal] = useState(false)
 
-    const HandlerChangeUser = (e: any):void => {
+    //estados de registro de usuario
+    //const [usernameRegister,setUsernameRegister] = useState("")
+    //const [passwordRegister,setPasswordRegister] = useState("")
+    const [passwordRegister2, setPasswordRegister2] = useState("")
+    //const [emailRegister,setEmailRegister] = useState("");
+    // const [numberRegister,setNumberRegister] = useState("")
+    const [registerForm, setRegisterForm] = useState({ username: "", password: "", email: "", number: "",nombre: "" })
+
+    const HandlerChangeUser = (e: any): void => {
         setUsername(e.target.value);
     }
 
-    const HandlerPassword = (e: any):void => {
+    const HandlerPassword = (e: any): void => {
         setPassword(e.target.value);
     }
 
-    const loginSubmit = (e: any) => {
-        loginRequest(username, password);
+    const toggle = () => setModal(!modal);
+
+    const registerSubmit = (e: any) => {
         e.preventDefault();
+    }
+
+    const handlerRegister = (e: any): void => {
+        setRegisterForm({
+            ...registerForm,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handlerPassword2 = (e: any): void => {
+        setPasswordRegister2(e.target.value)
+    }
+
+    const loginSubmit = async (e: any) => {
+        e.preventDefault();
+        let isLogin = await loginRequest(username, password);
+        (isLogin === true) ? <Redirect to="/Todos" /> : setPasswordError("visible");
     }
 
     return (
         <div className="form-content" >
+            <Modal isOpen={modal} toggle={toggle} >
+                <form className="form-register" onSubmit={registerSubmit}>
+                    <ModalBody style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div>
+                            <h1>Registrate</h1>
+                        </div>
+                        <div className="inputs-regsiter">
+                            <div>
+                                <div className="input-name">
+                                   Usuario: 
+                                </div>
+                                <div className="input-deck">
+                                    <input type="text" className="input-register" name="username" value={registerForm.username} onChange={handlerRegister}/>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="input-name">
+                                   Nombre: 
+                                </div>
+                                <div className="input-deck">
+                                    <input type="text" className="input-register" name="nombre" value={registerForm.nombre} onChange={handlerRegister}/>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="input-name">
+                                   Contraseña: 
+                                </div>
+                                <div className="input-deck">
+                                    <input type="text" className="input-register" name="password" value={registerForm.password} onChange={handlerRegister}/>
+                                </div>
+                            </div>
+                            <div>
+                            <div className="input-name">
+                                   Repita contraseña: 
+                                </div>
+                                <div className="input-deck">
+                                <input type="text" className="input-register" value={passwordRegister2} onChange={handlerPassword2}/>
+                                </div>
+                            </div>
+                            <div>
+                            <div className="input-name">
+                                   Email: 
+                                </div>
+                                <div className="input-deck">
+                                <input type="text" className="input-register" name="email" value={registerForm.email} onChange={handlerRegister}/>
+                                </div>
+                            </div>
+                            <div>
+                            <div className="input-name">
+                                   Numero de telefono: 
+                                </div>
+                                <div className="input-deck">
+                                <input type="text" className="input-register" name="number" value={registerForm.number} onChange={handlerRegister}/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit">Registrarse</button>
+                        <button type="button" onClick={toggle}>Cancelar</button>
+                    </ModalBody>
+                </form>
+            </Modal>
             <img src={backImg} className="img-background" alt="background" />
             <form className="Data" onSubmit={loginSubmit} >
                 <h2>Drive</h2>
                 <label className="title-Seccion">Inicia Seccion</label>
+                <div className="error-login" style={{ visibility: passwordError, color: "red" }}>usuario o contraseña incorrecta</div>
                 <label className="user-title">Usuario:</label>
                 <div className="barra">
                     <div className="icon-form">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-file-person svg-user" viewBox="0 0 16 16">
-                            <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
-                            <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                            <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                         </svg>
                     </div>
-                    <input type="text" placeholder="Usuario" onChange={HandlerChangeUser} value={username} className="input-form" /> 
+                    <input type="text" placeholder="Usuario" onChange={HandlerChangeUser} value={username} className="input-form" />
                 </div>
                 <label className="user-title">Contraseña:</label>
                 <div className="barra">
                     <div className="icon-form">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-unlock-fill svg-user" viewBox="0 0 16 16">
-                            <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                            <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z" />
                         </svg>
                     </div>
                     <input type="password" onChange={HandlerPassword} value={password} placeholder="Contraseña" className="input-form" />
-                </div> 
+                </div>
                 <button type="submit" className="button-user">Iniciar session</button>
+                <button type="button" className="button-user" onClick={toggle}>Registrarse</button>
                 <button type="button" className="normal" onClick={prueba} >Test</button>
             </form>
         </div>

@@ -7,7 +7,6 @@ import React from "react"
 //import { UseToast } from "./context/useToast"
 import AuthentificationHud from "./components/Session";
 
-
 const App: React.FC = () => {
 
   return (

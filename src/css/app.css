@@ -27,7 +27,6 @@ html{
     height: 100%;
     width: 100%;
     display: flex;
-
     justify-content: center;
     align-items: center;
 }
@@ -37,10 +36,10 @@ html{
     flex-direction: column;
     padding: 20px;
     background-color: black;
-    width: 325px;
+    width: 360px;
     justify-content: center;
     border-radius: 5px;
-    height: 350px;
+    height: 390px;
     opacity: 0.8;
 }
 
@@ -93,7 +92,7 @@ html{
 }
 
 .button-user{
-    margin-top: 20px;
+    margin-top: 5px;
     background-color: green;
     border-radius: 6px;
     border: none;
@@ -115,4 +114,41 @@ h2{
     position: absolute;
     height : 100%;
     width : 100%;
+}
+
+.error-login{
+    color: red;
+    font-size: 20px;
+    font-style: oblique;
+    margin-left: 25px;
+}
+
+.form-register{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputs-regsiter{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-register{
+    width: 100%;
+    margin-bottom: 20px;
+    height: 30px;
+    display: flex;
+}
+
+.input-name{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.input-deck{
+    display: flex;
+    flex-direction: row;
 }
