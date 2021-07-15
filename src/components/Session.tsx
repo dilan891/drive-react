@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import backImg from "../assets/img/nube.png";
 import { loginRequest, prueba } from "./api/fetchApi";
 import { Redirect } from "react-router-dom"
-import { Button, Modal, ModalBody } from "reactstrap"
+import {  Modal, ModalBody } from "reactstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

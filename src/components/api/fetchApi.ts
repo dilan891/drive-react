@@ -6,6 +6,10 @@ const headersObj = {
     "Authorization": token 
 }
 
+const getToken = () =>{
+    token = localStorage.getItem("jwtToken")
+}
+
 export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
     newCarpet = { name: nameC, _id: "none", carpet: idC };
@@ -137,6 +141,8 @@ export const carpertaActual = (id: string): Promise<string> => {
 export const loginRequest = (user: string,password: string) => {
     return fetch(ip + "/api/login",{
         method: "POST",
+        mode: "cors",
+        credentials: "include",// Don't forget to specify this if you need cookies
         body: JSON.stringify({username: user,password: password}),
         headers: {
             "Content-Type": "application/json",
@@ -146,6 +152,7 @@ export const loginRequest = (user: string,password: string) => {
     .then(data => {
        if (data.login){
            console.log("inciio")
+           console.log(data.token)
            token = "Bearer " + data.token
            localStorage.setItem("jwtToken", token)
            return true
@@ -162,6 +169,7 @@ export const loginRequest = (user: string,password: string) => {
 }
 
 export const prueba = ()=>{ 
+    getToken()
     fetch(ip + "/api/test",{
         method: "GET",
         headers: headersObj
