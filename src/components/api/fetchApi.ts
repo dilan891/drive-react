@@ -192,4 +192,8 @@ export const isUserVerification = (user: string) =>{
             return false;
         }
     })
+    .catch(e => {
+        console.log(e)
+        return false;
+    })
 }
