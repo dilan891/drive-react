@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import backImg from "../assets/img/nube.png";
-import { loginRequest, prueba } from "./api/fetchApi";
+import { loginRequest, prueba } from "../api/fetchApi";
 import { Redirect } from "react-router-dom"
+import { validar } from "./formvalidation"
 import {  Modal, ModalBody } from "reactstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -50,6 +51,15 @@ const AuthentificationHud: React.FC = () => {
         e.preventDefault();
         let isLogin = await loginRequest(username, password);
         (isLogin === true) ? <Redirect to="/Todos" /> : setPasswordError("visible");
+    }
+
+    const registrar = () =>{
+        if (validar(registerForm,passwordRegister2)){
+            //fetch datos
+        }
+        else{
+            //mostrar error
+        }
     }
 
     return (
@@ -112,7 +122,7 @@ const AuthentificationHud: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit">Registrarse</button>
+                        <button type="submit" onClick={registrar}>Registrarse</button>
                         <button type="button" onClick={toggle}>Cancelar</button>
                     </ModalBody>
                 </form>

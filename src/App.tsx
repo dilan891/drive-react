@@ -5,7 +5,7 @@ import React from "react"
 //import { BrowserRouter as Router, } from "react-router-dom";
 //import { UseMenuSelect } from "./context/useMenuSelect";
 //import { UseToast } from "./context/useToast"
-import AuthentificationHud from "./components/Session";
+import AuthentificationHud from "./components/authentificacion/Session";
 
 const App: React.FC = () => {
 

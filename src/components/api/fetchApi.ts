@@ -178,3 +178,18 @@ export const prueba = ()=>{
     .then(data => console.log(data))
     .catch(e => console.log(e))
 }
+
+export const isUserVerification = (user: string) =>{
+    return fetch(ip + "/api/users/" + user,{
+        method: "GET"
+    })
+    .then(data => data.json())
+    .then(data => { 
+        if(data.isUser){
+            return true;
+        }
+        else{
+            return false;
+        }
+    })
+}
