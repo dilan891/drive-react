@@ -185,12 +185,7 @@ export const isUserVerification = (user: string) =>{
     })
     .then(data => data.json())
     .then(data => { 
-        if(data.isUser){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return data.isUser
     })
     .catch(e => {
         console.log(e)

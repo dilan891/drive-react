@@ -123,6 +123,15 @@ h2{
     margin-left: 25px;
 }
 
+.error-form-register{
+    width: 100%;
+    margin-bottom: 20px;
+    height: 30px;
+    display: flex;
+    border-radius: 10px;
+    border: 2px solid red;
+}
+
 .form-register{
     display: flex;
     align-items: center;
@@ -139,6 +148,12 @@ h2{
     margin-bottom: 20px;
     height: 30px;
     display: flex;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.input-register:focus, .error-form-register:focus{
+    outline: none;
 }
 
 .input-name{

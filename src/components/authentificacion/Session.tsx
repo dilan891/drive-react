@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import backImg from "../assets/img/nube.png";
+//import backImg from "../assets/img/nube.png";
 import { loginRequest, prueba } from "../api/fetchApi";
 import { Redirect } from "react-router-dom"
-import { validar } from "./formvalidation"
+import { Validation } from "./formvalidation"
 import {  Modal, ModalBody } from "reactstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,11 +15,7 @@ const AuthentificationHud: React.FC = () => {
     const [modal, setModal] = useState(false)
 
     //estados de registro de usuario
-    //const [usernameRegister,setUsernameRegister] = useState("")
-    //const [passwordRegister,setPasswordRegister] = useState("")
     const [passwordRegister2, setPasswordRegister2] = useState("")
-    //const [emailRegister,setEmailRegister] = useState("");
-    // const [numberRegister,setNumberRegister] = useState("")
     const [registerForm, setRegisterForm] = useState({ username: "", password: "", email: "", number: "",nombre: "" })
 
     const HandlerChangeUser = (e: any): void => {
@@ -53,12 +49,29 @@ const AuthentificationHud: React.FC = () => {
         (isLogin === true) ? <Redirect to="/Todos" /> : setPasswordError("visible");
     }
 
-    const registrar = () =>{
-        if (validar(registerForm,passwordRegister2)){
+    const registrar = async() =>{
+        const validation = new Validation(registerForm,passwordRegister2)
+        const validateAll = await validation.validarAll()
+        if (validateAll === true) {
             //fetch datos
         }
         else{
             //mostrar error
+            const errores = validation.viewError()
+            console.log(errores)
+            const inputs:any = document.querySelectorAll(".error-form-register")
+            if(inputs !== null){
+                inputs.forEach((a: { classList: { add: (arg0: string) => void; remove: (arg0: string) => void; }; }) =>{
+                    a.classList.add("input-register")
+                    a.classList.remove("error-form-register")
+                })
+            }
+            errores.forEach(e =>{
+                const input: any= document.querySelector(".error" + e)
+                input.classList.remove("input-register")
+                input.classList.add("error-form-register")
+                console.log(validation.errorName(e))
+            })
         }
     }
 
@@ -76,7 +89,7 @@ const AuthentificationHud: React.FC = () => {
                                    Usuario: 
                                 </div>
                                 <div className="input-deck">
-                                    <input type="text" className="input-register" name="username" value={registerForm.username} onChange={handlerRegister}/>
+                                    <input type="text" className="error3 input-register" name="username" value={registerForm.username} onChange={handlerRegister}/>
                                     <div></div>
                                 </div>
                             </div>
@@ -85,7 +98,7 @@ const AuthentificationHud: React.FC = () => {
                                    Nombre: 
                                 </div>
                                 <div className="input-deck">
-                                    <input type="text" className="input-register" name="nombre" value={registerForm.nombre} onChange={handlerRegister}/>
+                                    <input type="text" className="error6 input-register" name="nombre" value={registerForm.nombre} onChange={handlerRegister}/>
                                     <div></div>
                                 </div>
                             </div>
@@ -94,7 +107,7 @@ const AuthentificationHud: React.FC = () => {
                                    Contraseña: 
                                 </div>
                                 <div className="input-deck">
-                                    <input type="text" className="input-register" name="password" value={registerForm.password} onChange={handlerRegister}/>
+                                    <input type="text" className="error2 input-register" name="password" value={registerForm.password} onChange={handlerRegister}/>
                                 </div>
                             </div>
                             <div>
@@ -102,7 +115,7 @@ const AuthentificationHud: React.FC = () => {
                                    Repita contraseña: 
                                 </div>
                                 <div className="input-deck">
-                                <input type="text" className="input-register" value={passwordRegister2} onChange={handlerPassword2}/>
+                                <input type="text" className="error1 input-register" value={passwordRegister2} onChange={handlerPassword2}/>
                                 </div>
                             </div>
                             <div>
@@ -110,7 +123,7 @@ const AuthentificationHud: React.FC = () => {
                                    Email: 
                                 </div>
                                 <div className="input-deck">
-                                <input type="text" className="input-register" name="email" value={registerForm.email} onChange={handlerRegister}/>
+                                <input type="text" className="error4 input-register" name="email" value={registerForm.email} onChange={handlerRegister}/>
                                 </div>
                             </div>
                             <div>
@@ -118,7 +131,7 @@ const AuthentificationHud: React.FC = () => {
                                    Numero de telefono: 
                                 </div>
                                 <div className="input-deck">
-                                <input type="text" className="input-register" name="number" value={registerForm.number} onChange={handlerRegister}/>
+                                <input type="text" className="error5 input-register" name="number" value={registerForm.number} onChange={handlerRegister}/>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +140,7 @@ const AuthentificationHud: React.FC = () => {
                     </ModalBody>
                 </form>
             </Modal>
-            <img src={backImg} className="img-background" alt="background" />
+            <img  className="img-background" alt="background" />
             <form className="Data" onSubmit={loginSubmit} >
                 <h2>Drive</h2>
                 <label className="title-Seccion">Inicia Seccion</label>

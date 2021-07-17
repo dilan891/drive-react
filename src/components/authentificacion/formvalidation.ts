@@ -8,67 +8,107 @@ interface formData{
     nombre: string,
 }
 
-/*
-    error 1 contraseñas no coinciden
-    error 2 contraseña no puede contener caracteres como " "
-    error 3 usuario ya registrado
-    error 4 email no valido
-    error 5 numero no valido
-    error 6 el nombre no puede contenet letras o caracteres especiales
-*/ 
+export class Validation {
 
-export const validar = (datos: formData,password2: string):boolean=>{
-    let errores = [];
-    if(!comparePassword(datos.password,password2)){
-        errores.push(1)
-    }
-    if (!passwordVerification(datos.password)){
-        errores.push(2)
-    }
-    if(userVerification(datos.username)){
-        errores.push(3)
-    }
-    if(!emailVerification(datos.email)){
-        errores.push(4)
-    }
-    if(!numberVerification(datos.number)){
-        errores.push(5)
-    }
-    return true
-} 
+    datos: formData;
+    password2: string;
+    errores: number[];
 
-const comparePassword = (pass1: string,pass2: string):boolean =>{
-    if(pass1 === pass2) return true;
-    else return false;
-}
+    constructor(datos: formData,password2: string){
+        this.datos = datos;
+        this.password2 = password2;
+        this.errores = []
+    }
 
-const passwordVerification = (pass: string) =>{
-    if(pass.indexOf(" ") === -1){
-        console.log("no puede contener espacios en blanco")
-        return false;
+    validarAll = async ():Promise<boolean> => {
+        this.comparePassword()
+        this.passwordVerification()
+        await this.userVerification()
+        this.emailVerification()
+        this.numberVerification()
+        if(this.errores.length > 0){
+            return false
+        }
+        else{
+            return true
+        }
+    } 
+
+    comparePassword = ():boolean =>{
+        if(this.datos.password === this.password2) return true;
+        else {
+            this.errores.push(1)
+            return false
+        };
+    }
+
+    passwordVerification = () =>{
+        if(this.datos.password.indexOf(" ") !== -1){
+            this.errores.push(2)
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    userVerification = async():Promise<boolean> => {
+        const user =  await isUserVerification(this.datos.username);
+        !user?this.errores.push(3):console.log("");
+        return user;
+    }
+
+    emailVerification = ()=>{
+        const re = /^([\da-z_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
+        (!re.exec(this.datos.email))?this.errores.push(4):console.log("");
+    	return re.exec(this.datos.email);
+    }
+
+    numberVerification = () =>{
+        if( !(/^\d{11}$/.test(this.datos.number))){
+            this.errores.push(5)
+            return false
+        }
+        else{
+            return true;
+        }
+    }
+    /*
+    nameVerification = (name: string) =>{
+        const array = name.split("");
+        array.includes("")
+    }
+    */
+
+    viewError = () =>{
+    /*
+        error 1 contraseñas no coinciden
+        error 2 contraseña no puede contener caracteres como " "
+        error 3 usuario ya registrado
+        error 4 email no valido
+        error 5 numero no valido
+        error 6 el nombre no puede contenet letras o caracteres especiales
+    */ 
+        return this.errores;
+    }
+
+    //devuelve la descripcion del error que pase
+    errorName = (errorCode: number):string=>{
+        switch(errorCode){
+            case 1: 
+                return "contraseña no coincide"
+            case 2: 
+                return "contraseña no puede contener caracteres como espacios en blanco"
+            case 3: 
+                return "usuario ya registrado"
+            case 4: 
+                return "email no valido"
+            case 5: 
+                return "numero no valido"
+            case 6: 
+                return "el nombre no puede contenet letras o caracteres especiales"
+            default: 
+                return "codigo no valido"
+        }
     }
 }
-
-const userVerification = (username: string):Promise<boolean> => {
-    return isUserVerification(username)
-}
-
-const emailVerification = (email: string)=>{
-    const re = /^([\da-z_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
-	return re.exec(email);
-}
-
-const numberVerification = (number: string) =>{
-    if(number.length > 15 || isNaN(parseInt(number)) === true){
-        return false
-    }
-    else{
-        return true;
-    }
-}
-/*
-const nameVerification = (name: string) =>{
-    const array = name.split("");
-    array.includes("")
-}
-*/
