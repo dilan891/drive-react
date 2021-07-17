@@ -1,14 +1,17 @@
 // ip del servidor que contiene el backend
 const ip: string = "http://192.168.20.203:4000";
 let token:any = localStorage.getItem("jwtToken")
-const headersObj = { 
-    "content-type": "application/json",
-    "Authorization": token 
+
+const getHeaderAuth = () =>{
+    token = localStorage.getItem("jwtToken")
+    let headers = { 
+        "content-type": "application/json",
+        "Authorization": token
+    }
+    return headers
 }
 
-const getToken = () =>{
-    token = localStorage.getItem("jwtToken")
-}
+
 
 export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => {
     let newCarpet;
@@ -16,7 +19,7 @@ export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => 
     return fetch(ip + "/api/carpets", {
         method: "POST",
         body: JSON.stringify(newCarpet),
-        headers: headersObj
+        headers: getHeaderAuth()
     }).then(data => data.json())
         .then(data => { return newCarpet = data })
         .catch(e => { return newCarpet = null })
@@ -29,7 +32,7 @@ export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => { 
     return fetch(ip + "/api/fileUpload", {
         method: "POST",
         body: formData,
-        headers: headersObj
+        headers: getHeaderAuth()
     }).then(data => data.json())
         .then(data => {
             return true
@@ -42,7 +45,7 @@ export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => { 
 
 export const DataFetch = (): Promise<any> => {  //recoge los datos de todas las carpetas guardadas
     return fetch(ip + "/api/carpets",{
-        headers: headersObj
+        headers: getHeaderAuth()
     })
         .then(data => data.json())
         .then(data => {
@@ -58,7 +61,7 @@ export const DataFetchArchives = (id: string = "none"): Promise<any> => {
     return fetch(ip + "/api/archives", {
         method: "POST",
         body: JSON.stringify({ id: id }),
-        headers: headersObj
+        headers: getHeaderAuth()
     })
         .then(data => data.json())
         .then(data => {
@@ -74,7 +77,7 @@ export const moveFetch = (datos: object): Promise<boolean> => {
     return fetch(ip + "/api/move", {
         method: "PUT",
         body: JSON.stringify(datos),
-        headers: headersObj
+        headers: getHeaderAuth()
     }).then(data => data.json())
         .then(data => true)
         .catch(e => {
@@ -85,7 +88,7 @@ export const moveFetch = (datos: object): Promise<boolean> => {
 
 export const SubcarpetFecth = (id: string): Promise<any> => {
     return fetch(ip + "/api/subcarpet/" + id,{
-        headers: headersObj
+        headers: getHeaderAuth()
     })
         .then(data => data.json())
         .then(info => {
@@ -103,7 +106,7 @@ export const deleteArchive = (id: string, name: string, type: any) => {
     return fetch(ip + "/api/archivedel", {
         method: "DELETE",
         body: JSON.stringify({ id: id, name: name, type: type }),
-        headers: headersObj
+        headers: getHeaderAuth()
     }).then(data => data.json())
         .then(() => { return true })
         .catch(e => {
@@ -114,7 +117,7 @@ export const deleteArchive = (id: string, name: string, type: any) => {
 
 export const Descargas = (id: string, name: string): Promise<void> => {
     return fetch(ip + "/api/descargas" + id,{
-        headers: headersObj
+        headers: getHeaderAuth()
     })
         .then(data => data.blob())
         .then(data => {  //descarga el elemento enviado
@@ -131,7 +134,7 @@ export const Descargas = (id: string, name: string): Promise<void> => {
 
 export const carpertaActual = (id: string): Promise<string> => {
     return fetch(ip + "/api/carpertid/" + id,{
-        headers: headersObj
+        headers: getHeaderAuth()
     })
         .then(data => data.json())
         .then(data => { return data[0].name }) //pasa el nombre y el id de la carpeta abierta para la funcion de seleccion
@@ -152,8 +155,8 @@ export const loginRequest = (user: string,password: string) => {
     .then(data => {
        if (data.login){
            console.log("inciio")
+           token = data.token
            console.log(data.token)
-           token = "Bearer " + data.token
            localStorage.setItem("jwtToken", token)
            return true
        }
@@ -169,10 +172,9 @@ export const loginRequest = (user: string,password: string) => {
 }
 
 export const prueba = ()=>{ 
-    getToken()
     fetch(ip + "/api/test",{
         method: "GET",
-        headers: headersObj
+        headers: getHeaderAuth()
     })
     .then(data => data.json())
     .then(data => console.log(data))
@@ -192,3 +194,27 @@ export const isUserVerification = (user: string) =>{
         return false;
     })
 }
+
+interface formData{
+    username: string,
+    password: string,
+    email: string,
+    number: string,
+    nombre: string,
+}
+
+export const registerNewUser = (data: formData) => {
+    return fetch(ip + "/api/register",{
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "content-type": "application/json"
+        }
+    }).then(data => data.json())
+    .then(data => { 
+        console.log("exito: " + data.exito)
+    })
+    .catch(e => {
+        console.log(e)
+    })
+}   

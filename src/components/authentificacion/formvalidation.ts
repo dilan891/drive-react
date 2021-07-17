@@ -26,6 +26,7 @@ export class Validation {
         await this.userVerification()
         this.emailVerification()
         this.numberVerification()
+        this.nameVerification()
         if(this.errores.length > 0){
             return false
         }
@@ -43,7 +44,7 @@ export class Validation {
     }
 
     passwordVerification = () =>{
-        if(this.datos.password.indexOf(" ") !== -1){
+        if(this.datos.password.indexOf(" ") !== -1|| this.datos.password === ""){
             this.errores.push(2)
             return false;
         }
@@ -54,6 +55,7 @@ export class Validation {
 
     userVerification = async():Promise<boolean> => {
         const user =  await isUserVerification(this.datos.username);
+        console.log("ejecutando user verificacion")
         !user?this.errores.push(3):console.log("");
         return user;
     }
@@ -73,12 +75,18 @@ export class Validation {
             return true;
         }
     }
-    /*
-    nameVerification = (name: string) =>{
-        const array = name.split("");
-        array.includes("")
+    //colocar verificacion de simbolos especiales
+    nameVerification = () =>{
+        const name = this.datos.nombre;
+        if(name === ""){
+            this.errores.push(6)
+            return false
+        }
+        else{
+            return true;
+        }
     }
-    */
+    
 
     viewError = () =>{
     /*
@@ -106,7 +114,7 @@ export class Validation {
             case 5: 
                 return "numero no valido"
             case 6: 
-                return "el nombre no puede contenet letras o caracteres especiales"
+                return "el nombre no puede contenet letras o caracteres especiales ni estar en blanco"
             default: 
                 return "codigo no valido"
         }

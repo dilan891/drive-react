@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import backImg from "../assets/img/nube.png";
-import { loginRequest, prueba } from "../api/fetchApi";
+import { loginRequest, prueba ,registerNewUser} from "../api/fetchApi";
 import { Redirect } from "react-router-dom"
 import { Validation } from "./formvalidation"
 import {  Modal, ModalBody } from "reactstrap"
@@ -30,6 +30,7 @@ const AuthentificationHud: React.FC = () => {
 
     const registerSubmit = (e: any) => {
         e.preventDefault();
+        registrar();
     }
 
     const handlerRegister = (e: any): void => {
@@ -54,11 +55,11 @@ const AuthentificationHud: React.FC = () => {
         const validateAll = await validation.validarAll()
         if (validateAll === true) {
             //fetch datos
+            registerNewUser(registerForm);
         }
         else{
             //mostrar error
             const errores = validation.viewError()
-            console.log(errores)
             const inputs:any = document.querySelectorAll(".error-form-register")
             if(inputs !== null){
                 inputs.forEach((a: { classList: { add: (arg0: string) => void; remove: (arg0: string) => void; }; }) =>{
@@ -135,7 +136,7 @@ const AuthentificationHud: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" onClick={registrar}>Registrarse</button>
+                        <button type="submit" >Registrarse</button>
                         <button type="button" onClick={toggle}>Cancelar</button>
                     </ModalBody>
                 </form>
