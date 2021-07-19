@@ -16,10 +16,11 @@ interface Props {
 }
 
 let contents: { name: string, _id: string, elements: boolean }[] = [{ name: "error", _id: "45", elements: false }] //eliminar
+const loading: { name: string, _id: string, elements: boolean }[] = [{ name: "loading", _id: "0", elements: false }]
 
 const Carpeta: React.FC<Props> = (Props) => {
 
-    const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>([]);
+    const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>(loading);
     const [archives, setArchives] = useState([]);
     const [refresh, setrefresh] = useState(0);
     const { previusId, updateToast } = useContext(ToastsContext)
@@ -46,6 +47,7 @@ const Carpeta: React.FC<Props> = (Props) => {
         fetchCarpet()
     }, [refresh, Props.update, updateToast]) // eslint-disable-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
+        console.log(content)
         return (
             <div>
                 <div className="vacio">
@@ -62,19 +64,6 @@ const Carpeta: React.FC<Props> = (Props) => {
                     {content.map(detail => {
                         return (
                             <CardFolder key={detail._id} name={detail.name} _id={detail._id} refresh={refresPage} idPreview={refresPage} />
-                            /*
-                            <div className="card img" key={detail._id}>
-                                <Link onClick={refresPage} className="view-img" to={"/carpeta/" + detail._id}>
-                                    <div className="carpert-card">
-                                        <Archive size={50} className="carpet-icon" />
-                                        <h2>{detail.name}</h2>
-                                    </div>
-                                </Link>
-                                <div className="descript">
-                                    <div className="title-name"></div>
-                                    <Options refresh={refresPage} id={detail._id} name={detail.name} type={"carpet"} />
-                                </div>
-                            </div>*/
                         )
                     })}
                     {archives.map((a: any) => {

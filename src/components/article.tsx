@@ -1,8 +1,8 @@
 import React, { useState, createRef, Suspense, useContext } from 'react'
 import { Switch, Route } from "react-router-dom"
-import Carpeta from "./Carpeta";
-import Todos from "./Todos";
-import Carpetas from './Carpetas';
+//import Carpeta from "./Carpeta";
+//import Todos from "./Todos";
+//import Carpetas from './Carpetas';
 import ToastNoti from "./NotiToast"
 import { ToastsContext } from "../context/useToast"
 import { createCarpetFetch, handleSubmitFetch } from "./api/fetchApi"
@@ -13,6 +13,9 @@ import {
     ModalFooter,
 } from "reactstrap"
 import VarMenu from "./VarMenu"
+const Todos = React.lazy(()=> import("./Todos"));
+const Carpetas = React.lazy(()=> import("./Carpetas"));
+const Carpeta = React.lazy(()=> import("./Carpeta"))
 
 //import DataFetch from "./api/fetchApi";
 
@@ -78,22 +81,22 @@ const Article: React.FC = () => {
                     </ModalFooter>
                 </Modal>
             </div>
-            <Switch>
-                <Route path="/Todos">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Suspense fallback={<h1>cargando...</h1>}>
-                        <Todos setID={setID.bind(this)} />
-                    </Suspense>
-                </Route>
-                <Route path="/Carpetas">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpetas update={update} setID={setID.bind(this)} />
-                </Route>
-                <Route path="/carpeta/:id">
-                    <VarMenu caller={caller.bind(this)} open={open} />
-                    <Carpeta update={update} setID={setID.bind(this)} />
-                </Route>
-            </Switch>
+            <Suspense fallback={<h1>cargando...</h1>}>
+                <Switch>
+                    <Route path="/Todos">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                            <Todos setID={setID.bind(this)} />
+                    </Route>
+                    <Route path="/Carpetas">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                            <Carpetas update={update} setID={setID.bind(this)} />
+                    </Route>
+                    <Route path="/carpeta/:id">
+                        <VarMenu caller={caller.bind(this)} open={open} />
+                            <Carpeta update={update} setID={setID.bind(this)} />
+                    </Route>
+                </Switch>
+            </Suspense>
             <div className="position-fixed bottom-0 end-0 p-3">
                 <ToastNoti uploadToast={toast}></ToastNoti>
             </div>
