@@ -63,7 +63,11 @@ const AuthentificationHud: React.FC = () => {
         }
         else {
             //mostrar error
+            const lists: any = document.querySelector(".error-list")
             const errores = validation.viewError()
+            const errorTable: any = document.querySelector(".error-mesage-register");
+            lists.innerHTML = ""
+            errorTable.classList.add("visible")
             const inputs: any = document.querySelectorAll(".error-form-register")
             if (inputs !== null) {
                 inputs.forEach((a: { classList: { add: (arg0: string) => void; remove: (arg0: string) => void; }; }) => {
@@ -75,7 +79,9 @@ const AuthentificationHud: React.FC = () => {
                 const input: any = document.querySelector(".error" + e)
                 input.classList.remove("input-register")
                 input.classList.add("error-form-register")
-                console.log(validation.errorName(e))
+                const contentList = document.createElement("li");
+                contentList.innerHTML = validation.errorName(e)
+                lists.appendChild(contentList)
             })
         }
     }
@@ -87,6 +93,12 @@ const AuthentificationHud: React.FC = () => {
                     <ModalBody style={{ display: 'flex', flexDirection: 'column' }}>
                         <div>
                             <h1>Registrate</h1>
+                            <div className="error-mesage-register">
+                                <h3 className="error-title">Error en los siguientes campos</h3>
+                                <ul className="error-list">
+                                    
+                                </ul>
+                            </div>
                         </div>
                         <div className="inputs-regsiter">
                             <div>
@@ -140,8 +152,8 @@ const AuthentificationHud: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" >Registrarse</button>
-                        <button type="button" onClick={toggle}>Cancelar</button>
+                        <button type="submit" className="button-register-form register-button" >Registrarse</button>
+                        <button type="button" className="button-register-form " onClick={toggle}>Cancelar</button>
                     </ModalBody>
                 </form>
             </Modal>

@@ -1,5 +1,5 @@
 // ip del servidor que contiene el backend
-const ip: string = "http://192.168.20.203:4000";
+const ip: string = "http://localhost:4000";
 let token:any = localStorage.getItem("jwtToken")
 
 const getHeaderAuth = () =>{
@@ -142,9 +142,9 @@ export const carpertaActual = (id: string): Promise<string> => {
 }
 
 export const loginRequest = (user: string,password: string) => {
+    console.log("login")
     return fetch(ip + "/api/login",{
         method: "POST",
-        mode: "cors",
         credentials: "include",// Don't forget to specify this if you need cookies
         body: JSON.stringify({username: user,password: password}),
         headers: {
@@ -154,10 +154,10 @@ export const loginRequest = (user: string,password: string) => {
     .then(data => data.json())
     .then(data => {
        if (data.login){
-           console.log("inciio")
+           console.log("incio")
            token = data.token
            console.log(data.token)
-           localStorage.setItem("jwtToken", token)
+           //localStorage.setItem("jwtToken", token)
            return true
        }
        else{

@@ -24,7 +24,7 @@ export class Validation {
         this.comparePassword()
         this.passwordVerification()
         await this.userVerification()
-        this.emailVerification()
+        console.log(this.emailVerification())
         this.numberVerification()
         this.nameVerification()
         if(this.errores.length > 0){
@@ -55,15 +55,16 @@ export class Validation {
 
     userVerification = async():Promise<boolean> => {
         const user =  await isUserVerification(this.datos.username);
-        console.log("ejecutando user verificacion")
         !user?this.errores.push(3):console.log("");
         return user;
     }
 
     emailVerification = ()=>{
         const re = /^([\da-z_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
-        (!re.exec(this.datos.email))?this.errores.push(4):console.log("");
-    	return re.exec(this.datos.email);
+        const email2: string = this.datos.email;
+        const verificacion = re.exec(email2);
+        (!verificacion)?this.errores.push(4):console.log("");
+    	return verificacion;
     }
 
     numberVerification = () =>{
