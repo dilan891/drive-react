@@ -14,7 +14,7 @@ const CardFolder: React.FC<props> = (props) => {
 
     return (
         <div className="card img" >
-            <Link onClick={props.idPreview} className="view-img" to={"/carpeta/" + props._id}>
+            <Link onClick={props.idPreview} className="view-img" to={"/menu/carpeta/" + props._id}>
                 <div className="carpert-card">
                     <Archive size={50} className="carpet-icon" />
                     <h2>{props.name}</h2>

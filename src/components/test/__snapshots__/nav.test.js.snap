@@ -26,7 +26,7 @@ exports[`Render NavPage snapshot nav 1`] = `
           >
             <a
               className="nav-link"
-              href="/Todos"
+              href="/menu/Todos"
               id="todo"
               onClick={[Function]}
               style={
@@ -43,7 +43,7 @@ exports[`Render NavPage snapshot nav 1`] = `
           >
             <a
               className="nav-link"
-              href="/carpetas"
+              href="/menu/carpetas"
               id="prueba"
               onClick={[Function]}
               style={

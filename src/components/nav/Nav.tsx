@@ -11,7 +11,7 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
             <div className="navegation">
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
-                        <Link to="/Todos"
+                        <Link to="/menu/Todos"
                             id="todo"
                             className="nav-link"
                             style={{ color: "black" }}
@@ -20,7 +20,7 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/carpetas"
+                            to="/menu/carpetas"
                             id="prueba"
                             className="nav-link"
                             style={{ color: "black" }}

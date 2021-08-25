@@ -1,8 +1,5 @@
 import React, { useState, createRef, Suspense, useContext } from 'react'
-import { Switch, Route } from "react-router-dom"
-//import Carpeta from "./Carpeta";
-//import Todos from "./Todos";
-//import Carpetas from './Carpetas';
+import { Redirect, Route } from "react-router-dom"
 import ToastNoti from "./NotiToast"
 import { ToastsContext } from "../context/useToast"
 import { createCarpetFetch, handleSubmitFetch } from "./api/fetchApi"
@@ -61,6 +58,17 @@ const Article: React.FC = () => {
 
     const fileApi: any = createRef(); //maneja el archivo subido
 
+    const isLoggin= ():boolean  => {
+        if(localStorage.getItem("jwtToken")){
+          console.log("exite")
+          return true
+        }
+        else{
+          console.log("no existe")
+          return false
+        }
+      }
+
     return (
         <div className="all">
             <div>
@@ -82,20 +90,21 @@ const Article: React.FC = () => {
                 </Modal>
             </div>
             <Suspense fallback={<h1>cargando...</h1>}>
-                <Switch>
-                    <Route path="/Todos">
+                    <Route path="/menu/Todos">
+                        {!isLoggin() ? <Redirect to="/login" />: true}
                         <VarMenu caller={caller.bind(this)} open={open} />
-                            <Todos setID={setID.bind(this)} />
+                        <Todos setID={setID.bind(this)} />
                     </Route>
-                    <Route path="/Carpetas">
+                    <Route path="/menu/Carpetas">
+                        {!isLoggin() ? <Redirect to="/login" />: true}
                         <VarMenu caller={caller.bind(this)} open={open} />
-                            <Carpetas update={update} setID={setID.bind(this)} />
+                        <Carpetas update={update} setID={setID.bind(this)} />
                     </Route>
-                    <Route path="/carpeta/:id">
+                    <Route path="/menu/carpeta/:id">
+                        {!isLoggin() ? <Redirect to="/login" />: true}
                         <VarMenu caller={caller.bind(this)} open={open} />
-                            <Carpeta update={update} setID={setID.bind(this)} />
+                        <Carpeta update={update} setID={setID.bind(this)} />
                     </Route>
-                </Switch>
             </Suspense>
             <div className="position-fixed bottom-0 end-0 p-3">
                 <ToastNoti uploadToast={toast}></ToastNoti>

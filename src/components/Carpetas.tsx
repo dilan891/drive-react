@@ -34,7 +34,7 @@ const Carpetas:React.FC<props> = (props) => {
                 {carpets.map((c:any) => {
                     return (
                         <div className="card img" key={c._id}>
-                            <Link className="view-img" to={"/carpeta/" + c._id}>
+                            <Link className="view-img" to={"/menu/carpeta/" + c._id}>
                                 <div className="carpert-card">
                                     <Archive size={50} className="carpet-icon" />
                                     <h2>{c.name}</h2>

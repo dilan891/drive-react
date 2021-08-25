@@ -12,10 +12,10 @@ const PreviusButton: React.FC = () => {
 
     const redirect = (): string => { //redirige a el menu todos en caso de ser necesario
         if (previus[previus.length - 1] === "none") {
-            return "/Todos"
+            return "/menu/Todos"
         }
         else {
-            return "/carpeta/" + previus[previus.length - 1]
+            return "/menu/carpeta/" + previus[previus.length - 1]
         }
     }
 
