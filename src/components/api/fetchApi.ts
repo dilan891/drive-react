@@ -157,7 +157,7 @@ export const loginRequest = (user: string,password: string) => {
            console.log("incio")
            token = data.token
            console.log(data.token)
-           //localStorage.setItem("jwtToken", token)
+           localStorage.setItem("jwtToken", token)
            return true
        }
        else{
