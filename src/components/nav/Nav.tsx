@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/nav.css";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import SelectVar from "./SelectVar"
 import React from 'react';
 
@@ -8,6 +8,7 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
 
     const singOut = () =>{
         localStorage.removeItem("jwtToken");
+        window.location.replace("http://localhost:3000/login");
     }
 
     return (

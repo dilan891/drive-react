@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 //import backImg from "../assets/img/nube.png";
 import { loginRequest, registerNewUser } from "../api/fetchApi";
-import { Redirect } from "react-router-dom"
+//import { Redirect } from "react-router-dom"
 import { Validation } from "./formvalidation"
 import { Modal, ModalBody } from "reactstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -51,7 +51,7 @@ const AuthentificationHud: React.FC = () => {
     const loginSubmit = async (e: any) => {
         e.preventDefault();
         let isLogin = await loginRequest(username, password);
-        (isLogin === true) ? <Redirect to="/menu/Todos" /> : setPasswordError("visible");
+        (isLogin === true) ? window.location.replace("http://localhost:3000/menu/todos") : setPasswordError("visible");
     }
 
     const registrar = async () => {
