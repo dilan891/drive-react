@@ -15,6 +15,13 @@ exports[`Render NavPage snapshot nav 1`] = `
           Dilan891
         </h1>
       </div>
+      <button
+        className="sing out"
+        onClick={[Function]}
+        type="button"
+      >
+        cerrar seccion
+      </button>
       <div
         className="navegation"
       >
