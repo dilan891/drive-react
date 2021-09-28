@@ -51,7 +51,7 @@ const AuthentificationHud: React.FC = () => {
     const loginSubmit = async (e: any) => {
         e.preventDefault();
         let isLogin = await loginRequest(username, password);
-        (isLogin === true) ? <Redirect to="/Todos" /> : setPasswordError("visible");
+        (isLogin === true) ? <Redirect to="/menu/Todos" /> : setPasswordError("visible");
     }
 
     const registrar = async () => {

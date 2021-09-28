@@ -36,6 +36,7 @@ const App: React.FC = () => {
               </UseMenuSelect>
             </Route>
             <Route path="/login">
+              {isLoggin() ? <Redirect to="/menu/Todos" /> : console.log('init')}
               <AuthentificationHud />
             </Route>
           </Switch>

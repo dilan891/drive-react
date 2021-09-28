@@ -5,9 +5,15 @@ import SelectVar from "./SelectVar"
 import React from 'react';
 
 const Nav: React.FC = () => {  //barra de navegacion de la pagina 
+
+    const singOut = () =>{
+        localStorage.removeItem("jwtToken");
+    }
+
     return (
         <nav>
             <div className="user"><h1>Dilan891</h1></div>
+            <button type="button" className="sing out" onClick={singOut}>cerrar seccion</button>
             <div className="navegation">
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
