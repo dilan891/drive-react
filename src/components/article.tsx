@@ -1,4 +1,4 @@
-import React, { useState, createRef, Suspense, useContext } from 'react'
+import React, { useState, createRef, useContext } from 'react'
 import { Redirect, Route } from "react-router-dom"
 import ToastNoti from "./NotiToast"
 import { ToastsContext } from "../context/useToast"
@@ -10,9 +10,12 @@ import {
     ModalFooter,
 } from "reactstrap"
 import VarMenu from "./VarMenu"
-const Todos = React.lazy(()=> import("./Todos"));
-const Carpetas = React.lazy(()=> import("./Carpetas"));
-const Carpeta = React.lazy(()=> import("./Carpeta"))
+import Todos from "./Todos"
+import Carpetas from "./Carpetas"
+import Carpeta from "./Carpeta"
+//const Todos = React.lazy(()=> import("./Todos"));
+//const Carpetas = React.lazy(()=> import("./Carpetas"));
+//const Carpeta = React.lazy(()=> import("./Carpeta"))
 
 //import DataFetch from "./api/fetchApi";
 
@@ -89,23 +92,21 @@ const Article: React.FC = () => {
                     </ModalFooter>
                 </Modal>
             </div>
-            <Suspense fallback={<h1>cargando...</h1>}>
-                    <Route path="/menu/Todos">
-                        {!isLoggin() ? <Redirect to="/login" />: true}
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Todos setID={setID.bind(this)} />
-                    </Route>
-                    <Route path="/menu/Carpetas">
-                        {!isLoggin() ? <Redirect to="/login" />: true}
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Carpetas update={update} setID={setID.bind(this)} />
-                    </Route>
-                    <Route path="/menu/carpeta/:id">
-                        {!isLoggin() ? <Redirect to="/login" />: true}
-                        <VarMenu caller={caller.bind(this)} open={open} />
-                        <Carpeta update={update} setID={setID.bind(this)} />
-                    </Route>
-            </Suspense>
+                <Route path="/menu/Todos">
+                    {!isLoggin() ? <Redirect to="/login" />: true}
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Todos setID={setID.bind(this)} />
+                </Route>
+                <Route path="/menu/Carpetas">
+                    {!isLoggin() ? <Redirect to="/login" />: true}
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Carpetas update={update} setID={setID.bind(this)} />
+                </Route>
+                <Route path="/menu/carpeta/:id">
+                    {!isLoggin() ? <Redirect to="/login" />: true}
+                    <VarMenu caller={caller.bind(this)} open={open} />
+                    <Carpeta update={update} setID={setID.bind(this)} />
+                </Route>
             <div className="position-fixed bottom-0 end-0 p-3">
                 <ToastNoti uploadToast={toast}></ToastNoti>
             </div>
