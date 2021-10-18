@@ -2,6 +2,11 @@
 const ip: string = "http://localhost:4000";
 let token:any = localStorage.getItem("jwtToken")
 
+const getTokenStorage = () =>{
+    token = localStorage.getItem("jwtToken")
+    return token
+}
+
 const getHeaderAuth = () =>{
     token = localStorage.getItem("jwtToken")
     let headers = { 
@@ -23,14 +28,16 @@ export const createCarpetFetch = (idC: string, nameC: string): Promise<JSON> => 
         .catch(e => { return newCarpet = null })
 }
 
-export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => {   //al darle submit al formulario
+export const handleSubmitFetch = (file: any, id: string): Promise<boolean> => {   //funcion para subir un archivo
     let formData = new FormData();
     formData.append("archivo", file)
     formData.append("id", id)
     return fetch(ip + "/api/fileUpload", {
         method: "POST",
         body: formData,
-        headers: getHeaderAuth()
+        headers: {
+            "Authorization": getTokenStorage(),
+        }
     }).then(data => data.json())
         .then(data => {
             return true
