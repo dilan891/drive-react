@@ -12,6 +12,7 @@ interface Props{
   name: string,
   id: string,
   type:string,
+  changeName: (n:any) => void,
   refresh: () => void
 }
 
@@ -31,12 +32,12 @@ const Options:React.FC<Props> = (Props) => {
   }
 
   const submitChangeName = async (e:any) => {
+    e.preventDefault()
     var changeF:boolean = await changeNameArchive(Props.id,handleName,Props.type)
     if(changeF === true) {
-      Props.refresh()
+      Props.changeName(handleName)
     }else {failToast()}
     setNameChange(!nameChange)
-    e.preventDefault()
   }
 
   const toggle = () => setOpen(!dropdownOpen);

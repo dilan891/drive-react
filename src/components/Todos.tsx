@@ -34,7 +34,7 @@ const Todos: React.FC<props> = (props) => {
         (archiveData == null) ? setarchives(archiver) : setarchives(archiveData);
     }
 
-    const idPreview = () => {
+    const idPreview = () => { 
         previusId("none");
     }
 

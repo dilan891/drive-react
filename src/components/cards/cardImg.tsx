@@ -1,4 +1,4 @@
-import React from "react";
+import {useState,useEffect} from "react";
 import Options from "../options";
 import Preview from "../previewArchive"
 
@@ -10,19 +10,33 @@ interface props{
     type: string
     name: string
     _id: string
+
     refreshPages: () => void
 }
 
 const CardImg: React.FC<props> = (props) => {
+    const [name,setName] = useState("");
+    const [cambio,setCambio] = useState(false); //si se realiza un cambio de nombre esto cambia true para indicar que se debe utilizar el state de name
+
+    const changeName:any = (nombre:string) =>{
+        setName(nombre);
+        setCambio(true);
+    }
+    
+    useEffect(() => {
+        if(!cambio){
+            setName(props.name);
+        }
+    },[props.name,cambio])
 
     return (
         <div className="card img">
             <div className="view-img">
-                <Preview type={props.type} nombre={props.name} Id={props._id} ></Preview>
+                <Preview type={props.type} nombre={name} Id={props._id} ></Preview>
             </div>
             <div className="descript">
-                <div className="title-name">{props.name}</div>
-                <Options refresh={props.refreshPages} id={props._id} name={props.name} type={"archive"} />
+                <div className="title-name">{name}</div>
+                <Options refresh={props.refreshPages} changeName={(nombre:any):any => { changeName(nombre) } } id={props._id} name={props.name} type={"archive"} />
             </div>
         </div>
     )

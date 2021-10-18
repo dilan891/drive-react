@@ -18,6 +18,10 @@ const Carpetas:React.FC<props> = (props) => {
 
     const refresPage = () => setrefresh(refresh + 1)
 
+    const changeName = (n:any)=>{
+       refresPage()
+    }
+
     useEffect(() => {
         props.setID("none");
         const data = async()=>{
@@ -42,7 +46,7 @@ const Carpetas:React.FC<props> = (props) => {
                             </Link>
                             <div className="descript">
                                 <div className="title-name"></div>
-                                <Options refresh={refresPage} id={c._id} name={c.name} type={"carpet"} />
+                                <Options refresh={refresPage} changeName={(nombre:any):any => { changeName(nombre) } } id={c._id} name={c.name} type={"carpet"} />
                             </div>
                         </div>
                     )
