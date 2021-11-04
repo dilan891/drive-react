@@ -16,22 +16,23 @@ interface Props {
 }
 
 let contents: { name: string, _id: string, elements: boolean }[] = [{ name: "error", _id: "45", elements: false }] //eliminar
-const loading: { name: string, _id: string, elements: boolean }[] = [{ name: "loading", _id: "0", elements: false }]
+const loading: { name: string, _id: string, elements: boolean }[] = [{ name: "loading", _id: "0", elements: false }] //carga
 
 const Carpeta: React.FC<Props> = (Props) => {
 
     const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>(loading);
-    const [archives, setArchives] = useState([]);
+    const [archives, setArchives] = useState([{loading: true}]);
     const [refresh, setrefresh] = useState(0);
     const { previusId, updateToast } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
     const { id } = useParams<any>();
 
     const refresPage = () => {
+        setconten(loading);
         previusId(id);
         setrefresh(refresh + 1)
     }
-
+    
     useEffect(() => {
         Props.setID(id);
         const fetchCarpet = async () => {
@@ -46,8 +47,8 @@ const Carpeta: React.FC<Props> = (Props) => {
         }
         fetchCarpet()
     }, [refresh, Props.update, updateToast]) // eslint-disable-line react-hooks/exhaustive-deps
+    console.log(content)
     if (content.length === 0 && archives.length === 0) {
-        console.log(content)
         return (
             <div>
                 <div className="vacio">
@@ -56,6 +57,17 @@ const Carpeta: React.FC<Props> = (Props) => {
                     </div>
                 </div>
             </div>)
+    }
+    else if(content.length > 0 && content[0]._id === "0"){
+        return (
+            <div>
+                <div className="vacio">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        )
     }
     else {
         return (
