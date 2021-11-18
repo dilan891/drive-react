@@ -13,8 +13,15 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
 
     return (
         <nav>
-            <div className="user"><h1>Dilan891</h1></div>
-            <button type="button" className="sing out" onClick={singOut}>cerrar seccion</button>
+            <div className="initial-info">
+                <div className="logo-box">
+                    <div className="logo-initial"> LOGO </div>
+                </div>
+                <div className="user-nav">
+                    Binvenido a la nube <strong> dilan891 </strong>
+                </div>
+                <button type="button" className="sing out" onClick={singOut}>cerrar seccion</button>
+            </div>
             <div className="navegation">
                 <ul className="nav nav-tabs">
                     <li className="nav-item">

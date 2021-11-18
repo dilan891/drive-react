@@ -1,5 +1,19 @@
-.user{
-    margin: 20px;
-    padding: 20px;
+.user-nav{
+    margin-bottom: 20px;
+}
+
+.logo-box{
+    width: 100%;
+}
+
+.initial-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.logo-initial{
+    margin: 5px;
+    display: flex;
 }
 
