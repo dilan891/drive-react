@@ -18,7 +18,7 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
                     <div className="logo-initial"> LOGO </div>
                 </div>
                 <div className="user-nav">
-                    Binvenido a la nube <strong> dilan891 </strong>
+                    Binvenido a la nube <strong> Dilan891 </strong>
                 </div>
                 <button type="button" className="sing out" onClick={singOut}>cerrar seccion</button>
             </div>
