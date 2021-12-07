@@ -21,7 +21,7 @@ const loading: { name: string, _id: string, elements: boolean }[] = [{ name: "lo
 const Carpeta: React.FC<Props> = (Props) => {
 
     const [content, setconten] = useState<{ name: string, _id: string, elements: boolean }[]>(loading);
-    const [archives, setArchives] = useState([{loading: true}]);
+    const [archives, setArchives] = useState([{name: "none"}]);
     const [refresh, setrefresh] = useState(0);
     const { previusId, updateToast } = useContext(ToastsContext)
     const { setId } = useContext(Menu)
@@ -37,7 +37,7 @@ const Carpeta: React.FC<Props> = (Props) => {
         Props.setID(id);
         const fetchCarpet = async () => {
             const dataNow = await carpertaActual(id);
-            setId(id, dataNow);
+            setId(id, dataNow)
             //si no hay carpetas el estado queda vacio
             // si elemnenst igual a true no hay contenido en la carpeta seleccionada
             const subCarpetData = await SubcarpetFecth(id);
@@ -46,8 +46,7 @@ const Carpeta: React.FC<Props> = (Props) => {
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
         fetchCarpet()
-    }, [refresh, Props.update, updateToast]) // eslint-disable-line react-hooks/exhaustive-deps
-    console.log(content)
+    }, [refresh, Props.update, updateToast,id,Props]) //eslint-disable-next-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
         return (
             <div>

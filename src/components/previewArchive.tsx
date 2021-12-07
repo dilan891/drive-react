@@ -1,6 +1,8 @@
 import React from "react";
 import { openFile } from "./api/fetchApi";
 
+import  imgs  from "../assets/img/icon-img.png"
+
 interface Props {
     type: string,
     nombre: string,
@@ -17,7 +19,7 @@ const Preview: React.FC<Props> = (Props) => {
         case "img":
             return (
                 <div onClick={openFiles}>
-                    <img src="./iconPreview/icon-img.png" alt="icono de imagen" width={"200px"} height={"160px"} />
+                    <img src={imgs} alt="icono de imagen" width={"200px"} height={"160px"} />
                 </div>
             )
         case "document":

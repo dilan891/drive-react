@@ -51,7 +51,7 @@ const AuthentificationHud: React.FC = () => {
     const loginSubmit = async (e: any) => {
         e.preventDefault();
         let isLogin = await loginRequest(username, password);
-        (isLogin === true) ? window.location.replace("http://localhost:3000/menu/todos") : setPasswordError("visible");
+        (isLogin === true) ? window.location.replace("http://localhost:4000/menu/todos") : setPasswordError("visible");
     }
 
     const registrar = async () => {
@@ -95,8 +95,7 @@ const AuthentificationHud: React.FC = () => {
                             <h1>Registrate</h1>
                             <div className="error-mesage-register">
                                 <h3 className="error-title">Error en los siguientes campos</h3>
-                                <ul className="error-list">
-                                    
+                                <ul className="error-list">    
                                 </ul>
                             </div>
                         </div>

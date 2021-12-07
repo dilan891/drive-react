@@ -29,17 +29,24 @@ const CardImg: React.FC<props> = (props) => {
         }
     },[props.name,cambio])
 
-    return (
-        <div className="card img">
-            <div className="view-img">
-                <Preview type={props.type} nombre={name} Id={props._id} ></Preview>
+    if (props.name === "none"){
+        return (
+            <div></div>
+        )
+    }
+    else{
+        return (
+            <div className="card img">
+                <div className="view-img">
+                    <Preview type={props.type} nombre={name} Id={props._id} ></Preview>
+                </div>
+                <div className="descript">
+                    <div className="title-name">{name}</div>
+                    <Options refresh={props.refreshPages} changeName={(nombre:any):any => { changeName(nombre) } } id={props._id} name={props.name} type={"archive"} />
+                </div>
             </div>
-            <div className="descript">
-                <div className="title-name">{name}</div>
-                <Options refresh={props.refreshPages} changeName={(nombre:any):any => { changeName(nombre) } } id={props._id} name={props.name} type={"archive"} />
-            </div>
-        </div>
-    )
+        )
+    }
 
 }
 
