@@ -1,5 +1,6 @@
 // ip del servidor que contiene el backend
 const ip: string = "http://localhost:4000";
+//token de authentificacion
 let token:any = localStorage.getItem("jwtToken")
 
 const getTokenStorage = () =>{
