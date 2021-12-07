@@ -148,8 +148,10 @@ export const carpertaActual = (id: string): Promise<string> => {
 }
 
 export const openFile  = (id:String, name:string): any =>{
-    fetch(ip + "/api/descargas" + id)
-    .then(data => data.blob())
+    fetch(ip + "/api/descargas" + id,{
+        headers: getHeaderAuth()
+    })
+    .then(data => data.blob()) 
     .then(data => {
         let file = URL.createObjectURL(data);
         window.open(file)
@@ -162,9 +164,7 @@ export const changeNameArchive = (id: string, handleName: string,type: string): 
     return fetch(ip + "/api/putarchive", {
       method: "PUT",
       body: JSON.stringify({ id: id, newName: handleName, type: type }),
-      headers: {
-        "Content-type": "application/json"
-      }
+      headers: getHeaderAuth()
     }).then(data => data.json())
       .then(data => {
           if (data.message !== "error") {
