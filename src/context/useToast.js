@@ -1,7 +1,7 @@
 /*
     cambia los booleanos toast a true para mostrar mensajes
 */
-import React, { useReducer, createContext } from 'react'
+import { useReducer, createContext } from 'react'
 
 const toasts = {
     update: 1,

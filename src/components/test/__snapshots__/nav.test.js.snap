@@ -7,109 +7,115 @@ exports[`Render NavPage snapshot nav 1`] = `
   <div
     className="all"
   >
-    <nav>
-      <div
-        className="initial-info"
-      >
+    <div
+      className="all"
+    >
+      <nav>
         <div
-          className="logo-box"
+          className="initial-info"
         >
           <div
-            className="logo-initial"
+            className="logo-box"
           >
-             LOGO 
+            <div
+              className="logo-initial"
+            >
+               LOGO 
+            </div>
           </div>
+          <div
+            className="user-nav"
+          >
+            Binvenido a la nube 
+            <strong>
+               
+              none
+               
+            </strong>
+          </div>
+          <button
+            className="sing out"
+            onClick={[Function]}
+            type="button"
+          >
+            cerrar seccion
+          </button>
         </div>
         <div
-          className="user-nav"
+          className="navegation"
         >
-          Binvenido a la nube 
-          <strong>
-             Dilan891 
-          </strong>
-        </div>
-        <button
-          className="sing out"
-          onClick={[Function]}
-          type="button"
-        >
-          cerrar seccion
-        </button>
-      </div>
-      <div
-        className="navegation"
-      >
-        <ul
-          className="nav nav-tabs"
-        >
-          <li
-            className="nav-item"
+          <ul
+            className="nav nav-tabs"
           >
-            <a
-              className="nav-link"
-              href="/menu/Todos"
-              id="todo"
-              onClick={[Function]}
-              style={
-                Object {
-                  "color": "black",
-                }
-              }
+            <li
+              className="nav-item"
             >
-              Todos
-            </a>
-          </li>
-          <li
-            className="nav-item"
-          >
-            <a
-              className="nav-link"
-              href="/menu/carpetas"
-              id="prueba"
-              onClick={[Function]}
-              style={
-                Object {
-                  "color": "black",
+              <a
+                className="nav-link"
+                href="/menu/Todos"
+                id="todo"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "black",
+                  }
                 }
-              }
+              >
+                Todos
+              </a>
+            </li>
+            <li
+              className="nav-item"
             >
-              Carpetas
-            </a>
-          </li>
-        </ul>
-        <div
-          className="select-var"
-          style={
-            Object {
-              "position": "absolute",
-              "visibility": "hidden",
+              <a
+                className="nav-link"
+                href="/menu/carpetas"
+                id="prueba"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "black",
+                  }
+                }
+              >
+                Carpetas
+              </a>
+            </li>
+          </ul>
+          <div
+            className="select-var"
+            style={
+              Object {
+                "position": "absolute",
+                "visibility": "hidden",
+              }
             }
-          }
-        >
-          <div>
-            seleccionaste 
-            <strong />
-             
-            moverlo a null
+          >
+            <div>
+              seleccionaste 
+              <strong />
+               
+              moverlo a null
+            </div>
+            <button
+              className="btn btn-info"
+              id="b-dis"
+              onClick={[Function]}
+              type="button"
+            >
+              Mover aqui
+            </button>
+            <button
+              className="btn btn-info"
+              onClick={[Function]}
+              type="button"
+            >
+              X
+            </button>
           </div>
-          <button
-            className="btn btn-info"
-            id="b-dis"
-            onClick={[Function]}
-            type="button"
-          >
-            Mover aqui
-          </button>
-          <button
-            className="btn btn-info"
-            onClick={[Function]}
-            type="button"
-          >
-            X
-          </button>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   </div>
 </div>
 `;

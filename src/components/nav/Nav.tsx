@@ -2,9 +2,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../css/nav.css";
 import { Link} from "react-router-dom";
 import SelectVar from "./SelectVar"
-import React from 'react';
+import React,{useContext} from 'react';
+import { UserContext } from '../../context/useUser';
 
 const Nav: React.FC = () => {  //barra de navegacion de la pagina 
+
+    const {username} = useContext(UserContext)
 
     const singOut = () =>{
         localStorage.removeItem("jwtToken");
@@ -18,7 +21,7 @@ const Nav: React.FC = () => {  //barra de navegacion de la pagina
                     <div className="logo-initial"> LOGO </div>
                 </div>
                 <div className="user-nav">
-                    Binvenido a la nube <strong> Dilan891 </strong>
+                    Binvenido a la nube <strong> {username} </strong>
                 </div>
                 <button type="button" className="sing out" onClick={singOut}>cerrar seccion</button>
             </div>

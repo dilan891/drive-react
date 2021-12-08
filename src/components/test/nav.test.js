@@ -6,8 +6,9 @@ import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { UseMenuSelect } from "../../context/useMenuSelect";
 import { UseToast } from "../../context/useToast";
+import { UseUser } from "../../context/useUser";
 
-const html = (<Router><UseMenuSelect><UseToast><Nav /></UseToast></UseMenuSelect></Router>)
+const html = (<UseUser><Router><UseMenuSelect><UseToast><Nav /></UseToast></UseMenuSelect></Router></UseUser>)
 
 describe("Render NavPage", () => {//priemro el nombre de la prueba y luego las pruebas
     //beforeEach(() => render(componente))  //componente a renderizar
@@ -16,7 +17,7 @@ describe("Render NavPage", () => {//priemro el nombre de la prueba y luego las p
         const componente = render(html);
 
         expect(componente.container).toHaveTextContent("Todos")
-        expect(componente.container).toHaveTextContent("Dilan891")
+        expect(componente.container).toHaveTextContent("none")
         componente.getByText("Carpetas")
     })
 

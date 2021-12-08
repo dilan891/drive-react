@@ -8,7 +8,7 @@ const getTokenStorage = () =>{
     return token
 }
 
-const getHeaderAuth = () =>{
+const getHeaderAuth = () =>{ 
     token = localStorage.getItem("jwtToken")
     let headers = { 
         "content-type": "application/json",
@@ -191,7 +191,7 @@ export const loginRequest = (user: string,password: string) => {
        if (data.login){
            console.log("incio")
            token = data.token
-           console.log(data.token)
+           console.log(data)
            localStorage.setItem("jwtToken", token)
            return true
        }
@@ -253,3 +253,19 @@ export const registerNewUser = (data: formData) => {
         console.log(e)
     })
 }   
+
+export const dataUser = () =>{
+    return fetch(ip + "/api/DataUser",
+    {
+        credentials: "include",
+        method: "POST",
+        headers: getHeaderAuth()
+    })
+    .then(data => data.json())
+    .then(data =>{
+        return data
+    })
+    .catch(e=>{
+        return false
+    })
+}

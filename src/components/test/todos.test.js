@@ -5,9 +5,10 @@ import { screen, render, waitFor } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { UseMenuSelect } from "../../context/useMenuSelect";
 import { UseToast } from "../../context/useToast"
+import { UseUser } from "../../context/useUser";
 
 
-beforeEach(() => render(<Router><UseMenuSelect><UseToast><Todos setID={((e) => { console.log(e) }).bind(this)} /></UseToast></UseMenuSelect></Router>))
+beforeEach(() => render(<UseUser><Router><UseMenuSelect><UseToast><Todos setID={((e) => { console.log(e) }).bind(this)} /></UseToast></UseMenuSelect></Router></UseUser>))
 describe("todos menu", () => {
     it("fetch carpeta", async () => {
         await waitFor(() => { screen.getByRole("heading") })
