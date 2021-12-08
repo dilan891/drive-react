@@ -46,7 +46,7 @@ const Carpeta: React.FC<Props> = (Props) => {
             (dataArchive.length === 0) ? setArchives([]) : setArchives(dataArchive);
         }
         fetchCarpet()
-    }, [refresh, Props.update, updateToast,id,Props]) //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refresh, Props.update, updateToast,id,Props])// eslint-disable-line react-hooks/exhaustive-deps
     if (content.length === 0 && archives.length === 0) {
         return (
             <div>
